@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\enums.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\natives.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\json.hpp" />
+    <ClInclude Include="ActionEvent.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="enums\eEntityType.h" />
+    <ClInclude Include="enums\eMountSeat.h" />
+    <ClInclude Include="enums\eMountStyle.h" />
+    <ClInclude Include="enums\eVehicleFlags.h" />
+    <ClInclude Include="enums\eVehicleSeat.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="math\Vector3.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Ped.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RaycastResult.h" />
+    <ClInclude Include="Tasker.h" />
+    <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="StdUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{5d58942b-ebbf-4d0a-9526-359e3a556796}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ActionEvent.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Ped.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RaycastResult.cpp" />
+    <ClCompile Include="Tasker.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="StdUtils.cpp" />
+  </ItemGroup>
+</Project>

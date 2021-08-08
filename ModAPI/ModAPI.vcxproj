@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ActionEvent.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Ped.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RaycastResult.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="StdUtils.cpp" />
+    <ClCompile Include="Tasker.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="World.cpp">
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>tmp\Release\</BrowseInformationFile>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>false</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>tmp\Release\</ModuleDependenciesFile>
+      <ModuleOutputFile>tmp\Release\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <Optimization>MaxSpeed</Optimization>
+      <ObjectFileName>tmp\Release\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>tmp\Release\vc142.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>tmp\Release\ModAPI.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>tmp\Release\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <TrackerLogDirectory>tmp\Release\ModAPI.tlog\</TrackerLogDirectory>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>tmp\Release\</XMLDocumentationFileName>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ModAPI_EXPORTS;_WINDLL;_MBCS;</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\json.hpp">
+      <Link>inc\json.hpp</Link>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\main.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\enums.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\natives.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\types.h" />
+    <ClInclude Include="ActionEvent.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="enums\eEntityType.h" />
+    <ClInclude Include="enums\eMountSeat.h" />
+    <ClInclude Include="enums\eMountStyle.h" />
+    <ClInclude Include="enums\eVehicleFlags.h" />
+    <ClInclude Include="enums\eVehicleSeat.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="math\Vector3.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Ped.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RaycastResult.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="StdUtils.h" />
+    <ClInclude Include="Tasker.h" />
+    <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="World.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8D82F34A-1D64-465B-84B1-37F89AD3D20B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ModAPI</RootNamespace>
+    <ProjectName>ModAPI</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.asi</TargetExt>
+    <OutDir>bin\$(Configuration)\</OutDir>
+    <IntDir>tmp\$(Configuration)\</IntDir>
+    <IncludePath>D:\Projects\Modding\RDR 2 Mods\ScriptHookRDR2-ModAPI\thirdparty\ScriptHook_SDK;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ModAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>..\thirdparty\ScriptHook_SDK\lib\ScriptHookV.lib %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

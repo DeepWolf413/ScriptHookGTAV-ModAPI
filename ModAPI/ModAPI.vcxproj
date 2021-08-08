@@ -103,7 +103,6 @@
     <ClInclude Include="enums\eMountSeat.h" />
     <ClInclude Include="enums\eMountStyle.h" />
     <ClInclude Include="enums\eVehicleFlags.h" />
-    <ClInclude Include="enums\eVehicleSeat.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="Model.h" />
@@ -143,7 +142,7 @@
     <TargetExt>.asi</TargetExt>
     <OutDir>bin\$(Configuration)\</OutDir>
     <IntDir>tmp\$(Configuration)\</IntDir>
-    <IncludePath>D:\Projects\Modding\RDR 2 Mods\ScriptHookRDR2-ModAPI\thirdparty\ScriptHook_SDK;$(IncludePath)</IncludePath>
+    <IncludePath>..\thirdparty\ScriptHook_SDK;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

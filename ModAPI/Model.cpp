@@ -58,7 +58,7 @@ bool ModAPI::Model::Request() const
 		return false;
 	}
 
-	STREAMING::REQUEST_MODEL(hash, false);
+	STREAMING::REQUEST_MODEL(hash);
 	return true;
 }
 

@@ -47,9 +47,8 @@ namespace ModAPI
 		void          PointAtPosition(Vector3 position) const;
 		void          PointAtEntity(Entity* entity, Vector3 offset, bool isRelative) const;
 		void          StopPointing() const;
-		void          SetFocusDistance(float distance) const;
 		void          Destroy() const;
-		RaycastResult Raycast(float distance, eRaycastFlags flags) const;
+		RaycastResult Raycast(float distance, eTraceFlags flags) const;
 
 	private:
 		CamHandle representedCamera;

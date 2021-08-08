@@ -76,13 +76,13 @@ void ModAPI::Entity::SetHealth(const int newHealth) const
 { ENTITY::SET_ENTITY_HEALTH(handle, newHealth, 0); }
 
 int ModAPI::Entity::GetMaxHealth() const
-{ return ENTITY::GET_ENTITY_MAX_HEALTH(handle, false); }
+{ return ENTITY::GET_ENTITY_MAX_HEALTH(handle); }
 
 void ModAPI::Entity::SetMaxHealth(const int newMaxHealth) const
 { return ENTITY::SET_ENTITY_MAX_HEALTH(handle, newMaxHealth); }
 
 bool ModAPI::Entity::HasBeenDamagedBy(Entity* entity) const
-{ return ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(handle, entity->GetHandle(), 1, 1); }
+{ return ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(handle, entity->GetHandle(), 1); }
 
 void ModAPI::Entity::SetInvincibility(const bool enable) const
 { ENTITY::SET_ENTITY_INVINCIBLE(handle, enable); }
@@ -91,7 +91,7 @@ void ModAPI::Entity::SetOnlyDamageableByPlayer(const bool enable) const
 { return ENTITY::SET_ENTITY_ONLY_DAMAGED_BY_PLAYER(handle, enable); }
 
 bool ModAPI::Entity::IsDead() const
-{ return ENTITY::IS_ENTITY_DEAD(handle); }
+{ return ENTITY::IS_ENTITY_DEAD(handle, 0); }
 
 bool ModAPI::Entity::IsAlive() const
 { return !IsDead(); }
@@ -109,8 +109,8 @@ float ModAPI::Entity::GetDistanceTo(const Entity* otherEntity, const bool useZ) 
 	return MISC::GET_DISTANCE_BETWEEN_COORDS(entityPos.x, entityPos.y, entityPos.z, otherEntityPos.x, otherEntityPos.y, otherEntityPos.z, useZ);
 }
 
-Vector3 ModAPI::Entity::GetPosition(const bool realCoords) const
-{ return ENTITY::GET_ENTITY_COORDS(handle, true, realCoords); }
+Vector3 ModAPI::Entity::GetPosition(const bool alive) const
+{ return ENTITY::GET_ENTITY_COORDS(handle, alive); }
 
 void ModAPI::Entity::SetPosition(const Vector3 newPosition) const
 { ENTITY::SET_ENTITY_COORDS(handle, newPosition.x, newPosition.y, newPosition.z, true, true, true, false); }
@@ -158,7 +158,7 @@ Vector3 ModAPI::Entity::GetOffsetFromWorldCoords(const Vector3 worldCoords) cons
 { return ENTITY::GET_OFFSET_FROM_ENTITY_GIVEN_WORLD_COORDS(handle, worldCoords.x, worldCoords.y, worldCoords.z); }
 
 Vector3 ModAPI::Entity::GetVelocity() const
-{ return ENTITY::GET_ENTITY_VELOCITY(handle, -1); }
+{ return ENTITY::GET_ENTITY_VELOCITY(handle); }
 
 void ModAPI::Entity::ApplyForce(const Vector3 direction) const
 { ApplyForce(direction, Vector3(), 1); }
@@ -218,7 +218,7 @@ void ModAPI::Entity::AttachTo(Entity* entity, const int boneIndex) const
 { AttachTo(entity, boneIndex, Vector3(), Vector3()); }
 
 void ModAPI::Entity::AttachTo(Entity* entity, const int boneIndex, const Vector3 position, const Vector3 rotation) const
-{ ENTITY::ATTACH_ENTITY_TO_ENTITY(handle, entity->GetHandle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, false, false, false, false, 2, true, 0, 0); }
+{ ENTITY::ATTACH_ENTITY_TO_ENTITY(handle, entity->GetHandle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, false, false, false, false, 2, true); }
 
 bool ModAPI::Entity::IsAttached() const
 { return ENTITY::IS_ENTITY_ATTACHED(handle); }
@@ -242,7 +242,7 @@ bool ModAPI::Entity::IsVisible() const
 { return ENTITY::IS_ENTITY_VISIBLE(handle); }
 
 void ModAPI::Entity::SetVisible(const bool enable) const
-{ ENTITY::SET_ENTITY_VISIBLE(handle, enable); }
+{ ENTITY::SET_ENTITY_VISIBLE(handle, enable, false); }
 
 bool ModAPI::Entity::IsOccluded() const
 { return ENTITY::IS_ENTITY_OCCLUDED(handle); }
@@ -260,7 +260,7 @@ bool ModAPI::Entity::IsUpsideDown() const
 { return ENTITY::IS_ENTITY_UPSIDEDOWN(handle); }
 
 bool ModAPI::Entity::IsInAir() const
-{ return ENTITY::IS_ENTITY_IN_AIR(handle, 0); }
+{ return ENTITY::IS_ENTITY_IN_AIR(handle); }
 
 bool ModAPI::Entity::IsInWater() const
 { return ENTITY::IS_ENTITY_IN_WATER(handle); }
@@ -311,49 +311,6 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 	return std::move(nearbyPeds);
 }
 
-std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHorses(const int amount, const std::vector<EntityHandle> entitiesToIgnore, const float maxDistance) const
-{
-	::PedHandle peds[256] = {};
-	worldGetAllPeds(peds, 256);
-	
-	auto nearbyHorses = std::vector<std::unique_ptr<Ped>>();
-	auto closestDistances = std::vector<float>();
-
-	for(auto pedHandle : peds)
-	{
-		if(!Exists(pedHandle) || Utils::StdUtils::VectorContainsElement(entitiesToIgnore, pedHandle))
-		{ continue; }
-
-		auto ped = std::make_unique<Ped>(pedHandle);
-		if(!ped->IsHorse() || !PED::_IS_MOUNT_SEAT_FREE(ped->GetHandle(), -1))
-		{ continue; }
-
-		if(nearbyHorses.size() < amount)
-		{
-			const auto horseToCheck = nearbyHorses.size() > 0 ? nearbyHorses.back().get() : ped.get();
-			const float distanceToHorse = horseToCheck->GetDistanceTo(this);
-			if(distanceToHorse > maxDistance)
-			{ continue; }
-			
-			nearbyHorses.push_back(std::move(ped));
-			closestDistances.push_back(distanceToHorse);
-			continue;
-		}
-		
-		for(size_t i = 0; i < nearbyHorses.size(); ++i)
-		{
-			const float distance = ped->GetDistanceTo(this);
-			if(distance > maxDistance || distance >= closestDistances[i])
-			{ continue; }
-
-			nearbyHorses[i] = std::move(ped);
-			closestDistances[i] = distance;
-		}
-	}
-
-	return std::move(nearbyHorses);
-}
-
 std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(const int amount, const std::vector<EntityHandle> entitiesToIgnore, const float maxDistance) const
 {
 	VehicleHandle vehicles[256] = {};
@@ -368,7 +325,7 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 		{ continue; }
 
 		auto vehicle = std::make_unique<Vehicle>(vehicleHandle);
-		if(vehicle->GetType() != eEntityType::Vehicle || !vehicle->IsSeatFree(eVehicleSeat::VS_DRIVER))
+		if(vehicle->GetType() != eEntityType::Vehicle || !vehicle->IsSeatFree(eVehicleSeat::VehicleSeatDriver))
 		{ continue; }
 
 		if(nearbyVehicles.size() < amount)
@@ -395,28 +352,4 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 	}
 
 	return std::move(nearbyVehicles);
-}
-
-std::unique_ptr<ModAPI::Entity> ModAPI::Entity::GetClosestHorseVehicle(const std::vector<EntityHandle> entitiesToIgnore, const float maxDistance) const
-{
-	const auto nearbyHorses = GetNearbyHorses(1, entitiesToIgnore, maxDistance);
-	const auto nearbyVehicles = GetNearbyVehicles(1, entitiesToIgnore, maxDistance);
-	const bool hasFoundAnyHorses = !nearbyHorses.empty();
-	const bool hasFoundAnyVehicles = !nearbyVehicles.empty();
-	
-	if(hasFoundAnyHorses && hasFoundAnyVehicles)
-	{
-		if(GetDistanceTo(nearbyHorses[0].get()) <= GetDistanceTo(nearbyVehicles[0].get()))
-		{ return std::make_unique<Entity>(nearbyHorses[0]->GetHandle()); }
-		
-		return std::make_unique<Entity>(nearbyVehicles[0]->GetHandle());
-	}
-
-	if(hasFoundAnyHorses)
-	{ return std::make_unique<Entity>(nearbyHorses[0]->GetHandle()); }
-
-	if(hasFoundAnyVehicles)
-	{ return std::make_unique<Entity>(nearbyVehicles[0]->GetHandle()); }
-
-	return nullptr;
 }

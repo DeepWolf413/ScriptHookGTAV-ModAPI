@@ -6,25 +6,36 @@
 template <typename T>
 static inline void nativePush(T val)
 {
-    static_assert(sizeof(T) <= sizeof(UINT64), "Type is too large");
     UINT64 val64 = 0;
-    *reinterpret_cast<T *>(&val64) = val;
+    if (sizeof(T) > sizeof(UINT64))
+    {
+        throw "error, value size > 64 bit";
+    }
+    *reinterpret_cast<T *>(&val64) = val; // &val + sizeof(dw) - sizeof(val)
     nativePush64(val64);
 }
 
-template <typename R>
-static inline R invoke(UINT64 hash)
+static inline void pushArgs()
 {
-    nativeInit(hash);
-    return *reinterpret_cast<R *>(nativeCall());
 }
 
-template <typename R, class ... Args>
-static inline R invoke(UINT64 hash, Args&& ... args)
+template <typename T>
+static inline void pushArgs(T arg)
+{
+    nativePush(arg);
+}
+
+template <typename T, typename... Ts>
+static inline void pushArgs(T arg, Ts... args)
+{
+    nativePush(arg);
+    pushArgs(args...);
+}
+
+template <typename R, typename... Ts>
+static inline R invoke(UINT64 hash, Ts... args)
 {
     nativeInit(hash);
-
-    (nativePush(std::forward<Args>(args)), ...);
-
-    return *reinterpret_cast<R*>(nativeCall());
+    pushArgs(args...);
+    return *reinterpret_cast<R *>(nativeCall());
 }

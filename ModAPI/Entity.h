@@ -48,7 +48,7 @@ namespace ModAPI
 		bool IsAlive() const;
 
 		float   GetDistanceTo(const Entity* otherEntity, bool useZ = true) const;
-		Vector3 GetPosition(bool realCoords = false) const;
+		Vector3 GetPosition(bool alive = true) const;
 		void    SetPosition(Vector3 newPosition) const;
 		void    SetPositionNoOffset(Vector3 newPosition) const;
 		Vector3 GetRotation() const;
@@ -105,9 +105,7 @@ namespace ModAPI
 		bool IsInWater() const;
 
 		std::vector<std::unique_ptr<ModAPI::Ped>>     GetNearbyHumans(int amount, std::vector<EntityHandle> entitiesToIgnore = std::vector<EntityHandle>(), float maxDistance = 15) const;
-		std::vector<std::unique_ptr<ModAPI::Ped>>     GetNearbyHorses(int amount, std::vector<EntityHandle> entitiesToIgnore = std::vector<EntityHandle>(), float maxDistance = 15) const;
 		std::vector<std::unique_ptr<ModAPI::Vehicle>> GetNearbyVehicles(int amount, std::vector<EntityHandle> entitiesToIgnore = std::vector<EntityHandle>(), float maxDistance = 15) const;
-		std::unique_ptr<Entity>                        GetClosestHorseVehicle(std::vector<EntityHandle> entitiesToIgnore = std::vector<EntityHandle>(), float maxDistance = 15) const;
 
 	protected:
 		EntityHandle handle;

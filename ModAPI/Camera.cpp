@@ -117,9 +117,6 @@ void ModAPI::Camera::PointAtEntity(Entity* entity, const Vector3 offset, const b
 void ModAPI::Camera::StopPointing() const
 { CAM::STOP_CAM_POINTING(representedCamera); }
 
-void ModAPI::Camera::SetFocusDistance(const float distance) const
-{ CAM::_SET_CAM_FOCUS_DISTANCE(representedCamera, distance); }
-
 void ModAPI::Camera::FadeOut(const int durationMs)
 { CAM::DO_SCREEN_FADE_OUT(durationMs); }
 
@@ -129,7 +126,7 @@ void ModAPI::Camera::FadeIn(const int durationMs)
 void ModAPI::Camera::Destroy() const
 { CAM::DESTROY_CAM(representedCamera, false); }
 
-RaycastResult ModAPI::Camera::Raycast(const float distance, const eRaycastFlags flags) const
+RaycastResult ModAPI::Camera::Raycast(const float distance, const eTraceFlags flags) const
 {
 	const auto camPos = GetPosition();
 	const auto camForwardPos = GetForwardPosition(distance);

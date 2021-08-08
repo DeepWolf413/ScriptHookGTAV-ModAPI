@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Entity.h"
-#include "enums/eVehicleSeat.h"
+#include "inc/enums.h"
 
 namespace ModAPI
 {
@@ -9,6 +9,5 @@ namespace ModAPI
 		Vehicle(VehicleHandle handle);
 
 		bool IsSeatFree(eVehicleSeat seat) const;
-		bool IsCannon() const;
 	};
 }

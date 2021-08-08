@@ -8,6 +8,6 @@ namespace ModAPI
 {
 	class World {
 	public:
-		static RaycastResult Raycast(Vector3 fromPos, Vector3 toPos, eRaycastFlags flags);
+		static RaycastResult Raycast(Vector3 fromPos, Vector3 toPos, eTraceFlags flags);
 	};
 }

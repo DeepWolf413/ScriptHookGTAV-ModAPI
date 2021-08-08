@@ -286,6 +286,20 @@ enum eCameraShake
 	CameraShakeDeathFail
 };
 
+enum eCombatAttribute
+{
+	CACanUseCover = 0,
+	CACanUseVehicles = 1,
+	CACanDoDrivebys = 2,
+	CACanLeaveVehicle = 3,
+	CACanFightArmedPedsWhenNotArmed = 5,
+	CACanTauntInVehicle = 20,
+	CAAlwaysFight = 46,
+	CAIgnoreTrafficWhenDriving = 52,
+	CAFreezeMovement = 292,
+	CAPlayerCanUseFiringWeapons = 1424
+};
+
 enum eControl
 {
 	ControlNextCamera = 0,
@@ -824,6 +838,20 @@ enum eFont
 	FontPricedown = 7
 };
 
+enum eTraceFlags
+{
+	TraceNone = 0,
+	TraceIntersectWorld = 1,
+	TraceIntersectVehicles = 2,
+	TraceIntersectPedsSimpleCollision = 4,
+	TraceIntersectPeds = 8,
+	TraceIntersectObjects = 16,
+	TraceIntersectWater = 32,
+	TraceUnknown = 128,
+	TraceIntersectFoliage = 256,
+	TraceIntersectEverything = 4294967295
+};
+
 enum eVehicleColor
 {
 	VehicleColorMetallicBlack = 0,
@@ -1193,6 +1221,7 @@ enum eExplosionType
 	ExplosionTypeValkyrie = 38
 };
 
+// TODO: Check if these are the most up-to-date.
 enum eIntersectFlags
 {
 	IntersectFlagsEverything = -1,
@@ -1254,6 +1283,40 @@ enum eRelationship
 enum eRopeType
 {
 	RopeTypeNormal = 4,
+};
+
+enum ePedType
+{
+	PedTypePlayer0,
+	PedTypePlayer1,
+	PedTypeNetworkPlayer,
+	PedTypePlayer2,
+	PedTypeCivMale,
+	PedTypeCivFemale,
+	PedTypeCop,
+	PedTypeAlbanian,
+	PedTypeGangBiker1,
+	PedTypeGangBiker2,
+	PedTypeGangItalian,
+	PedTypeGangRussian,
+	PedTypeGangRussian2,
+	PedTypeGangIrish,
+	PedTypeGangJamaican,
+	PedTypeGangAfricanAmerican,
+	PedTypeGangKorean,
+	PedTypeGangChineseJapanese,
+	PedTypeGangPuertoRican,
+	PedTypeDealer,
+	PedTypeMedic,
+	PedTypeFireman,
+	PedTypeCriminal,
+	PedTypeBum,
+	PedTypeProstitute,
+	PedTypeSpecial,
+	PedTypeMission,
+	PedTypeSwat,
+	PedTypeAnimal,
+	PedTypeArmy
 };
 
 enum eWeapon : DWORD

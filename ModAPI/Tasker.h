@@ -38,16 +38,9 @@ namespace ModAPI
 		void EnterVehicle(Vehicle* vehicle, eVehicleSeat seat, int timeoutMs) const;
 		void EnterVehicle(Vehicle* vehicle, eVehicleSeat seat, int timeoutMs, float speed) const;
 		void EnterVehicle(Vehicle* vehicle, eVehicleSeat seat, int timeoutMs, float speed, int flag) const;
-		void MountEnterClosest(std::vector<EntityHandle>& entitiesToIgnore) const;
-		void MountClosestAnimal() const;
-		void EnterClosestVehicle() const;
+		void EnterClosestVehicle(std::vector<EntityHandle>& entitiesToIgnore) const;
 		void ExitVehicle() const;
 		void ExitVehicle(Vehicle* vehicle, LeaveVehicleFlags flag = LeaveVehicleFlags::None) const;
-		void MountAnimal(Ped* animal, eMountSeat mountSeat) const;
-		void MountAnimal(Ped* animal, eMountSeat mountSeat, int timerMs) const;
-		void MountAnimal(Ped* animal, eMountSeat mountSeat, int timerMs, float speed) const;
-		void MountAnimal(Ped* animal, eMountSeat mountSeat, int timerMs, float speed, eMountStyle mountStyle) const;
-		void DismountAnimal(int exitFlag = 1 << 18) const;
 		void DismountExit() const;
 		void FightAgainst(Ped* target) const;
 		void FightAgainst(Ped* target, int durationMs) const;

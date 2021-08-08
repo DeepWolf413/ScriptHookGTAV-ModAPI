@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <memory>
-#include <vector>
 #include <xstring>
 #include <inc/enums.h>
 
@@ -19,6 +18,7 @@ namespace ModAPI
 		virtual ~Ped() = default;
 
 		static std::unique_ptr<Ped> SpawnPed(std::string modelName, Vector3 spawnPosition, float heading, int outfitNumber = 0);
+		static std::unique_ptr<Ped> SpawnPed(ePedType pedType, std::string modelName, Vector3 spawnPosition, float heading, int outfitNumber = 0);
 
 		std::string GetModelName() const;
 		std::unique_ptr<ModAPI::Ped> GetTarget() const;
@@ -33,30 +33,21 @@ namespace ModAPI
 		bool                                           IsInCombat() const;
 		bool                                           IsInMeleeCombat() const;
 		bool                                           IsShooting() const;
-		bool                                           IsHorse() const;
 		bool                                           IsHuman() const;
 		bool                                           IsOnVehicle() const;
 		bool                                           IsOnMount() const;
 		bool                                           IsOnFoot() const;
 		bool                                           IsUsingAnyScenario() const;
-		bool                                           IsUsingScenario(Hash scenarioHash) const;
+		bool                                           IsUsingScenario(const std::string& scenarioName) const;
 		void                                           SetShootAccuracy(int accuracy) const;
-		void                                           SetOutfit(int newOutfit);
-		void                                           SetToNextOutfit();
-		void                                           SetToPreviousOutfit();
-		void                                           ResetOutfit();
-		void                                           SetRndOutfit();
 		void                                           SetCombatAttribute(eCombatAttribute attribute, bool enabled) const;
 		void                                           SetConfigFlag(int flagId, bool enabled) const;
 		void                                           SetBlockEvents(bool blockEvents) const;
 		void                                           SetRelationshipGroup(Hash groupHash) const;
-		int                                            GetCurrentOutfit() const;
-		int                                            GetMaxOutfit() const;
 		void                                           ClearTasksImmediately() const;
 		void                                           EquipBestWeapon() const;
 		void                                           EquipWeapon(Hash weaponHash) const;
-		void                                           EquipWeapon(Hash weaponHash, eWeaponAttachPoint attachPoint) const;
-		void                                           GiveWeapon(Hash weaponHash, int ammoCount, bool forceInHand, bool forceInHolster, bool allowMultipleCopies = false) const;
+		void                                           GiveWeapon(Hash weaponHash, int ammoCount, bool forceInHand, bool forceInHolster) const;
 		bool                                           HasWeapon(Hash weaponHash) const;
 		void                                           RemoveAllWeapons() const;
 		Tasker*                                        GetTasker() const;
@@ -64,6 +55,5 @@ namespace ModAPI
 	protected:
 		std::unique_ptr<Tasker> tasker;
 		std::string             modelName;
-		int                     currentOutfit{0};
 	};
 }

@@ -89,9 +89,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\json.hpp">
-      <Link>inc\json.hpp</Link>
-    </ClInclude>
     <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\main.h" />
     <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\enums.h" />
     <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\natives.h" />

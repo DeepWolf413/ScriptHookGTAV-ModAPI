@@ -89,10 +89,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\main.h" />
-    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\enums.h" />
-    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\natives.h" />
-    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\types.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\main.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\enums.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\natives.h" />
+    <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\types.h" />
     <ClInclude Include="ActionEvent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
@@ -139,7 +139,7 @@
     <TargetExt>.asi</TargetExt>
     <OutDir>bin\$(Configuration)\</OutDir>
     <IntDir>tmp\$(Configuration)\</IntDir>
-    <IncludePath>..\thirdparty\ScriptHook_SDK;$(IncludePath)</IncludePath>
+    <IncludePath>..\thirdparty\ScriptHook_SDK\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

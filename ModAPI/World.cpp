@@ -1,6 +1,6 @@
 ﻿#include "World.h"
 
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 RaycastResult ModAPI::World::Raycast(const Vector3 fromPos, const Vector3 toPos, const eTraceFlags flags)
 {

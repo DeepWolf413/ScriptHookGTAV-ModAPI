@@ -1,7 +1,7 @@
 ﻿#include "Camera.h"
 
 #include <memory>
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 
 #include "Math.h"

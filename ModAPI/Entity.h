@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <inc/types.h>
+#include <shsdk/types.h>
 
 
 #include "enums/EEntityType.h"

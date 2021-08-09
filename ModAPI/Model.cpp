@@ -4,7 +4,7 @@
 
 
 
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 #include "math/Vector3.h"
 
 ModAPI::Model::Model(const std::string name)

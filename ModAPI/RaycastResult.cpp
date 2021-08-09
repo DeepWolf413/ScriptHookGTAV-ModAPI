@@ -1,6 +1,6 @@
 ﻿#include "RaycastResult.h"
 
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 RaycastResult::RaycastResult(int shapeTestHandle)
 { SHAPETEST::GET_SHAPE_TEST_RESULT(shapeTestHandle, &didHitSomething, &endCoords, &surfaceNormal, &hitEntity); }

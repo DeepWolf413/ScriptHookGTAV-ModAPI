@@ -1,7 +1,7 @@
 ﻿#include "Player.h"
 
 #include <memory>
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 #include "Ped.h"
 

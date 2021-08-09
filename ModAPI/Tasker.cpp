@@ -1,6 +1,6 @@
 ﻿#include "Tasker.h"
 
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 #include "Ped.h"
 #include "Vehicle.h"

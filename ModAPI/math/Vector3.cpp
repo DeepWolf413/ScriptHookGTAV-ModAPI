@@ -1,5 +1,5 @@
 ﻿#include "Vector3.h"
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 #include "valarray"
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-#include <inc/types.h>
+#include <shsdk/types.h>
 
 struct Vector3;
 

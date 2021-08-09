@@ -1,7 +1,7 @@
 ﻿#include "Vehicle.h"
 
 
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 ModAPI::Vehicle::Vehicle(const VehicleHandle handle) : Entity(handle)
 {}

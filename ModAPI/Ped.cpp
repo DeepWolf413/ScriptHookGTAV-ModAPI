@@ -8,7 +8,7 @@
 #include "Model.h"
 #include "Tasker.h"
 #include "Vehicle.h"
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 #include "Screen.h"
 #include "StdUtils.h"

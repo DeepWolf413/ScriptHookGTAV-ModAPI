@@ -3,7 +3,7 @@
 #include <vector>
 
 
-#include <inc/types.h>
+#include <shsdk/types.h>
 #include "enums/eMountSeat.h"
 #include "enums/eMountStyle.h"
 #include "enums/eVehicleFlags.h"

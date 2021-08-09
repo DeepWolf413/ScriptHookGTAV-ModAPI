@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include <inc/types.h>
-#include <inc/enums.h>
+#include <shsdk/types.h>
+#include <shsdk/enums.h>
 
 namespace ModAPI
 {
@@ -13,6 +13,7 @@ namespace ModAPI
 		static void DisplayText(const char* text, Vector2 position, int r, int g, int b, int a, eFont font, bool centered, Vector2 scale);
 		static void DrawRect(Vector2 position, Vector2 size, int r, int g, int b, int a);
 		static void PrintSubtitle(const char* text);
-		static std::string GetFontString(std::string text, eFont font);
+		static void ShowHelpTextThisFrame(std::string& helpText);
+		static void ShowHelpTextThisFrame(std::string& helpText, bool beep);
 	};
 }

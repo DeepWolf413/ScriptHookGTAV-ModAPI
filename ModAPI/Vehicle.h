@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Entity.h"
-#include "inc/enums.h"
+#include "shsdk/enums.h"
 
 namespace ModAPI
 {

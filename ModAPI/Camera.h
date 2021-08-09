@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include <memory>
 #include <string>
-#include <inc/enums.h>
-#include <inc/types.h>
+#include <shsdk/enums.h>
+#include <shsdk/types.h>
 
 
 #include "RaycastResult.h"

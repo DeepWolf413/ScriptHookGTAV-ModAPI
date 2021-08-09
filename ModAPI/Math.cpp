@@ -1,8 +1,8 @@
 ﻿#include "Math.h"
 
 
-#include <inc/natives.h>
-#include <inc/types.h>
+#include <shsdk/natives.h>
+#include <shsdk/types.h>
 
 float MathUtils::ToRadian(const float deg)
 { return deg * M_PI / 180; }

@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include <inc/nativeCaller.h>
-#include <inc/types.h>
+#include <shsdk/nativeCaller.h>
+#include <shsdk/types.h>
 #include "math/Vector3.h"
 
 struct RaycastResult {

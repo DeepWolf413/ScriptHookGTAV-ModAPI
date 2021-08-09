@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "RaycastResult.h"
-#include <inc/enums.h>
+#include <shsdk/enums.h>
 
 struct Vector3;
 

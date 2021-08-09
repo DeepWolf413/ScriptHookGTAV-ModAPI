@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <memory>
 #include <xstring>
-#include <inc/enums.h>
+#include <shsdk/enums.h>
 
 #include "Entity.h"
 

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <valarray>
-#include <inc/natives.h>
+#include <shsdk/natives.h>
 
 #include "Model.h"
 #include "Ped.h"

@@ -121,7 +121,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -136,8 +136,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetExt>.asi</TargetExt>
-    <OutDir>bin\$(Configuration)\</OutDir>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>..\lib\$(Configuration)\</OutDir>
     <IntDir>tmp\$(Configuration)\</IntDir>
     <IncludePath>..\thirdparty\ScriptHook_SDK\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>

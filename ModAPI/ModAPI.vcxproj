@@ -10,6 +10,7 @@
     <ClCompile Include="ActionEvent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="enums\eMountSeat.h" />
     <ClInclude Include="enums\eMountStyle.h" />
     <ClInclude Include="enums\eVehicleFlags.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="Model.h" />

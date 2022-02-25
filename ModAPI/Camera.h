@@ -18,7 +18,7 @@ namespace ModAPI
 		
 		static std::unique_ptr<Camera> GetRenderingCamera();
 		static std::unique_ptr<Camera> Create(std::string name);
-		static std::unique_ptr<Camera> CreateWithParams(std::string name, Vector3 position, Vector3 rotation, float fieldOfView);
+		static std::unique_ptr<Camera> CreateWithParams(std::string name, const Vector3& position, const Vector3& rotation, float fieldOfView);
 		
 		static void   FadeOut(int durationMs);
 		static void   FadeIn(int durationMs);
@@ -37,15 +37,15 @@ namespace ModAPI
 		Vector3       GetForwardVector() const;
 		Vector3       GetForwardVector(float heading, float pitch) const;
 		void          SetActive(bool enable) const;
-		void          SetActiveWithInterp(Camera* fromCamera, int durationMs, int easeLocation, int easeRotation) const;
+		void          SetActiveWithInterp(const Camera* fromCamera, int durationMs, int easeLocation, int easeRotation) const;
 		void          SetFieldOfView(float newFOV) const;
-		void          SetRotation(Vector3 newRotation, int rotationOrder) const;
-		void          SetPosition(Vector3 newPosition) const;
-		void          AttachToEntity(Entity* entity, Vector3 offset, bool isRelative) const;
-		void          AttachToPedBone(::PedHandle ped, int boneIndex, Vector3 position, bool heading) const;
+		void          SetRotation(const Vector3& newRotation, int rotationOrder) const;
+		void          SetPosition(const Vector3& newPosition) const;
+		void          AttachToEntity(const Entity* entity, const Vector3& offset, bool isRelative) const;
+		void          AttachToPedBone(PedHandle ped, int boneIndex, const Vector3& position, bool heading) const;
 		void          Detach() const;
-		void          PointAtPosition(Vector3 position) const;
-		void          PointAtEntity(Entity* entity, Vector3 offset, bool isRelative) const;
+		void          PointAtPosition(const Vector3 position) const;
+		void          PointAtEntity(const Entity* entity, const Vector3& offset, bool isRelative) const;
 		void          StopPointing() const;
 		void          Destroy() const;
 		RaycastResult Raycast(float distance, eTraceFlags flags) const;

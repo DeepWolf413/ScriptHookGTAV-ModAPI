@@ -3,14 +3,12 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <vector>
 
 #include "Model.h"
 #include "Tasker.h"
 #include "Vehicle.h"
 #include <shsdk/natives.h>
 
-#include "Screen.h"
 #include "StdUtils.h"
 
 ModAPI::Ped::Ped(const PedHandle pedToRepresent) : Entity(pedToRepresent)
@@ -45,6 +43,12 @@ bool ModAPI::Ped::IsOnMount() const
 
 bool ModAPI::Ped::IsOnFoot() const
 { return PED::IS_PED_ON_FOOT(handle); }
+
+bool ModAPI::Ped::IsInAnyVehicle() const
+{ return PED::IS_PED_SITTING_IN_ANY_VEHICLE(handle); }
+
+bool ModAPI::Ped::IsInVehicle(VehicleHandle vehicleHandle) const
+{ return PED::IS_PED_SITTING_IN_VEHICLE(handle, vehicleHandle); }
 
 bool ModAPI::Ped::IsUsingAnyScenario() const
 { return PED::IS_PED_USING_ANY_SCENARIO(handle); }
@@ -134,11 +138,11 @@ void ModAPI::Ped::RemoveAllWeapons() const
 ModAPI::Tasker* ModAPI::Ped::GetTasker() const
 { return tasker.get(); }
 
-std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const std::string modelName, const Vector3 spawnPosition, const float heading, const int outfitNumber)
+std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const std::string& modelName, const Vector3& spawnPosition, const float heading, const int outfitNumber)
 { return SpawnPed(ePedType::PedTypeMission, modelName, spawnPosition, heading, outfitNumber); }
 
 
-std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const ePedType pedType, const std::string modelName, const Vector3 spawnPosition, const float heading, const int outfitNumber)
+std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const ePedType pedType, const std::string& modelName, const Vector3& spawnPosition, const float heading, const int outfitNumber)
 {
 	if(modelName.empty())
 	{

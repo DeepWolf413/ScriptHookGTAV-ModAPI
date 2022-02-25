@@ -5,7 +5,7 @@
 
 #include "shsdk/enums.h"
 
-namespace ModAPI
+namespace ModAPI::Input
 {
     class InputData
     {
@@ -13,7 +13,7 @@ namespace ModAPI
         InputData(eControl control);
 
         eControl GetControl() const;
-        bool IsPressed();
+        bool IsPressed() const;
         bool IsReleased();
         bool IsHeld();
         float GetHeldTime() const;
@@ -26,17 +26,11 @@ namespace ModAPI
         int holdEndTime;
     };
     
-    class Input
-    {
-    public:
-        static ModAPI::InputData* GetControl(eControl control);
+    InputData* GetControl(eControl control);
 
-        static ModAPI::InputData* RegisterInput(std::unique_ptr<ModAPI::InputData> inputToRegister);
-        static void DeregisterInput(ModAPI::InputData* inputToDeregister);
-        static void DeregisterInput(eControl inputToDeregister);
-        static std::tuple<bool, ModAPI::InputData*> TryGetRegisteredInput(eControl control);
-        static bool IsInputAlreadyRegistered(eControl control);
-
-        static std::vector<std::unique_ptr<ModAPI::InputData>> registeredInputs;
-    };
+    InputData* RegisterInput(std::unique_ptr<InputData> inputToRegister);
+    void DeregisterInput(InputData* inputToDeregister);
+    void DeregisterInput(eControl inputToDeregister);
+    std::tuple<bool, InputData*> TryGetRegisteredInput(eControl control);
+    bool IsInputAlreadyRegistered(eControl control);
 }

@@ -8,13 +8,10 @@ namespace ModAPI {
 	class Ped;
 }
 
-namespace ModAPI
+namespace ModAPI::Player
 {
-	namespace PlayerUtils
-	{
-		int GetPlayerId();
-		std::unique_ptr<ModAPI::Ped> GetPlayerPed();
-	}
+	int GetId();
+	std::unique_ptr<ModAPI::Ped> GetPed();
 }
 
 #endif

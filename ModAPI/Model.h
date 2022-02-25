@@ -9,7 +9,7 @@ namespace ModAPI
 {
 	class Model {
 	public:
-		Model(std::string name);
+		Model(const std::string& name);
 		Model(Hash hash);
 
 		Hash GetHash() const;
@@ -22,7 +22,7 @@ namespace ModAPI
 		bool IsTrain() const;
 		bool IsVehicle() const;
 
-		void    GetDimensions(Vector3* minimum, Vector3* maximum) const;
+		void    GetDimensions(Vector3& minimum, Vector3& maximum) const;
 		Vector3 GetDimensions() const;
 
 		bool Request() const;

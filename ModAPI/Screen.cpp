@@ -2,7 +2,7 @@
 
 #include <shsdk/natives.h>
 
-void ModAPI::Screen::DrawSprite(const char* category, const char* sprite, Vector2 position, Vector2 scale, float rotation,
+void ModAPI::Screen::DrawSprite(const char* category, const char* sprite, const Vector2& position, const Vector2& scale, float rotation,
                         int r, int g, int b, int a)
 {
 	const float fX = position.x + scale.x / 2;
@@ -25,13 +25,13 @@ void ModAPI::Screen::DrawSprite(const char* category, const char* sprite, Vector
 	GRAPHICS::SET_STREAMED_TEXTURE_DICT_AS_NO_LONGER_NEEDED(category);
 }
 
-void ModAPI::Screen::DisplayText(const char* text, Vector2 position, int r, int g, int b, int a, bool centered, Vector2 scale)
+void ModAPI::Screen::DisplayText(const char* text, const Vector2& position, int r, int g, int b, int a, bool centered, const Vector2& scale)
 {
 	DisplayText(text, position, r, g, b, a, eFont::FontPricedown, centered, scale);
 }
 
-void ModAPI::Screen::DisplayText(const char* text, Vector2 position, int r, int g, int b, int a, eFont font, bool centered,
-	Vector2 scale)
+void ModAPI::Screen::DisplayText(const char* text, const Vector2& position, int r, int g, int b, int a, eFont font, bool centered,
+	const Vector2& scale)
 {
 	HUD::SET_TEXT_COLOUR(r, g, b, a);
 	HUD::SET_TEXT_SCALE(scale.x, scale.y);
@@ -43,7 +43,7 @@ void ModAPI::Screen::DisplayText(const char* text, Vector2 position, int r, int 
 	HUD::END_TEXT_COMMAND_DISPLAY_TEXT(position.x, position.y, 0);
 }
 
-void ModAPI::Screen::DrawRect(Vector2 position, Vector2 size, int r, int g, int b, int a)
+void ModAPI::Screen::DrawRect(const Vector2& position, const Vector2& size, int r, int g, int b, int a)
 {
 	const float fX = position.x + size.x / 2;
 	const float fY = position.y + size.y / 2;
@@ -57,10 +57,10 @@ void ModAPI::Screen::PrintSubtitle(const char* text)
     HUD::END_TEXT_COMMAND_PRINT(200, 1);
 }
 
-void ModAPI::Screen::ShowHelpTextThisFrame(std::string& helpText)
+void ModAPI::Screen::ShowHelpTextThisFrame(const std::string& helpText)
 { ShowHelpTextThisFrame(helpText, true); }
 
-void ModAPI::Screen::ShowHelpTextThisFrame(std::string& helpText, const bool beep)
+void ModAPI::Screen::ShowHelpTextThisFrame(const std::string& helpText, const bool beep)
 {
     HUD::BEGIN_TEXT_COMMAND_DISPLAY_HELP("STRING");
     HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(helpText.c_str());

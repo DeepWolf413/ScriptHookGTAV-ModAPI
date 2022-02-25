@@ -7,7 +7,7 @@
 #include <shsdk/natives.h>
 #include "math/Vector3.h"
 
-ModAPI::Model::Model(const std::string name)
+ModAPI::Model::Model(const std::string& name)
 { this->hash = MISC::GET_HASH_KEY(name.c_str()); }
 
 ModAPI::Model::Model(const Hash hash)
@@ -40,13 +40,13 @@ bool ModAPI::Model::IsTrain() const
 bool ModAPI::Model::IsVehicle() const
 { return STREAMING::IS_MODEL_A_VEHICLE(hash); }
 
-void ModAPI::Model::GetDimensions(Vector3* minimum, Vector3* maximum) const
-{ MISC::GET_MODEL_DIMENSIONS(hash, minimum, maximum); }
+void ModAPI::Model::GetDimensions(Vector3& minimum, Vector3& maximum) const
+{ MISC::GET_MODEL_DIMENSIONS(hash, &minimum, &maximum); }
 
 Vector3 ModAPI::Model::GetDimensions() const
 {
 	Vector3 min, max;
-	GetDimensions(&min, &max);
+	GetDimensions(min, max);
 	return Vector3::Subtract(max, min);
 }
 

@@ -9,7 +9,6 @@ namespace ModAPI
 {
 	class Vehicle;
 	class Tasker;
-	class Team;
 
 	// A convenience class for the ::ped type.
 	class Ped : public Entity

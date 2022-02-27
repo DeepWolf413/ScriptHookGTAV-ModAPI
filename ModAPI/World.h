@@ -8,6 +8,6 @@ namespace ModAPI
 {
 	namespace World
 	{
-		RaycastResult Raycast(Vector3 fromPos, Vector3 toPos, eTraceFlags flags);
+		RaycastResult Raycast(const Vector3& fromPos, const Vector3& toPos, eTraceFlags flags);
 	}
 }

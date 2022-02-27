@@ -13,4 +13,4 @@ public:
 	uint8_t const A {0};
 };
 
-static_assert(sizeof(Color) == 4, "");
+static_assert(sizeof(Color) == 4);

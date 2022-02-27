@@ -22,26 +22,26 @@ namespace ModAPI
 		static std::unique_ptr<Ped> SpawnPed(ePedType pedType, const std::string& modelName, const Vector3& spawnPosition,
 		                                     float heading, int outfitNumber = 0);
 
-		std::string GetModelName() const;
-		std::unique_ptr<Ped> GetTarget() const;
+		[[nodiscard]] std::string GetModelName() const;
+		[[nodiscard]] std::unique_ptr<Ped> GetTarget() const;
 		//std::unique_ptr<Ped> GetTarget() const;
 		
 		// Returns the time of death in milliseconds.
-		int GetTimeOfDeath() const;
+		[[nodiscard]] int GetTimeOfDeath() const;
 
-		float GetTimeSinceDeath() const;
-		PedHandle GetKiller() const;
-		bool IsInCombat() const;
-		bool IsInMeleeCombat() const;
-		bool IsShooting() const;
+		[[nodiscard]] float GetTimeSinceDeath() const;
+		[[nodiscard]] PedHandle GetKiller() const;
+		[[nodiscard]] bool IsInCombat() const;
+		[[nodiscard]] bool IsInMeleeCombat() const;
+		[[nodiscard]] bool IsShooting() const;
 		bool IsHuman() const;
-		bool IsOnVehicle() const;
-		bool IsOnMount() const;
-		bool IsOnFoot() const;
-		bool IsInAnyVehicle() const;
-		bool IsInVehicle(VehicleHandle vehicleHandle) const;
-		bool IsUsingAnyScenario() const;
-		bool IsUsingScenario(const std::string& scenarioName) const;
+		[[nodiscard]] bool IsOnVehicle() const;
+		[[nodiscard]] bool IsOnMount() const;
+		[[nodiscard]] bool IsOnFoot() const;
+		[[nodiscard]] bool IsInAnyVehicle() const;
+		[[nodiscard]] bool IsInVehicle(VehicleHandle vehicleHandle) const;
+		[[nodiscard]] bool IsUsingAnyScenario() const;
+		[[nodiscard]] bool IsUsingScenario(const std::string& scenarioName) const;
 		void SetShootAccuracy(int accuracy) const;
 		void SetCombatAttribute(eCombatAttribute attribute, bool enabled) const;
 		void SetConfigFlag(int flagId, bool enabled) const;
@@ -51,9 +51,9 @@ namespace ModAPI
 		void EquipBestWeapon() const;
 		void EquipWeapon(Hash weaponHash) const;
 		void GiveWeapon(Hash weaponHash, int ammoCount, bool forceInHand, bool forceInHolster) const;
-		bool HasWeapon(Hash weaponHash) const;
+		[[nodiscard]] bool HasWeapon(Hash weaponHash) const;
 		void RemoveAllWeapons() const;
-		Tasker* GetTasker() const;
+		[[nodiscard]] Tasker& GetTasker() const;
 
 	protected:
 		std::unique_ptr<Tasker> tasker;

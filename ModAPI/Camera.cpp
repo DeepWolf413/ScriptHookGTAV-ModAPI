@@ -14,11 +14,11 @@ ModAPI::Camera::Camera(const CamHandle cameraHandle)
 std::unique_ptr<ModAPI::Camera> ModAPI::Camera::GetRenderingCamera()
 { return std::make_unique<Camera>(CAM::GET_RENDERING_CAM()); }
 
-std::unique_ptr<ModAPI::Camera> ModAPI::Camera::Create(const std::string name)
+std::unique_ptr<ModAPI::Camera> ModAPI::Camera::Create(const std::string& name)
 { return std::make_unique<Camera>(CAM::CREATE_CAM(name.c_str(), false)); }
 
-std::unique_ptr<ModAPI::Camera> ModAPI::Camera::CreateWithParams(const std::string name, const Vector3& position, const Vector3& rotation, const float fieldOfView)
-{ return std::make_unique<Camera>(CAM::CREATE_CAM_WITH_PARAMS(name.c_str(), position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, fieldOfView, false, 2)); }
+std::unique_ptr<ModAPI::Camera> ModAPI::Camera::CreateWithParams(const std::string& name, const Vector3& position, const Vector3& rotation, const float fieldOfView)
+{ return std::make_unique<Camera>(CAM::CREATE_CAM_WITH_PARAMS(name.c_str(), position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z, fieldOfView, false, 2)); }
 
 bool ModAPI::Camera::IsActive() const
 { return CAM::IS_CAM_ACTIVE(representedCamera); }
@@ -66,8 +66,8 @@ Vector3 ModAPI::Camera::GetForwardPosition(const float distance) const
 Vector3 ModAPI::Camera::GetForwardVector() const
 {
 	const Vector3 rotation = GetRotation();
-	const float x = MathUtils::ToRadian(rotation.x);
-	const float z = MathUtils::ToRadian(rotation.z);
+	const float x = MathUtils::ToRadian(rotation.X);
+	const float z = MathUtils::ToRadian(rotation.Z);
 	return GetForwardVector(z, x);
 }
 
@@ -75,32 +75,32 @@ Vector3 ModAPI::Camera::GetForwardVector(const float heading, const float pitch)
 {
 	const float num = abs(cos(pitch));
 	Vector3 dir;
-	dir.x = (-sin(heading) * num);
-	dir.y = (cos(heading) * num);
-	dir.z = (sin(pitch));
+	dir.X = (-sin(heading) * num);
+	dir.Y = (cos(heading) * num);
+	dir.Z = (sin(pitch));
 	return dir;
 }
 
 void ModAPI::Camera::SetActive(const bool enable) const
 { CAM::SET_CAM_ACTIVE(representedCamera, enable); }
 
-void ModAPI::Camera::SetActiveWithInterp(const Camera* fromCamera, const int durationMs, const int easeLocation, const int easeRotation) const
-{ CAM::SET_CAM_ACTIVE_WITH_INTERP(representedCamera, fromCamera->GetHandle(), durationMs, easeLocation, easeRotation); }
+void ModAPI::Camera::SetActiveWithInterp(const Camera& fromCamera, const int durationMs, const int easeLocation, const int easeRotation) const
+{ CAM::SET_CAM_ACTIVE_WITH_INTERP(representedCamera, fromCamera.GetHandle(), durationMs, easeLocation, easeRotation); }
 
 void ModAPI::Camera::SetFieldOfView(const float newFOV) const
 { CAM::SET_CAM_FOV(representedCamera, newFOV); }
 
 void ModAPI::Camera::SetRotation(const Vector3& newRotation, const int rotationOrder) const
-{ CAM::SET_CAM_ROT(representedCamera, newRotation.x, newRotation.y, newRotation.z, rotationOrder); }
+{ CAM::SET_CAM_ROT(representedCamera, newRotation.X, newRotation.Y, newRotation.Z, rotationOrder); }
 
 void ModAPI::Camera::SetPosition(const Vector3& newPosition) const
-{ CAM::SET_CAM_COORD(representedCamera, newPosition.x, newPosition.y, newPosition.z); }
+{ CAM::SET_CAM_COORD(representedCamera, newPosition.X, newPosition.Y, newPosition.Z); }
 
 void ModAPI::Camera::AttachToEntity(const Entity* entity, const Vector3& offset, const bool isRelative) const
-{ CAM::ATTACH_CAM_TO_ENTITY(representedCamera, entity->GetHandle(), offset.x, offset.y, offset.z, isRelative); }
+{ CAM::ATTACH_CAM_TO_ENTITY(representedCamera, entity->GetHandle(), offset.X, offset.Y, offset.Z, isRelative); }
 
 void ModAPI::Camera::AttachToPedBone(const PedHandle ped, const int boneIndex, const Vector3& position, const bool heading) const
-{ CAM::ATTACH_CAM_TO_PED_BONE(representedCamera, ped, boneIndex, position.x, position.y, position.z, heading); }
+{ CAM::ATTACH_CAM_TO_PED_BONE(representedCamera, ped, boneIndex, position.X, position.Y, position.Z, heading); }
 
 void ModAPI::Camera::Detach() const
 {
@@ -109,10 +109,10 @@ void ModAPI::Camera::Detach() const
 }
 
 void ModAPI::Camera::PointAtPosition(const Vector3 position) const
-{ CAM::POINT_CAM_AT_COORD(representedCamera, position.x, position.y, position.z); }
+{ CAM::POINT_CAM_AT_COORD(representedCamera, position.X, position.Y, position.Z); }
 
-void ModAPI::Camera::PointAtEntity(const Entity* entity, const Vector3& offset, const bool isRelative) const
-{ CAM::POINT_CAM_AT_ENTITY(representedCamera, entity->GetHandle(), offset.x, offset.y, offset.z, isRelative); }
+void ModAPI::Camera::PointAtEntity(const Entity& entity, const Vector3& offset, const bool isRelative) const
+{ CAM::POINT_CAM_AT_ENTITY(representedCamera, entity.GetHandle(), offset.X, offset.Y, offset.Z, isRelative); }
 
 void ModAPI::Camera::StopPointing() const
 { CAM::STOP_CAM_POINTING(representedCamera); }
@@ -131,6 +131,6 @@ RaycastResult ModAPI::Camera::Raycast(const float distance, const eTraceFlags fl
 	const auto camPos = GetPosition();
 	const auto camForwardPos = GetForwardPosition(distance);
 	const auto playerPed = Player::GetPed();
-	const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.x, camPos.y, camPos.z, camForwardPos.x, camForwardPos.y, camForwardPos.z, static_cast<int>(flags), playerPed->GetHandle(), 7);
-	return RaycastResult(shapeTestHandle);
+	const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, camForwardPos.X, camForwardPos.Y, camForwardPos.Z, static_cast<int>(flags), playerPed->GetHandle(), 7);
+	return {shapeTestHandle};
 }

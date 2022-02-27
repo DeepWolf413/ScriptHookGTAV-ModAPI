@@ -135,8 +135,8 @@ bool ModAPI::Ped::HasWeapon(const Hash weaponHash) const
 void ModAPI::Ped::RemoveAllWeapons() const
 { WEAPON::REMOVE_ALL_PED_WEAPONS(handle, true); }
 
-ModAPI::Tasker* ModAPI::Ped::GetTasker() const
-{ return tasker.get(); }
+ModAPI::Tasker& ModAPI::Ped::GetTasker() const
+{ return *tasker; }
 
 std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const std::string& modelName, const Vector3& spawnPosition, const float heading, const int outfitNumber)
 { return SpawnPed(ePedType::PedTypeMission, modelName, spawnPosition, heading, outfitNumber); }
@@ -154,7 +154,7 @@ std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const ePedType pedType, const
 	if(!model->Request(2000))
 	{ return nullptr; }
 
-	const PedHandle spawnedPedHandle = PED::CREATE_PED(static_cast<int>(pedType), model->GetHash(), spawnPosition.x, spawnPosition.y, spawnPosition.z, heading, false, false);
+	const PedHandle spawnedPedHandle = PED::CREATE_PED(static_cast<int>(pedType), model->GetHash(), spawnPosition.X, spawnPosition.Y, spawnPosition.Z, heading, false, false);
 	if(spawnedPedHandle == NULL)
 	{
 		// TODO: Log error "Failed to spawn ped.".

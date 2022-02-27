@@ -47,7 +47,7 @@ Vector3 ModAPI::Model::GetDimensions() const
 {
 	Vector3 min, max;
 	GetDimensions(min, max);
-	return Vector3::Subtract(max, min);
+	return max - min;
 }
 
 bool ModAPI::Model::Request() const

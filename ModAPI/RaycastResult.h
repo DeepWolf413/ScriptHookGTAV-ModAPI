@@ -3,14 +3,15 @@
 #include <shsdk/types.h>
 #include "math/Vector3.h"
 
-struct RaycastResult {
+struct RaycastResult
+{
 public:
 	RaycastResult(int shapeTestHandle);
 
-	BOOL    GetDidHitSomething() const;
-	Vector3 GetEndCoords() const;
-	Vector3 GetSurfaceNormal() const;
-	EntityHandle  GetHitEntity() const;
+	[[nodiscard]] BOOL GetDidHitSomething() const;
+	[[nodiscard]] Vector3 GetEndCoords() const;
+	[[nodiscard]] Vector3 GetSurfaceNormal() const;
+	[[nodiscard]] EntityHandle GetHitEntity() const;
 
 private:
 	BOOL didHitSomething;

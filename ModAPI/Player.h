@@ -10,8 +10,8 @@ namespace ModAPI {
 
 namespace ModAPI::Player
 {
-	int GetId();
-	std::unique_ptr<ModAPI::Ped> GetPed();
+	[[nodiscard]]int GetId();
+	[[nodiscard]] std::unique_ptr<ModAPI::Ped> GetPed();
 }
 
 #endif

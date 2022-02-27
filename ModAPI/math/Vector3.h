@@ -14,31 +14,28 @@
 		static float   Distance2D(Vector3 aPos, Vector3 bPos);
 		static float   Distance2DSquared(Vector3 aPos, Vector3 bPos);
 		static float   Angle(Vector3 from, Vector3 to);
-		static Vector3 Subtract(Vector3 left, Vector3 right);
 	
-		float Length() const;
-		float LengthSquared() const;
+		[[nodiscard]] float Length() const;
+		[[nodiscard]] float LengthSquared() const;
 		void  Normalize();
-		float DistanceTo(Vector3 position) const;
-		float DistanceToSquared(Vector3 position) const;
-		float DistanceTo2D(Vector3 position) const;
-		float DistanceToSquared2D(Vector3 position) const;
-		float ToHeading() const;
+		[[nodiscard]] float DistanceTo(Vector3 position) const;
+		[[nodiscard]] float DistanceToSquared(Vector3 position) const;
+		[[nodiscard]] float DistanceTo2D(Vector3 position) const;
+		[[nodiscard]] float DistanceToSquared2D(Vector3 position) const;
+		[[nodiscard]] float ToHeading() const;
 
 		Vector3 operator+(Vector3 other) const;
 		Vector3 operator-(Vector3 other) const;
 		Vector3 operator*(Vector3 scale) const;
 		Vector3 operator*(float scale) const;
 		Vector3 operator/(float scale) const;
-		bool    operator==(Vector3 other) const;
-		bool    operator!=(Vector3 other) const;
 	
-		ALIGN8 float x;
-		ALIGN8 float y;
-		ALIGN8 float z;
+		ALIGN8 float X;
+		ALIGN8 float Y;
+		ALIGN8 float Z;
 
 	private:
-		Vector3 ThisVector() const;
+		[[nodiscard]] Vector3 ThisVector() const;
 	};
 
-	static_assert(sizeof(Vector3) == 24, "");
+	static_assert(sizeof(Vector3) == 24);

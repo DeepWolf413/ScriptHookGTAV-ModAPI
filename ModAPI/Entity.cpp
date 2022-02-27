@@ -15,7 +15,7 @@ ModAPI::Entity::Entity(const EntityHandle handle)
 std::unique_ptr<ModAPI::Entity> ModAPI::Entity::FromHandle(EntityHandle handle)
 { return std::make_unique<Entity>(handle); }
 
-bool ModAPI::Entity::Exists(Entity* entity)
+bool ModAPI::Entity::Exists(const Entity* entity)
 { return entity != nullptr && entity->Exists(); }
 
 bool ModAPI::Entity::Exists(const EntityHandle entity)
@@ -63,10 +63,10 @@ void ModAPI::Entity::SetPersistent(const bool persist) const
 void ModAPI::Entity::FreezePosition(const bool freeze) const
 { ENTITY::FREEZE_ENTITY_POSITION(handle, freeze); }
 
-int ModAPI::Entity::GetBoneIndex(const std::string boneName) const
+int ModAPI::Entity::GetBoneIndex(const std::string& boneName) const
 { return ENTITY::GET_ENTITY_BONE_INDEX_BY_NAME(handle, boneName.c_str()); }
 
-bool ModAPI::Entity::HasBone(const std::string boneName) const
+bool ModAPI::Entity::HasBone(const std::string& boneName) const
 { return GetBoneIndex(boneName) != -1; }
 
 int ModAPI::Entity::GetHealth() const
@@ -81,8 +81,8 @@ int ModAPI::Entity::GetMaxHealth() const
 void ModAPI::Entity::SetMaxHealth(const int newMaxHealth) const
 { return ENTITY::SET_ENTITY_MAX_HEALTH(handle, newMaxHealth); }
 
-bool ModAPI::Entity::HasBeenDamagedBy(Entity* entity) const
-{ return ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(handle, entity->GetHandle(), 1); }
+bool ModAPI::Entity::HasBeenDamagedBy(const Entity& entity) const
+{ return ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(handle, entity.GetHandle(), 1); }
 
 void ModAPI::Entity::SetInvincibility(const bool enable) const
 { ENTITY::SET_ENTITY_INVINCIBLE(handle, enable); }
@@ -96,33 +96,33 @@ bool ModAPI::Entity::IsDead() const
 bool ModAPI::Entity::IsAlive() const
 { return !IsDead(); }
 
-float ModAPI::Entity::GetDistanceTo(const Entity* otherEntity, const bool useZ) const
+float ModAPI::Entity::GetDistanceTo(const Entity& otherEntity, const bool useZ) const
 {
-	if(otherEntity == nullptr || !otherEntity->Exists())
+	if(!otherEntity.Exists())
 	{
-		// TODO: Log error "Failed to GetDistanceTo(). The supplied otherEntity is null, or does not exist.".
+		// TODO: Log error "Failed to GetDistanceTo(). The supplied otherEntity does not exist.".
 		return 0.0f;
 	}
 	
 	const auto entityPos = GetPosition();
-	const auto otherEntityPos = otherEntity->GetPosition();
-	return MISC::GET_DISTANCE_BETWEEN_COORDS(entityPos.x, entityPos.y, entityPos.z, otherEntityPos.x, otherEntityPos.y, otherEntityPos.z, useZ);
+	const auto otherEntityPos = otherEntity.GetPosition();
+	return MISC::GET_DISTANCE_BETWEEN_COORDS(entityPos.X, entityPos.Y, entityPos.Z, otherEntityPos.X, otherEntityPos.Y, otherEntityPos.Z, useZ);
 }
 
 Vector3 ModAPI::Entity::GetPosition(const bool alive) const
 { return ENTITY::GET_ENTITY_COORDS(handle, alive); }
 
-void ModAPI::Entity::SetPosition(const Vector3 newPosition) const
-{ ENTITY::SET_ENTITY_COORDS(handle, newPosition.x, newPosition.y, newPosition.z, true, true, true, false); }
+void ModAPI::Entity::SetPosition(const Vector3& newPosition) const
+{ ENTITY::SET_ENTITY_COORDS(handle, newPosition.X, newPosition.Y, newPosition.Z, true, true, true, false); }
 
-void ModAPI::Entity::SetPositionNoOffset(const Vector3 newPosition) const
-{ ENTITY::SET_ENTITY_COORDS_NO_OFFSET(handle, newPosition.x, newPosition.y, newPosition.z, true, true, true); }
+void ModAPI::Entity::SetPositionNoOffset(const Vector3& newPosition) const
+{ ENTITY::SET_ENTITY_COORDS_NO_OFFSET(handle, newPosition.X, newPosition.Y, newPosition.Z, true, true, true); }
 
 Vector3 ModAPI::Entity::GetRotation() const
 { return ENTITY::GET_ENTITY_ROTATION(handle, 2); }
 
-void ModAPI::Entity::SetRotation(const Vector3 newRotation) const
-{ ENTITY::SET_ENTITY_ROTATION(handle, newRotation.x, newRotation.y, newRotation.z, 2, true); }
+void ModAPI::Entity::SetRotation(const Vector3& newRotation) const
+{ ENTITY::SET_ENTITY_ROTATION(handle, newRotation.X, newRotation.Y, newRotation.Z, 2, true); }
 
 float ModAPI::Entity::GetHeading() const
 { return ENTITY::GET_ENTITY_HEADING(handle); }
@@ -141,42 +141,42 @@ Vector3 ModAPI::Entity::GetRightVector() const
 	const double D2R = 0.01745329251994329576923690768489;
 
 	const auto rotation = GetRotation();
-	const double num1 = std::cos(rotation.y * D2R);
-	const double x = num1 * std::cos(-rotation.z * D2R);
-	const double y = num1 * std::sin(rotation.z * D2R);
-	const double z = std::sin(-rotation.y * D2R);
+	const double num1 = std::cos(rotation.Y * D2R);
+	const double x = num1 * std::cos(-rotation.Z * D2R);
+	const double y = num1 * std::sin(rotation.Z * D2R);
+	const double z = std::sin(-rotation.Y * D2R);
 	return Vector3(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
 }
 
 Vector3 ModAPI::Entity::GetForwardVector() const
 { return ENTITY::GET_ENTITY_FORWARD_VECTOR(handle); }
 
-Vector3 ModAPI::Entity::GetOffsetInWorldCoords(const Vector3 offset) const
-{ return ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(handle, offset.x, offset.y, offset.z); }
+Vector3 ModAPI::Entity::GetOffsetInWorldCoords(const Vector3& offset) const
+{ return ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(handle, offset.X, offset.Y, offset.Z); }
 
-Vector3 ModAPI::Entity::GetOffsetFromWorldCoords(const Vector3 worldCoords) const
-{ return ENTITY::GET_OFFSET_FROM_ENTITY_GIVEN_WORLD_COORDS(handle, worldCoords.x, worldCoords.y, worldCoords.z); }
+Vector3 ModAPI::Entity::GetOffsetFromWorldCoords(const Vector3& worldCoords) const
+{ return ENTITY::GET_OFFSET_FROM_ENTITY_GIVEN_WORLD_COORDS(handle, worldCoords.X, worldCoords.Y, worldCoords.Z); }
 
 Vector3 ModAPI::Entity::GetVelocity() const
 { return ENTITY::GET_ENTITY_VELOCITY(handle); }
 
-void ModAPI::Entity::ApplyForce(const Vector3 direction) const
+void ModAPI::Entity::ApplyForce(const Vector3& direction) const
 { ApplyForce(direction, Vector3(), 1); }
 
-void ModAPI::Entity::ApplyForce(const Vector3 direction, const Vector3 rotation) const
+void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation) const
 { ApplyForce(direction, rotation, 1); }
 
-void ModAPI::Entity::ApplyForce(const Vector3 direction, const Vector3 rotation, const int forceType) const
-{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.x, direction.y, direction.z, rotation.x, rotation.y, rotation.z, false, false, true, true, false, true); }
+void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation, const int forceType) const
+{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, false, true, true, false, true); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3 direction) const
+void ModAPI::Entity::ApplyForceRelative(const Vector3& direction) const
 { ApplyForceRelative(direction, Vector3(), 1); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3 direction, const Vector3 rotation) const
+void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation) const
 { ApplyForceRelative(direction, rotation, 1); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3 direction, const Vector3 rotation, const int forceType) const
-{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.x, direction.y, direction.z, rotation.x, rotation.y, rotation.z, false, true, true, true, false, true); }
+void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation, const int forceType) const
+{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, true, true, true, false, true); }
 
 void ModAPI::Entity::SetGravity(const bool enable) const
 { PED::SET_PED_GRAVITY(handle, enable);}
@@ -184,47 +184,47 @@ void ModAPI::Entity::SetGravity(const bool enable) const
 bool ModAPI::Entity::HasCollidedWithAnything() const
 { return ENTITY::HAS_ENTITY_COLLIDED_WITH_ANYTHING(handle); }
 
-void ModAPI::Entity::SetNoCollision(Entity* otherEntity, const bool toggle) const
-{ ENTITY::SET_ENTITY_NO_COLLISION_ENTITY(handle, otherEntity->GetHandle(), !toggle); }
+void ModAPI::Entity::SetNoCollision(const Entity& otherEntity, const bool toggle) const
+{ ENTITY::SET_ENTITY_NO_COLLISION_ENTITY(handle, otherEntity.GetHandle(), !toggle); }
 
 void ModAPI::Entity::SetAllCollision(const bool enable, const bool keepPhysics) const
 { ENTITY::SET_ENTITY_COLLISION(handle, enable, keepPhysics); }
 
-bool ModAPI::Entity::IsInArea(const Vector3 minBounds, const Vector3 maxBounds) const
-{ return ENTITY::IS_ENTITY_IN_AREA(handle, minBounds.x, minBounds.y, minBounds.z, maxBounds.x, maxBounds.y, maxBounds.z, true, true, 0); }
+bool ModAPI::Entity::IsInArea(const Vector3& minBounds, const Vector3& maxBounds) const
+{ return ENTITY::IS_ENTITY_IN_AREA(handle, minBounds.X, minBounds.Y, minBounds.Z, maxBounds.X, maxBounds.Y, maxBounds.Z, true, true, 0); }
 
-bool ModAPI::Entity::IsInArea(const Vector3 aPos, const Vector3 bPos, const float angle) const
+bool ModAPI::Entity::IsInArea(const Vector3& aPos, const Vector3& bPos, const float angle) const
 { return IsInAngledArea(aPos, bPos, angle); }
 
-bool ModAPI::Entity::IsInAngledArea(const Vector3 origin, const Vector3 edge, const float angle) const
-{ return ENTITY::IS_ENTITY_IN_ANGLED_AREA(handle, origin.x, origin.y, origin.z, edge.x, edge.y, edge.z, angle, false, true, false); }
+bool ModAPI::Entity::IsInAngledArea(const Vector3& origin, const Vector3& edge, const float angle) const
+{ return ENTITY::IS_ENTITY_IN_ANGLED_AREA(handle, origin.X, origin.Y, origin.Z, edge.X, edge.Y, edge.Z, angle, false, true, false); }
 
-bool ModAPI::Entity::IsInRangeOf(const Vector3 position, const float distance) const
-{ return Vector3::Subtract(GetPosition(), position).Length() < distance; }
+bool ModAPI::Entity::IsInRangeOf(const Vector3& position, const float distance) const
+{ return (GetPosition() - position).Length() < distance; }
 
-bool ModAPI::Entity::IsNearEntity(Entity* otherEntity, const Vector3 distance) const
-{ return ENTITY::IS_ENTITY_AT_ENTITY(handle, otherEntity->GetHandle(), distance.x, distance.y, distance.z, false, true, 0); }
+bool ModAPI::Entity::IsNearEntity(const Entity& otherEntity, const Vector3& distance) const
+{ return ENTITY::IS_ENTITY_AT_ENTITY(handle, otherEntity.GetHandle(), distance.X, distance.Y, distance.Z, false, true, 0); }
 
-bool ModAPI::Entity::IsTouching(Model* model) const
-{ return ENTITY::IS_ENTITY_TOUCHING_MODEL(handle, model->GetHash()); }
+bool ModAPI::Entity::IsTouching(const Model& model) const
+{ return ENTITY::IS_ENTITY_TOUCHING_MODEL(handle, model.GetHash()); }
 
-bool ModAPI::Entity::IsTouching(Entity* otherEntity) const
-{ return ENTITY::IS_ENTITY_TOUCHING_ENTITY(handle, otherEntity->GetHandle()); }
+bool ModAPI::Entity::IsTouching(const Entity& otherEntity) const
+{ return ENTITY::IS_ENTITY_TOUCHING_ENTITY(handle, otherEntity.GetHandle()); }
 
 void ModAPI::Entity::Detach() const
 { ENTITY::DETACH_ENTITY(handle, true, true); }
 
-void ModAPI::Entity::AttachTo(Entity* entity, const int boneIndex) const
+void ModAPI::Entity::AttachTo(const Entity& entity, const int boneIndex) const
 { AttachTo(entity, boneIndex, Vector3(), Vector3()); }
 
-void ModAPI::Entity::AttachTo(Entity* entity, const int boneIndex, const Vector3 position, const Vector3 rotation) const
-{ ENTITY::ATTACH_ENTITY_TO_ENTITY(handle, entity->GetHandle(), boneIndex, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, false, false, false, false, 2, true); }
+void ModAPI::Entity::AttachTo(const Entity& entity, const int boneIndex, const Vector3& position, const Vector3& rotation) const
+{ ENTITY::ATTACH_ENTITY_TO_ENTITY(handle, entity.GetHandle(), boneIndex, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z, false, false, false, false, 2, true); }
 
 bool ModAPI::Entity::IsAttached() const
 { return ENTITY::IS_ENTITY_ATTACHED(handle); }
 
-bool ModAPI::Entity::IsAttachedTo(Entity* entity) const
-{ return ENTITY::IS_ENTITY_ATTACHED_TO_ENTITY(handle, entity->GetHandle()); }
+bool ModAPI::Entity::IsAttachedTo(const Entity& entity) const
+{ return ENTITY::IS_ENTITY_ATTACHED_TO_ENTITY(handle, entity.GetHandle()); }
 
 std::unique_ptr<ModAPI::Entity> ModAPI::Entity::GetEntityAttachedTo() const
 { return std::make_unique<Entity>(ENTITY::GET_ENTITY_ATTACHED_TO(handle)); }
@@ -265,10 +265,10 @@ bool ModAPI::Entity::IsInAir() const
 bool ModAPI::Entity::IsInWater() const
 { return ENTITY::IS_ENTITY_IN_WATER(handle); }
 
-void ModAPI::Entity::SetVelocity(const Vector3 newVelocity) const
-{ ENTITY::SET_ENTITY_VELOCITY(handle, newVelocity.x, newVelocity.y, newVelocity.z); }
+void ModAPI::Entity::SetVelocity(const Vector3& newVelocity) const
+{ ENTITY::SET_ENTITY_VELOCITY(handle, newVelocity.X, newVelocity.Y, newVelocity.Z); }
 
-std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const int amount, std::vector<EntityHandle> entitiesToIgnore, const float maxDistance) const
+std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const int amount, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
 {
 	::PedHandle peds[256] = {};
 	worldGetAllPeds(peds, 256);
@@ -288,7 +288,7 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 		if(nearbyPeds.size() < amount)
 		{
 			const auto pedToCheck = nearbyPeds.size() > 0 ? nearbyPeds.back().get() : ped.get();
-			const float distanceToPed = pedToCheck->GetDistanceTo(this);
+			const float distanceToPed = pedToCheck->GetDistanceTo(*this);
 			if(distanceToPed > maxDistance)
 			{ continue; }
 			
@@ -299,7 +299,7 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 
 		for(size_t i = 0; i < nearbyPeds.size(); ++i)
 		{
-			const float distance = ped->GetDistanceTo(this);
+			const float distance = ped->GetDistanceTo(*this);
 			if(distance > maxDistance || distance >= closestDistances[i])
 			{ continue; }
 
@@ -311,7 +311,7 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 	return std::move(nearbyPeds);
 }
 
-std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(const int amount, const std::vector<EntityHandle> entitiesToIgnore, const float maxDistance) const
+std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(const int amount, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
 {
 	VehicleHandle vehicles[256] = {};
 	worldGetAllVehicles(vehicles, 256);
@@ -331,7 +331,7 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 		if(nearbyVehicles.size() < amount)
 		{
 			const auto vehicleToCheck = !nearbyVehicles.empty() ? nearbyVehicles.back().get() : vehicle.get();
-			const float distanceToVehicle = vehicleToCheck->GetDistanceTo(this);
+			const float distanceToVehicle = vehicleToCheck->GetDistanceTo(*this);
 			if(distanceToVehicle > maxDistance)
 			{ continue; }
 			
@@ -342,7 +342,7 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 
 		for(size_t i = 0; i < nearbyVehicles.size(); ++i)
 		{
-			const float distance = vehicle->GetDistanceTo(this);
+			const float distance = vehicle->GetDistanceTo(*this);
 			if(distance > maxDistance || distance >= closestDistances[i])
 			{ continue; }
 

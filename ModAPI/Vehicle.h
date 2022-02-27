@@ -8,6 +8,6 @@ namespace ModAPI
 	public:
 		Vehicle(VehicleHandle handle);
 
-		bool IsSeatFree(eVehicleSeat seat) const;
+		[[nodiscard]] bool IsSeatFree(eVehicleSeat seat) const;
 	};
 }

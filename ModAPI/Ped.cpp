@@ -12,7 +12,7 @@
 #include "StdUtils.h"
 
 ModAPI::Ped::Ped(const PedHandle pedToRepresent) : Entity(pedToRepresent)
-{ this->tasker = std::make_unique<Tasker>(this); }
+{ this->tasker = std::make_unique<Tasker>(*this); }
 
 std::string ModAPI::Ped::GetModelName() const
 { return modelName; }

@@ -5,18 +5,20 @@
 
 struct Color;
 
-namespace ModAPI
+namespace ModAPI::Screen
 {
-	class Screen
-	{
-	public:
-		static void DrawSprite(const char* category, const char* sprite, const Vector2& position, const Vector2& scale, float rotation, const Color& color);
-		static void DisplayText(const char* text, const Vector2& position, const Color& color, bool centered, const Vector2& scale);
-		static void DisplayText(const char* text, const Vector2& position, const Color& color, eFont font, bool centered, const Vector2& scale);
-		static void DrawRect(const Vector2& position, const Vector2& size, const Color& color);
-		static void PrintSubtitle(const char* text);
-		static void PrintSubtitle(const char* text, float duration);
-		static void ShowHelpTextThisFrame(const std::string& helpText);
-		static void ShowHelpTextThisFrame(const std::string& helpText, bool beep);
-	};
+	void DrawSprite(const std::string& category, const std::string& sprite, const Vector2& position, const Vector2& scale, float rotation, const Color& color);
+	void DisplayText(const std::string& text, const Vector2& position, const Color& color, bool centered, const Vector2& scale);
+	void DisplayText(const std::string& text, const Vector2& position, const Color& color, eFont font, bool centered, const Vector2& scale);
+	void DrawRect(const Vector2& position, const Vector2& size, const Color& color);
+	void PrintSubtitle(const std::string& text);
+	void PrintSubtitle(const std::string& text, int durationMs);
+	void ShowHelpTextThisFrame(const std::string& helpText);
+	void ShowHelpTextThisFrame(const std::string& helpText, bool beep);
+	
+	/**
+	 * \brief Shows the busy spinner for 3 seconds with the specified text, and then disappears.
+	 * \param text The text to show next to the loading message.
+	 */
+	void ShowLoadingMessage(const std::string& text);
 }

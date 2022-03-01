@@ -15,7 +15,7 @@ namespace ModAPI
 	{
 	public:
 		Ped(PedHandle pedToRepresent);
-		virtual ~Ped() = default;
+		~Ped() override = default;
 
 		static std::unique_ptr<Ped> SpawnPed(const std::string& modelName, const Vector3& spawnPosition, float heading,
 		                                     int outfitNumber = 0);

@@ -7,21 +7,29 @@
         </ProjectConfiguration>
     </ItemGroup>
     <ItemGroup>
-        <ClCompile Include="ActionEvent.cpp"/>
-        <ClCompile Include="Camera.cpp"/>
-        <ClCompile Include="Entity.cpp"/>
-        <ClCompile Include="Input.cpp"/>
-        <ClCompile Include="Math.cpp"/>
-        <ClCompile Include="math\Color.cpp"/>
-        <ClCompile Include="math\Vector3.cpp"/>
-        <ClCompile Include="Model.cpp"/>
-        <ClCompile Include="Ped.cpp"/>
-        <ClCompile Include="Player.cpp"/>
-        <ClCompile Include="RaycastResult.cpp"/>
-        <ClCompile Include="Screen.cpp"/>
-        <ClCompile Include="StdUtils.cpp"/>
-        <ClCompile Include="Tasker.cpp"/>
-        <ClCompile Include="Vehicle.cpp"/>
+        <ClCompile Include="ActionEvent.cpp" />
+        <ClCompile Include="Camera.cpp" />
+        <ClCompile Include="Entity.cpp" />
+        <ClCompile Include="GUIFramework\eTextJustification.cpp" />
+        <ClCompile Include="GUIFramework\GUIElement.cpp" />
+        <ClCompile Include="GUIFramework\RectElement.cpp" />
+        <ClCompile Include="GUIFramework\SpriteElement.cpp" />
+        <ClCompile Include="GUIFramework\TextElement.cpp" />
+        <ClCompile Include="Input.cpp" />
+        <ClCompile Include="Math.cpp" />
+        <ClCompile Include="math\Color.cpp" />
+        <ClCompile Include="math\Vector2.cpp" />
+        <ClCompile Include="math\Vector3.cpp" />
+        <ClCompile Include="math\Vector4.cpp" />
+        <ClCompile Include="Model.cpp" />
+        <ClCompile Include="Ped.cpp" />
+        <ClCompile Include="Player.cpp" />
+        <ClCompile Include="RaycastResult.cpp" />
+        <ClCompile Include="Screen.cpp" />
+        <ClCompile Include="StdUtils.cpp" />
+        <ClCompile Include="Streaming.cpp" />
+        <ClCompile Include="Tasker.cpp" />
+        <ClCompile Include="Vehicle.cpp" />
         <ClCompile Include="World.cpp">
             <AssemblerOutput>NoListing</AssemblerOutput>
             <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
@@ -91,30 +99,39 @@
         </ClCompile>
     </ItemGroup>
     <ItemGroup>
-        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\main.h"/>
-        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\enums.h"/>
-        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\natives.h"/>
-        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\types.h"/>
-        <ClInclude Include="ActionEvent.h"/>
-        <ClInclude Include="Camera.h"/>
-        <ClInclude Include="Entity.h"/>
-        <ClInclude Include="enums\eEntityType.h"/>
-        <ClInclude Include="enums\eMountSeat.h"/>
-        <ClInclude Include="enums\eMountStyle.h"/>
-        <ClInclude Include="enums\eVehicleFlags.h"/>
-        <ClInclude Include="Input.h"/>
-        <ClInclude Include="Math.h"/>
-        <ClInclude Include="math\Color.h"/>
-        <ClInclude Include="math\Vector3.h"/>
-        <ClInclude Include="Model.h"/>
-        <ClInclude Include="Ped.h"/>
-        <ClInclude Include="Player.h"/>
-        <ClInclude Include="RaycastResult.h"/>
-        <ClInclude Include="Screen.h"/>
-        <ClInclude Include="StdUtils.h"/>
-        <ClInclude Include="Tasker.h"/>
-        <ClInclude Include="Vehicle.h"/>
-        <ClInclude Include="World.h"/>
+        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\main.h" />
+        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\enums.h" />
+        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\natives.h" />
+        <ClInclude Include="..\thirdparty\ScriptHook_SDK\inc\shsdk\types.h" />
+        <ClInclude Include="ActionEvent.h" />
+        <ClInclude Include="Camera.h" />
+        <ClInclude Include="Entity.h" />
+        <ClInclude Include="enums\eEntityType.h" />
+        <ClInclude Include="enums\eMountSeat.h" />
+        <ClInclude Include="enums\eMountStyle.h" />
+        <ClInclude Include="enums\eVehicleFlags.h" />
+        <ClInclude Include="GUIFramework\eGUIElementAnchor.h" />
+        <ClInclude Include="GUIFramework\eTextJustification.h" />
+        <ClInclude Include="GUIFramework\GUIElement.h" />
+        <ClInclude Include="GUIFramework\RectElement.h" />
+        <ClInclude Include="GUIFramework\SpriteElement.h" />
+        <ClInclude Include="GUIFramework\TextElement.h" />
+        <ClInclude Include="Input.h" />
+        <ClInclude Include="Math.h" />
+        <ClInclude Include="math\Color.h" />
+        <ClInclude Include="math\Vector2.h" />
+        <ClInclude Include="math\Vector3.h" />
+        <ClInclude Include="math\Vector4.h" />
+        <ClInclude Include="Model.h" />
+        <ClInclude Include="Ped.h" />
+        <ClInclude Include="Player.h" />
+        <ClInclude Include="RaycastResult.h" />
+        <ClInclude Include="Screen.h" />
+        <ClInclude Include="StdUtils.h" />
+        <ClInclude Include="Streaming.h" />
+        <ClInclude Include="Tasker.h" />
+        <ClInclude Include="Vehicle.h" />
+        <ClInclude Include="World.h" />
     </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectGuid>{8D82F34A-1D64-465B-84B1-37F89AD3D20B}</ProjectGuid>
@@ -123,7 +140,7 @@
         <ProjectName>ModAPI</ProjectName>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
-    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
         <ConfigurationType>StaticLibrary</ConfigurationType>
         <UseDebugLibraries>false</UseDebugLibraries>
@@ -131,13 +148,13 @@
         <CharacterSet>MultiByte</CharacterSet>
         <PlatformToolset>v143</PlatformToolset>
     </PropertyGroup>
-    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
     <ImportGroup Label="ExtensionSettings">
     </ImportGroup>
     <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     </ImportGroup>
-    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup Label="UserMacros" />
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
         <LinkIncremental>false</LinkIncremental>
         <TargetExt>.lib</TargetExt>
@@ -170,7 +187,7 @@
             </Command>
         </PostBuildEvent>
     </ItemDefinitionGroup>
-    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
     <ImportGroup Label="ExtensionTargets">
     </ImportGroup>
 </Project>

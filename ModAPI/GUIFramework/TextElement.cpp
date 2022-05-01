@@ -86,3 +86,10 @@ void ModAPI::GUIFramework::TextElement::CalculatePosition()
 		break;
 	}
 }
+
+Vector2 ModAPI::GUIFramework::TextElement::GetSize() const
+{
+	const float textWidth = GetTextWidth();
+	const float textHeight = HUD::GET_RENDERED_CHARACTER_HEIGHT(size.Y, font);
+	return {textWidth, textHeight};
+}

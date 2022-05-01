@@ -30,6 +30,7 @@ namespace ModAPI::GUIFramework
 		
 	protected:
 		virtual void CalculatePosition();
+		[[nodiscard]] virtual Vector2 GetSize() const;
 		
 		Vector2 position;
 		Vector2 size;

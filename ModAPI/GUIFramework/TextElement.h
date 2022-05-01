@@ -22,6 +22,8 @@ namespace ModAPI::GUIFramework
 		void CalculatePosition() override;
 
 	protected:
+		[[nodiscard]] Vector2 GetSize() const override;
+		
 		std::string text;
 		eFont font;
 	};

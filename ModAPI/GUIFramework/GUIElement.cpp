@@ -46,15 +46,20 @@ const Color& ModAPI::GUIFramework::GUIElement::GetColor() const
 
 Vector2 ModAPI::GUIFramework::GUIElement::GetRelativePos(const Vector2& relativeOffset) const
 {
-	const float calculatedXOffset = std::lerp(0.0f, relativeOffset.X < 0 ? -size.X : size.X, abs(relativeOffset.X));
-	const float calculatedYOffset = std::lerp(0.0f, relativeOffset.Y < 0 ? -size.Y : size.Y, abs(relativeOffset.Y));
+	const Vector2 cachedSize = GetSize();
+	const float calculatedXOffset = std::lerp(0.0f, cachedSize.X, abs(relativeOffset.X));
+	const float calculatedYOffset = std::lerp(0.0f, cachedSize.Y, abs(relativeOffset.Y));
 	const auto calculatedOffset = Vector2(calculatedXOffset, calculatedYOffset);
+
+	if (relativeOffset.X < 0)
+	{ return position - calculatedOffset; }
+
 	return position + calculatedOffset;
 }
 
 void ModAPI::GUIFramework::GUIElement::CalculatePosition()
 {
-	const Vector2 halfSize = size * 0.5f;
+	const Vector2 halfSize = GetSize() * 0.5f;
 	
 	switch (anchor)
 	{
@@ -87,3 +92,6 @@ void ModAPI::GUIFramework::GUIElement::CalculatePosition()
 			break;
 	}
 }
+
+Vector2 ModAPI::GUIFramework::GUIElement::GetSize() const
+{ return size; }

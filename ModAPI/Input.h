@@ -1,36 +1,23 @@
 ﻿#pragma once
-#include <memory>
-#include <optional>
-#include <vector>
 
 #include "shsdk/enums.h"
 
 namespace ModAPI::Input
 {
-    class InputData
+    enum ePadType
     {
-    public:
-        InputData(eControl control);
-
-        eControl GetControl() const;
-        bool IsPressed() const;
-        bool IsReleased();
-        bool IsHeld();
-        float GetHeldTime() const;
-
-    private:
-        bool HasStartTimeBeenSet() const;
-
-        eControl control;
-        int holdStartTime;
-        int holdEndTime;
+        Player = 0,
+        Frontend = 2
     };
-    
-    InputData* GetControl(eControl control);
 
-    InputData* RegisterInput(std::unique_ptr<InputData> inputToRegister);
-    void DeregisterInput(InputData* inputToDeregister);
-    void DeregisterInput(eControl inputToDeregister);
-    std::tuple<bool, InputData*> TryGetRegisteredInput(eControl control);
-    bool IsInputAlreadyRegistered(eControl control);
+    bool IsEnabled(ePadType padType, eControl control);
+    bool IsPressed(ePadType padType, eControl control);
+    bool IsReleased(ePadType padType, eControl control);
+    float GetAxis(ePadType padType, eControl control);
+    float GetAxisUnbound(ePadType padType, eControl control);
+    void Rumble(ePadType padType, float duration = 0.2f, int frequency = 100);
+    void StopRumble(ePadType padType);
+    void SetAction(ePadType padType, eControl control, bool enable);
+    void SetAllActions(ePadType padType, bool enable);
+    void SetExclusive(ePadType padType, bool enable);
 }

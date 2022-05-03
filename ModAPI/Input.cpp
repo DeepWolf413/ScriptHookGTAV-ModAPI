@@ -2,113 +2,66 @@
 
 #include "Input.h"
 
-std::vector<std::unique_ptr<ModAPI::Input::InputData>> registeredInputs;
-
-ModAPI::Input::InputData::InputData(const eControl control)
+bool ModAPI::Input::IsEnabled(const ePadType padType, const eControl control)
 {
-	this->control = control;
-	this->holdStartTime = 0;
-	this->holdEndTime = 0;
+	return PAD::IS_CONTROL_ENABLED(padType, control);
 }
 
-eControl ModAPI::Input::InputData::GetControl() const
-{ return control; }
-
-bool ModAPI::Input::InputData::IsPressed() const
+bool ModAPI::Input::IsPressed(const ePadType padType, const eControl control)
 {
-	const bool isPressed = PAD::IS_CONTROL_JUST_PRESSED(0, control) || PAD::IS_DISABLED_CONTROL_JUST_PRESSED(0, control);
-	if (isPressed)
+	return PAD::IS_CONTROL_JUST_PRESSED(padType, control) || PAD::IS_DISABLED_CONTROL_JUST_PRESSED(padType, control);
+}
+
+bool ModAPI::Input::IsReleased(const ePadType padType, const eControl control)
+{
+	return PAD::IS_CONTROL_JUST_RELEASED(padType, control) || PAD::IS_DISABLED_CONTROL_JUST_RELEASED(padType, control);
+}
+
+float ModAPI::Input::GetAxis(const ePadType padType, const eControl control)
+{
+	return PAD::GET_CONTROL_NORMAL(padType, control);
+}
+
+float ModAPI::Input::GetAxisUnbound(const ePadType padType, const eControl control)
+{
+	return PAD::GET_CONTROL_UNBOUND_NORMAL(padType, control);
+}
+
+void ModAPI::Input::Rumble(const ePadType padType, const float duration, const int frequency)
+{
+	PAD::SET_PAD_SHAKE(padType, static_cast<int>(duration * 1000.0f), frequency);
+}
+
+void ModAPI::Input::StopRumble(const ePadType padType)
+{
+	PAD::STOP_PAD_SHAKE(padType);
+}
+
+void ModAPI::Input::SetAction(const ePadType padType, const eControl control, const bool enable)
+{
+	if(enable)
 	{
-		// Deregister input immediately because it's just a press.
-		DeregisterInput(control);
+		PAD::ENABLE_CONTROL_ACTION(padType, control, enable);
 	}
-
-	return isPressed;
-}
-
-bool ModAPI::Input::InputData::IsReleased()
-{
-	const bool isReleased = PAD::IS_CONTROL_JUST_RELEASED(0, control) || PAD::IS_DISABLED_CONTROL_JUST_RELEASED(0, control);
-	if (isReleased)
+	else
 	{
-		holdEndTime = MISC::GET_GAME_TIMER();
-		DeregisterInput(this);
-	}
-
-	return isReleased;
-}
-
-bool ModAPI::Input::InputData::IsHeld()
-{
-	const bool isHeld = PAD::IS_CONTROL_PRESSED(0, control) || PAD::IS_DISABLED_CONTROL_PRESSED(0, control);
-	
-	if (isHeld && !HasStartTimeBeenSet())
-	{ holdStartTime = MISC::GET_GAME_TIMER(); }
-
-	// Checking if the input is released to make sure it gets deregistered if that's the case. Note: The IsReleased function deregisters if the control is released.
-	if (IsReleased())
-	{ return false; }
-
-	return isHeld;
-}
-
-float ModAPI::Input::InputData::GetHeldTime() const
-{ return (holdStartTime == 0 ? 0 : holdStartTime < holdEndTime ? holdEndTime - holdStartTime : MISC::GET_GAME_TIMER() - holdStartTime) / 1000.0f; }
-
-bool ModAPI::Input::InputData::HasStartTimeBeenSet() const
-{ return holdStartTime > 0; }
-
-ModAPI::Input::InputData* ModAPI::Input::GetControl(eControl control)
-{
-	if (auto [foundRegisteredInput, inputData] = TryGetRegisteredInput(control); foundRegisteredInput)
-	{ return inputData; }
-
-	return RegisterInput(std::make_unique<InputData>(control));
-}
-
-
-ModAPI::Input::InputData* ModAPI::Input::RegisterInput(std::unique_ptr<InputData> inputToRegister)
-{
-	registeredInputs.push_back(std::move(inputToRegister));
-	return registeredInputs[registeredInputs.size() - 1].get();
-}
-
-void ModAPI::Input::DeregisterInput(InputData* inputToDeregister)
-{
-	for (auto& registeredInput : registeredInputs)
-	{
-		if (registeredInput.get() == inputToDeregister)
-		{
-			std::erase(registeredInputs, registeredInput);
-			return;
-		}
+		PAD::DISABLE_CONTROL_ACTION(padType, control, enable);
 	}
 }
 
-void ModAPI::Input::DeregisterInput(const eControl inputToDeregister)
+void ModAPI::Input::SetAllActions(const ePadType padType, const bool enable)
 {
-	if (auto [foundRegisteredInput, inputData] = TryGetRegisteredInput(inputToDeregister); foundRegisteredInput)
-	{ DeregisterInput(inputData); }
+	if (enable)
+	{
+		PAD::ENABLE_ALL_CONTROL_ACTIONS(padType);
+	}
+	else
+	{
+		PAD::DISABLE_ALL_CONTROL_ACTIONS(padType);
+	}
 }
 
-std::tuple<bool, ModAPI::Input::InputData*> ModAPI::Input::TryGetRegisteredInput(const eControl control)
+void ModAPI::Input::SetExclusive(const ePadType padType, const bool enable)
 {
-	for (const auto& input : registeredInputs)
-	{
-		if (input->GetControl() == control)
-		{ return std::make_tuple(true, input.get()); }
-	}
-
-	return std::make_tuple(false, nullptr);
-}
-
-bool ModAPI::Input::IsInputAlreadyRegistered(const eControl control)
-{
-	for (const auto& input : registeredInputs)
-	{
-		if (input->GetControl() == control)
-		{ return true; }
-	}
-
-	return false;
+	PAD::SET_INPUT_EXCLUSIVE(padType, enable);
 }

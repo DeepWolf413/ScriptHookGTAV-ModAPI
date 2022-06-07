@@ -11,11 +11,13 @@
         <ClCompile Include="Camera.cpp" />
         <ClCompile Include="Entity.cpp" />
         <ClCompile Include="GUIFramework\eTextJustification.cpp" />
+        <ClCompile Include="GUIFramework\GUIContainer.cpp" />
         <ClCompile Include="GUIFramework\GUIElement.cpp" />
         <ClCompile Include="GUIFramework\RectElement.cpp" />
         <ClCompile Include="GUIFramework\SpriteElement.cpp" />
         <ClCompile Include="GUIFramework\TextElement.cpp" />
         <ClCompile Include="Input.cpp" />
+        <ClCompile Include="InstructionalButtons.cpp" />
         <ClCompile Include="Math.cpp" />
         <ClCompile Include="math\Color.cpp" />
         <ClCompile Include="math\Vector2.cpp" />
@@ -25,6 +27,7 @@
         <ClCompile Include="Ped.cpp" />
         <ClCompile Include="Player.cpp" />
         <ClCompile Include="RaycastResult.cpp" />
+        <ClCompile Include="Scaleform.cpp" />
         <ClCompile Include="Screen.cpp" />
         <ClCompile Include="StdUtils.cpp" />
         <ClCompile Include="Streaming.cpp" />
@@ -112,11 +115,13 @@
         <ClInclude Include="enums\eVehicleFlags.h" />
         <ClInclude Include="GUIFramework\eGUIElementAnchor.h" />
         <ClInclude Include="GUIFramework\eTextJustification.h" />
+        <ClInclude Include="GUIFramework\GUIContainer.h" />
         <ClInclude Include="GUIFramework\GUIElement.h" />
         <ClInclude Include="GUIFramework\RectElement.h" />
         <ClInclude Include="GUIFramework\SpriteElement.h" />
         <ClInclude Include="GUIFramework\TextElement.h" />
         <ClInclude Include="Input.h" />
+        <ClInclude Include="InstructionalButtons.h" />
         <ClInclude Include="Math.h" />
         <ClInclude Include="math\Color.h" />
         <ClInclude Include="math\Vector2.h" />
@@ -126,6 +131,7 @@
         <ClInclude Include="Ped.h" />
         <ClInclude Include="Player.h" />
         <ClInclude Include="RaycastResult.h" />
+        <ClInclude Include="Scaleform.h" />
         <ClInclude Include="Screen.h" />
         <ClInclude Include="StdUtils.h" />
         <ClInclude Include="Streaming.h" />

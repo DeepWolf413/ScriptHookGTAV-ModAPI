@@ -49,11 +49,8 @@ Vector2 ModAPI::GUIFramework::GUIElement::GetRelativePos(const Vector2& relative
 	const Vector2 cachedSize = GetSize();
 	const float calculatedXOffset = std::lerp(0.0f, cachedSize.X, abs(relativeOffset.X));
 	const float calculatedYOffset = std::lerp(0.0f, cachedSize.Y, abs(relativeOffset.Y));
-	const auto calculatedOffset = Vector2(calculatedXOffset, calculatedYOffset);
-
-	if (relativeOffset.X < 0)
-	{ return position - calculatedOffset; }
-
+	const auto calculatedOffset = Vector2(relativeOffset.X < 0 ? -calculatedXOffset : calculatedXOffset, relativeOffset.Y < 0 ? -calculatedYOffset : calculatedYOffset);
+	
 	return position + calculatedOffset;
 }
 

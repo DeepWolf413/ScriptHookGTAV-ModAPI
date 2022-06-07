@@ -65,3 +65,8 @@ void ModAPI::Input::SetExclusive(const ePadType padType, const bool enable)
 {
 	PAD::SET_INPUT_EXCLUSIVE(padType, enable);
 }
+
+std::string ModAPI::Input::VkCodeToStr(UINT8 key)
+{
+	return ""; // TODO: Implement
+}

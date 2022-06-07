@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <string>
+
 #include "shsdk/enums.h"
 
 namespace ModAPI::Input
@@ -20,4 +22,5 @@ namespace ModAPI::Input
     void SetAction(ePadType padType, eControl control, bool enable);
     void SetAllActions(ePadType padType, bool enable);
     void SetExclusive(ePadType padType, bool enable);
+    [[nodiscard]] std::string VkCodeToStr(UINT8 key);
 }

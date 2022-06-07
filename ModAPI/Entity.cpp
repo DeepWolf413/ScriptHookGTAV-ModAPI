@@ -161,19 +161,19 @@ Vector3 ModAPI::Entity::GetVelocity() const
 { return ENTITY::GET_ENTITY_VELOCITY(handle); }
 
 void ModAPI::Entity::ApplyForce(const Vector3& direction) const
-{ ApplyForce(direction, Vector3(), 1); }
+{ ApplyForce(direction, Vector3(), 3); }
 
 void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation) const
-{ ApplyForce(direction, rotation, 1); }
+{ ApplyForce(direction, rotation, 3); }
 
 void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation, const int forceType) const
 { ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, false, true, true, false, true); }
 
 void ModAPI::Entity::ApplyForceRelative(const Vector3& direction) const
-{ ApplyForceRelative(direction, Vector3(), 1); }
+{ ApplyForceRelative(direction, Vector3(), 3); }
 
 void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation) const
-{ ApplyForceRelative(direction, rotation, 1); }
+{ ApplyForceRelative(direction, rotation, 3); }
 
 void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation, const int forceType) const
 { ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, true, true, true, false, true); }
@@ -318,38 +318,37 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 	
 	auto nearbyVehicles = std::vector<std::unique_ptr<Vehicle>>();
 	auto closestDistances = std::vector<float>();
-
+	
 	for(auto vehicleHandle : vehicles)
 	{
 		if(!Exists(vehicleHandle) || Utils::StdUtils::VectorContainsElement(entitiesToIgnore, vehicleHandle))
 		{ continue; }
 
-		auto vehicle = std::make_unique<Vehicle>(vehicleHandle);
-		if(vehicle->GetType() != eEntityType::Vehicle || !vehicle->IsSeatFree(eVehicleSeat::VehicleSeatDriver))
+		const auto vehicle = std::make_unique<Vehicle>(vehicleHandle);
+		if(vehicle->GetType() != eEntityType::Vehicle)
 		{ continue; }
 
+		const float distanceToVehicle = vehicle->GetDistanceTo(*this);
+		if (distanceToVehicle > maxDistance)
+		{ continue; }
+		
 		if(nearbyVehicles.size() < amount)
 		{
-			const auto vehicleToCheck = !nearbyVehicles.empty() ? nearbyVehicles.back().get() : vehicle.get();
-			const float distanceToVehicle = vehicleToCheck->GetDistanceTo(*this);
-			if(distanceToVehicle > maxDistance)
-			{ continue; }
-			
-			nearbyVehicles.push_back(std::move(vehicle));
+			nearbyVehicles.push_back(std::make_unique<Vehicle>(vehicleHandle));
 			closestDistances.push_back(distanceToVehicle);
 			continue;
 		}
 
 		for(size_t i = 0; i < nearbyVehicles.size(); ++i)
 		{
-			const float distance = vehicle->GetDistanceTo(*this);
-			if(distance > maxDistance || distance >= closestDistances[i])
+			if(distanceToVehicle >= closestDistances[i])
 			{ continue; }
 
-			nearbyVehicles[i] = std::move(vehicle);
-			closestDistances[i] = distance;
+			nearbyVehicles[i] = std::make_unique<Vehicle>(vehicleHandle);
+			closestDistances[i] = distanceToVehicle;
+			break;
 		}
 	}
 
-	return std::move(nearbyVehicles);
+	return nearbyVehicles;
 }

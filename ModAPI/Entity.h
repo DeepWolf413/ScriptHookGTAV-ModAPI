@@ -4,7 +4,7 @@
 #include <vector>
 #include <shsdk/types.h>
 
-
+#include "Model.h"
 #include "enums/eEntityType.h"
 #include "math/Vector3.h"
 
@@ -12,7 +12,6 @@ namespace ModAPI
 {
 	class Vehicle;
 	class Ped;
-	class Model;
 
 	class Entity
 	{
@@ -20,16 +19,16 @@ namespace ModAPI
 		Entity(EntityHandle handle);
 		virtual ~Entity() = default;
 
-		static std::unique_ptr<Entity> FromHandle(EntityHandle handle);
 		static bool Exists(const Entity* entity);
 		static bool Exists(EntityHandle entity);
 
-		[[nodiscard]] Hash GetModel() const;
+		[[nodiscard]] Model GetModel() const;
 		[[nodiscard]] EntityHandle GetHandle() const;
 		void MarkAsNoLongerNeeded();
-		virtual void Delete();
+		void Delete();
 		[[nodiscard]] bool Exists() const;
 		[[nodiscard]] bool IsModel(Hash modelHash) const;
+		[[nodiscard]] bool IsModel(const Model& model) const;
 
 		[[nodiscard]] eEntityType GetType() const;
 		[[nodiscard]] bool IsPersistent() const;
@@ -65,12 +64,13 @@ namespace ModAPI
 		[[nodiscard]] Vector3 GetOffsetFromWorldCoords(const Vector3& worldCoords) const;
 		void SetVelocity(const Vector3& newVelocity) const;
 		[[nodiscard]] Vector3 GetVelocity() const;
-		void ApplyForce(const Vector3& direction) const;
-		void ApplyForce(const Vector3& direction, const Vector3& rotation) const;
-		void ApplyForce(const Vector3& direction, const Vector3& rotation, int forceType) const;
-		void ApplyForceRelative(const Vector3& direction) const;
-		void ApplyForceRelative(const Vector3& direction, const Vector3& rotation) const;
-		void ApplyForceRelative(const Vector3& direction, const Vector3& rotation, int forceType) const;
+		void ApplyForce(const Vector3& velocity) const;
+		void ApplyForce(const Vector3& velocity, const Vector3& rotation) const;
+		void ApplyForce(const Vector3& velocity, const Vector3& rotation, int forceType) const;
+		void ApplyForceRelative(const Vector3& velocity) const;
+		void ApplyForceRelative(const Vector3& velocity, const Vector3& rotation) const;
+		void ApplyForceRelative(const Vector3& velocity, const Vector3& rotation, int forceType) const;
+		void ApplyForceTowardsEntity(const Entity& entityToPullTowards, float force) const;
 		void SetGravity(bool enable) const;
 		[[nodiscard]] bool HasCollidedWithAnything() const;
 
@@ -90,7 +90,7 @@ namespace ModAPI
 		void AttachTo(const Entity& entity, int boneIndex, const Vector3& position, const Vector3& rotation) const;
 		[[nodiscard]] bool IsAttached() const;
 		[[nodiscard]] bool IsAttachedTo(const Entity& entity) const;
-		[[nodiscard]] std::unique_ptr<Entity> GetEntityAttachedTo() const;
+		[[nodiscard]] Entity GetEntityAttachedTo() const;
 
 		[[nodiscard]] int GetAlpha() const;
 		void SetAlpha(int newAlpha) const;

@@ -4,15 +4,14 @@
 #include <memory>
 #include <string>
 
-#include "Model.h"
-#include "Tasker.h"
 #include "Vehicle.h"
 #include <shsdk/natives.h>
 
 #include "StdUtils.h"
+#include "Time.h"
 
-ModAPI::Ped::Ped(const PedHandle pedToRepresent) : Entity(pedToRepresent)
-{ this->tasker = std::make_unique<Tasker>(*this); }
+ModAPI::Ped::Ped(const PedHandle pedToRepresent) : Entity(pedToRepresent), tasker(*this)
+{}
 
 std::string ModAPI::Ped::GetModelName() const
 { return modelName; }
@@ -56,6 +55,12 @@ bool ModAPI::Ped::IsUsingAnyScenario() const
 bool ModAPI::Ped::IsUsingScenario(const std::string& scenarioName) const
 { return PED::IS_PED_USING_SCENARIO(handle, scenarioName.c_str()); }
 
+bool ModAPI::Ped::IsRagdoll() const
+{ return PED::IS_PED_RAGDOLL(handle); }
+
+ModAPI::Vehicle ModAPI::Ped::GetVehicle(const bool includeLastVehicle) const
+{ return {PED::GET_VEHICLE_PED_IS_IN(handle, includeLastVehicle)}; }
+
 std::unique_ptr<ModAPI::Ped> ModAPI::Ped::GetTarget() const
 {
 	const PedHandle target = PED::_GET_PED_TASK_COMBAT_TARGET(handle, 0); // TODO: Check if it works.
@@ -69,15 +74,15 @@ int ModAPI::Ped::GetTimeOfDeath() const
 { return PED::GET_PED_TIME_OF_DEATH(handle); }
 
 float ModAPI::Ped::GetTimeSinceDeath() const
-{ return (MISC::GET_GAME_TIMER() - GetTimeOfDeath()) / 1000.0f; }
+{ return static_cast<float>(Time::GetGameTimeMs() - GetTimeOfDeath()) / 1000.0f; }
 
-::PedHandle ModAPI::Ped::GetKiller() const
+ModAPI::Ped ModAPI::Ped::GetKiller() const
 {
 	if(IsAlive())
 	{ return NULL; }
 
-	const auto killer = PED::GET_PED_SOURCE_OF_DEATH(handle);
-	if(!ENTITY::IS_ENTITY_A_PED(handle) || !ENTITY::DOES_ENTITY_EXIST(killer))
+	const auto killer = Ped(PED::GET_PED_SOURCE_OF_DEATH(handle));
+	if(GetType() != eEntityType::Ped || !killer.Exists())
 	{ return NULL; }
 
 	return killer;
@@ -135,8 +140,8 @@ bool ModAPI::Ped::HasWeapon(const Hash weaponHash) const
 void ModAPI::Ped::RemoveAllWeapons() const
 { WEAPON::REMOVE_ALL_PED_WEAPONS(handle, true); }
 
-ModAPI::Tasker& ModAPI::Ped::GetTasker() const
-{ return *tasker; }
+const ModAPI::Tasker& ModAPI::Ped::GetTasker() const
+{ return tasker; }
 
 std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const std::string& modelName, const Vector3& spawnPosition, const float heading, const int outfitNumber)
 { return SpawnPed(ePedType::PedTypeMission, modelName, spawnPosition, heading, outfitNumber); }

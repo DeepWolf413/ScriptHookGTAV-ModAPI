@@ -11,8 +11,14 @@ ModAPI::Tasker::Tasker(const Ped& owner)
 	this->owner = &owner;
 }
 
-void ModAPI::Tasker::EveryoneLeaveVehicle(const Vehicle& vehicle)
-{ TASK::TASK_EVERYONE_LEAVE_VEHICLE(vehicle.GetHandle()); }
+void ModAPI::Tasker::AchieveHeading(const float heading, const int timeoutMs) const
+{ TASK::TASK_ACHIEVE_HEADING(owner->GetHandle(), heading, timeoutMs); }
+
+void ModAPI::Tasker::AimAt(const Entity& target, const int durationMs) const
+{ TASK::TASK_AIM_GUN_AT_ENTITY(owner->GetHandle(), target.GetHandle(), durationMs, false); }
+
+void ModAPI::Tasker::AimAt(const Vector3& aimPosition, const int durationMs) const
+{ TASK::TASK_AIM_GUN_AT_COORD(owner->GetHandle(), aimPosition, durationMs, true, false); }
 
 void ModAPI::Tasker::Arrest(const Ped& pedToArrest) const
 { TASK::TASK_ARREST_PED(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), pedToArrest.GetHandle()); }
@@ -33,7 +39,7 @@ void ModAPI::Tasker::DriveTo(const Vehicle& vehicle, const Vector3& position, co
 { DriveTo(vehicle, position, stopRange, speed, eDrivingStyle::DrivingStyleRushed); }
 
 void ModAPI::Tasker::DriveTo(const Vehicle& vehicle, const Vector3& position, const float stopRange, const float speed, const eDrivingStyle drivingStyle) const
-{ TASK::TASK_VEHICLE_DRIVE_TO_COORD(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), vehicle.GetHandle(), position.X, position.Y, position.Z, speed, 0, vehicle.GetModel(), drivingStyle, stopRange, -1.0f); }
+{ TASK::TASK_VEHICLE_DRIVE_TO_COORD(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), vehicle.GetHandle(), position.X, position.Y, position.Z, speed, 0, vehicle.GetModel().GetHash(), drivingStyle, stopRange, -1.0f); }
 
 void ModAPI::Tasker::EnterVehicle(const Vehicle& vehicle, const eVehicleSeat seat) const
 { EnterVehicle(vehicle, seat, 5000, 2.0f, 0); }
@@ -124,6 +130,30 @@ void ModAPI::Tasker::StopScenario() const
 	ClearTasks();
 }
 
+void ModAPI::Tasker::FleeFrom(const Ped& pedToFleeFrom, const int durationMs) const
+{ TASK::TASK_SMART_FLEE_PED(owner->GetHandle(), pedToFleeFrom.GetHandle(), -1, durationMs, true, false); }
+
+void ModAPI::Tasker::FleeFrom(const Ped& pedToFleeFrom, const float distance) const
+{ TASK::TASK_SMART_FLEE_PED(owner->GetHandle(), pedToFleeFrom.GetHandle(), distance, -1, true, false); }
+
+void ModAPI::Tasker::FleeFrom(const Vector3& position, const int durationMs) const
+{ TASK::TASK_SMART_FLEE_COORD(owner->GetHandle(), position, -1, durationMs, true, false); }
+
+void ModAPI::Tasker::FleeFrom(const Vector3& position, const float distance) const
+{ TASK::TASK_SMART_FLEE_COORD(owner->GetHandle(), position, distance, -1, true, false); }
+
+void ModAPI::Tasker::FollowPointRoute(const std::vector<Vector3>& points, const float speed) const
+{
+	if (points.empty())
+	{ return; }
+	
+	TASK::TASK_FLUSH_ROUTE();
+	for (const auto routePoint : points)
+	{ TASK::TASK_EXTEND_ROUTE(routePoint); }
+	
+	TASK::TASK_FOLLOW_POINT_ROUTE(owner->GetHandle(), speed, 0);
+}
+
 void ModAPI::Tasker::GoTo(const Entity& target) const
 { GoTo(target, 2.0f, -1); }
 
@@ -136,7 +166,7 @@ void ModAPI::Tasker::GoTo(const Entity& target, const float stopDistance, const 
 void ModAPI::Tasker::GoTo(const Vector3& position) const
 { GoTo(position, false, -1); }
 
-void ModAPI::Tasker::GoTo(const Vector3& position, bool ignorePaths) const
+void ModAPI::Tasker::GoTo(const Vector3& position, const bool ignorePaths) const
 { GoTo(position, ignorePaths, -1); }
 
 void ModAPI::Tasker::GoTo(const Vector3& position, bool ignorePaths, int timeoutMs) const
@@ -144,14 +174,33 @@ void ModAPI::Tasker::GoTo(const Vector3& position, bool ignorePaths, int timeout
 	// TODO: Implement
 }
 
+void ModAPI::Tasker::FollowToOffsetFromEntity(const Entity& target, const Vector3& offset, const float moveSpeed, const int timeoutMs,
+                                              const float stoppingRange, const bool persistFollowing) const
+{ TASK::TASK_FOLLOW_TO_OFFSET_OF_ENTITY(owner->GetHandle(), target.GetHandle(), offset, moveSpeed, timeoutMs, stoppingRange, persistFollowing); }
+
 void ModAPI::Tasker::GuardCurrentPosition() const
 { TASK::TASK_GUARD_CURRENT_POSITION(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), 35.0f, 35.0f, TRUE); }
+
+void ModAPI::Tasker::HandsUp(const int durationMs) const
+{ TASK::TASK_HANDS_UP(owner->GetHandle(), durationMs, NULL, -1, false); }
+
+void ModAPI::Tasker::HandsUp(const int durationMs, const Ped& facingTarget) const
+{ TASK::TASK_HANDS_UP(owner->GetHandle(), durationMs, facingTarget.GetHandle(), -1, false);  }
+
+void ModAPI::Tasker::Jump(const bool superJump) const
+{ TASK::TASK_JUMP(owner->GetHandle(), true, superJump, superJump); }
 
 void ModAPI::Tasker::LeaveVehicle(const LeaveVehicleFlags leaveFlag) const
 { TASK::TASK_LEAVE_ANY_VEHICLE(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), 0, leaveFlag); }
 
 void ModAPI::Tasker::LeaveVehicle(const Vehicle& vehicle, const LeaveVehicleFlags leaveFlag) const
 { TASK::TASK_LEAVE_VEHICLE(IsSequenceTaskOpen() ? 0 : owner->GetHandle(), vehicle.GetHandle(), leaveFlag); }
+
+void ModAPI::Tasker::LookAt(const Entity& target, const int durationMs) const
+{ TASK::TASK_LOOK_AT_ENTITY(owner->GetHandle(), target.GetHandle(), durationMs, 2048, 3); }
+
+void ModAPI::Tasker::LookAt(const Vector3& position, const int durationMs) const
+{ TASK::TASK_LOOK_AT_COORD(owner->GetHandle(), position, durationMs, 0, 2); }
 
 void ModAPI::Tasker::OpenSequenceTask()
 { TASK::OPEN_SEQUENCE_TASK(&currentSequenceTask); }
@@ -171,6 +220,18 @@ void ModAPI::Tasker::ClearTasks(const bool immediately) const
 	else
 	{ TASK::CLEAR_PED_TASKS(owner->GetHandle()); }
 }
+
+void ModAPI::Tasker::PlayAnimation(const std::string& animDict, const std::string& animName, const float speed, const int durationMs, const eAnimationFlags flags, const float playbackRate, const BOOL lockX, const BOOL lockY, const BOOL lockZ) const
+{ TASK::TASK_PLAY_ANIM(owner->GetHandle(), animDict.c_str(), animName.c_str(), speed, speed, durationMs, flags, playbackRate, lockX, lockY, lockZ); }
+
+void ModAPI::Tasker::StopAnimation(const std::string& animDict, const std::string& animName, const float blendOutSpeed) const
+{ TASK::STOP_ANIM_TASK(owner->GetHandle(), animDict.c_str(), animName.c_str(), blendOutSpeed); }
+
+void ModAPI::Tasker::ShockingEventReact(const int eventHandle) const
+{ TASK::TASK_SHOCKING_EVENT_REACT(owner->GetHandle(), eventHandle); }
+
+void ModAPI::Tasker::ReloadWeapon() const
+{ TASK::TASK_RELOAD_WEAPON(owner->GetHandle(), 1); }
 
 bool ModAPI::Tasker::IsSequenceTaskOpen() const
 { return currentSequenceTask != -1; }

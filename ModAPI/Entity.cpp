@@ -12,17 +12,14 @@
 ModAPI::Entity::Entity(const EntityHandle handle)
 { this->handle = handle; }
 
-std::unique_ptr<ModAPI::Entity> ModAPI::Entity::FromHandle(EntityHandle handle)
-{ return std::make_unique<Entity>(handle); }
-
 bool ModAPI::Entity::Exists(const Entity* entity)
 { return entity != nullptr && entity->Exists(); }
 
 bool ModAPI::Entity::Exists(const EntityHandle entity)
 { return ENTITY::DOES_ENTITY_EXIST(entity); }
 
-Hash ModAPI::Entity::GetModel() const
-{ return ENTITY::GET_ENTITY_MODEL(handle); }
+ModAPI::Model ModAPI::Entity::GetModel() const
+{ return {ENTITY::GET_ENTITY_MODEL(handle)}; }
 
 EntityHandle ModAPI::Entity::GetHandle() const
 { return handle; }
@@ -49,7 +46,10 @@ bool ModAPI::Entity::Exists() const
 { return ENTITY::DOES_ENTITY_EXIST(handle); }
 
 bool ModAPI::Entity::IsModel(const Hash modelHash) const
-{ return GetModel() == modelHash; }
+{ return GetModel().GetHash() == modelHash; }
+
+bool ModAPI::Entity::IsModel(const Model& model) const
+{ return GetModel().GetHash() == model.GetHash(); }
 
 eEntityType ModAPI::Entity::GetType() const
 { return static_cast<eEntityType>(ENTITY::GET_ENTITY_TYPE(handle)); }
@@ -138,14 +138,14 @@ Vector3 ModAPI::Entity::GetUpVector() const
 
 Vector3 ModAPI::Entity::GetRightVector() const
 {
-	const double D2R = 0.01745329251994329576923690768489;
+	constexpr double D2R = 0.01745329251994329576923690768489;
 
 	const auto rotation = GetRotation();
 	const double num1 = std::cos(rotation.Y * D2R);
 	const double x = num1 * std::cos(-rotation.Z * D2R);
 	const double y = num1 * std::sin(rotation.Z * D2R);
 	const double z = std::sin(-rotation.Y * D2R);
-	return Vector3(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
+	return {static_cast<float>(x), static_cast<float>(y), static_cast<float>(z)};
 }
 
 Vector3 ModAPI::Entity::GetForwardVector() const
@@ -160,23 +160,30 @@ Vector3 ModAPI::Entity::GetOffsetFromWorldCoords(const Vector3& worldCoords) con
 Vector3 ModAPI::Entity::GetVelocity() const
 { return ENTITY::GET_ENTITY_VELOCITY(handle); }
 
-void ModAPI::Entity::ApplyForce(const Vector3& direction) const
-{ ApplyForce(direction, Vector3(), 3); }
+void ModAPI::Entity::ApplyForce(const Vector3& velocity) const
+{ ApplyForce(velocity, Vector3(), 3); }
 
-void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation) const
-{ ApplyForce(direction, rotation, 3); }
+void ModAPI::Entity::ApplyForce(const Vector3& velocity, const Vector3& rotation) const
+{ ApplyForce(velocity, rotation, 3); }
 
-void ModAPI::Entity::ApplyForce(const Vector3& direction, const Vector3& rotation, const int forceType) const
-{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, false, true, true, false, true); }
+void ModAPI::Entity::ApplyForce(const Vector3& velocity, const Vector3& rotation, const int forceType) const
+{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, velocity.X, velocity.Y, velocity.Z, rotation.X, rotation.Y, rotation.Z, false, false, true, true, false, true); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3& direction) const
-{ ApplyForceRelative(direction, Vector3(), 3); }
+void ModAPI::Entity::ApplyForceRelative(const Vector3& velocity) const
+{ ApplyForceRelative(velocity, Vector3(), 3); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation) const
-{ ApplyForceRelative(direction, rotation, 3); }
+void ModAPI::Entity::ApplyForceRelative(const Vector3& velocity, const Vector3& rotation) const
+{ ApplyForceRelative(velocity, rotation, 3); }
 
-void ModAPI::Entity::ApplyForceRelative(const Vector3& direction, const Vector3& rotation, const int forceType) const
-{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, direction.X, direction.Y, direction.Z, rotation.X, rotation.Y, rotation.Z, false, true, true, true, false, true); }
+void ModAPI::Entity::ApplyForceRelative(const Vector3& velocity, const Vector3& rotation, const int forceType) const
+{ ENTITY::APPLY_FORCE_TO_ENTITY(handle, forceType, velocity.X, velocity.Y, velocity.Z, rotation.X, rotation.Y, rotation.Z, false, true, true, true, false, true); }
+
+void ModAPI::Entity::ApplyForceTowardsEntity(const Entity& entityToPullTowards, const float force) const
+{
+	Vector3 directionTowardsEntity = GetPosition() - entityToPullTowards.GetPosition();
+	directionTowardsEntity.Normalize();
+	ApplyForce(directionTowardsEntity * force);
+}
 
 void ModAPI::Entity::SetGravity(const bool enable) const
 { PED::SET_PED_GRAVITY(handle, enable);}
@@ -226,8 +233,8 @@ bool ModAPI::Entity::IsAttached() const
 bool ModAPI::Entity::IsAttachedTo(const Entity& entity) const
 { return ENTITY::IS_ENTITY_ATTACHED_TO_ENTITY(handle, entity.GetHandle()); }
 
-std::unique_ptr<ModAPI::Entity> ModAPI::Entity::GetEntityAttachedTo() const
-{ return std::make_unique<Entity>(ENTITY::GET_ENTITY_ATTACHED_TO(handle)); }
+ModAPI::Entity ModAPI::Entity::GetEntityAttachedTo() const
+{ return {ENTITY::GET_ENTITY_ATTACHED_TO(handle)}; }
 
 int ModAPI::Entity::GetAlpha() const
 { return ENTITY::GET_ENTITY_ALPHA(handle); }
@@ -285,9 +292,9 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 		if(!ped->IsHuman())
 		{ continue; }
 		
-		if(nearbyPeds.size() < amount)
+		if(static_cast<int>(nearbyPeds.size()) < amount)
 		{
-			const auto pedToCheck = nearbyPeds.size() > 0 ? nearbyPeds.back().get() : ped.get();
+			const auto pedToCheck = !nearbyPeds.empty() ? nearbyPeds.back().get() : ped.get();
 			const float distanceToPed = pedToCheck->GetDistanceTo(*this);
 			if(distanceToPed > maxDistance)
 			{ continue; }
@@ -308,7 +315,7 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 		}
 	}
 
-	return std::move(nearbyPeds);
+	return nearbyPeds;
 }
 
 std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(const int amount, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
@@ -332,7 +339,7 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 		if (distanceToVehicle > maxDistance)
 		{ continue; }
 		
-		if(nearbyVehicles.size() < amount)
+		if(static_cast<int>(nearbyVehicles.size()) < amount)
 		{
 			nearbyVehicles.push_back(std::make_unique<Vehicle>(vehicleHandle));
 			closestDistances.push_back(distanceToVehicle);

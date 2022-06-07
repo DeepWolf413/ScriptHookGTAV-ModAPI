@@ -4,13 +4,11 @@
 #include <shsdk/enums.h>
 
 #include "Entity.h"
+#include "Tasker.h"
 
 namespace ModAPI
 {
-	class Vehicle;
-	class Tasker;
-
-	// A convenience class for the ::ped type.
+	// A convenience class for the PedHandle.
 	class Ped : public Entity
 	{
 	public:
@@ -24,13 +22,12 @@ namespace ModAPI
 
 		[[nodiscard]] std::string GetModelName() const;
 		[[nodiscard]] std::unique_ptr<Ped> GetTarget() const;
-		//std::unique_ptr<Ped> GetTarget() const;
 		
 		// Returns the time of death in milliseconds.
 		[[nodiscard]] int GetTimeOfDeath() const;
 
 		[[nodiscard]] float GetTimeSinceDeath() const;
-		[[nodiscard]] PedHandle GetKiller() const;
+		[[nodiscard]] Ped GetKiller() const;
 		[[nodiscard]] bool IsInCombat() const;
 		[[nodiscard]] bool IsInMeleeCombat() const;
 		[[nodiscard]] bool IsShooting() const;
@@ -42,6 +39,8 @@ namespace ModAPI
 		[[nodiscard]] bool IsInVehicle(VehicleHandle vehicleHandle) const;
 		[[nodiscard]] bool IsUsingAnyScenario() const;
 		[[nodiscard]] bool IsUsingScenario(const std::string& scenarioName) const;
+		[[nodiscard]] bool IsRagdoll() const;
+		[[nodiscard]] Vehicle GetVehicle(bool includeLastVehicle = false) const;
 		void SetShootAccuracy(int accuracy) const;
 		void SetCombatAttribute(eCombatAttribute attribute, bool enabled) const;
 		void SetConfigFlag(int flagId, bool enabled) const;
@@ -53,10 +52,10 @@ namespace ModAPI
 		void GiveWeapon(Hash weaponHash, int ammoCount, bool forceInHand, bool forceInHolster) const;
 		[[nodiscard]] bool HasWeapon(Hash weaponHash) const;
 		void RemoveAllWeapons() const;
-		[[nodiscard]] Tasker& GetTasker() const;
+		[[nodiscard]] const Tasker& GetTasker() const;
 
 	protected:
-		std::unique_ptr<Tasker> tasker;
+		Tasker tasker;
 		std::string modelName;
 	};
 }

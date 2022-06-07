@@ -6,8 +6,9 @@ namespace ModAPI
 {
 	class Vehicle : public Entity{
 	public:
-		Vehicle(VehicleHandle handle);
+		Vehicle(VehicleHandle vehicleHandle);
 
+		void EveryoneLeaveVehicle() const;
 		[[nodiscard]] bool IsSeatFree(eVehicleSeat seat) const;
 	};
 }

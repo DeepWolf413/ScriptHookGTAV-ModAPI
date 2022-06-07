@@ -131,6 +131,6 @@ RaycastResult ModAPI::Camera::Raycast(const float distance, const eTraceFlags fl
 	const auto camPos = GetPosition();
 	const auto camForwardPos = GetForwardPosition(distance);
 	const auto playerPed = Player::GetPed();
-	const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, camForwardPos.X, camForwardPos.Y, camForwardPos.Z, static_cast<int>(flags), playerPed->GetHandle(), 7);
+	const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, camForwardPos.X, camForwardPos.Y, camForwardPos.Z, static_cast<int>(flags), playerPed.GetHandle(), 7);
 	return {shapeTestHandle};
 }

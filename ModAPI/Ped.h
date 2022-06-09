@@ -47,10 +47,18 @@ namespace ModAPI
 		void SetConfigFlag(int flagId, bool enabled) const;
 		void SetBlockEvents(bool blockEvents) const;
 		void SetRelationshipGroup(Hash groupHash) const;
+		void SetDefaultRelationshipGroup(Hash groupHash) const;
+		[[nodiscard]] eRelationship GetRelationship(const Ped& otherPed) const;
+		[[nodiscard]] Hash GetDefaultRelationshipGroup() const;
+		[[nodiscard]] Hash GetRelationshipGroupHash() const;
 		void ClearTasksImmediately() const;
 		void EquipBestWeapon() const;
 		void EquipWeapon(Hash weaponHash) const;
 		void GiveWeapon(Hash weaponHash, int ammoCount, bool forceInHand, bool forceInHolster) const;
+		void EquipRandomProps() const;
+		void EquipRandomComponentVariation() const;
+		void ClearProps() const;
+		void EquipDefaultComponentVariation() const;
 		[[nodiscard]] bool HasWeapon(Hash weaponHash) const;
 		void RemoveAllWeapons() const;
 		[[nodiscard]] const Tasker& GetTasker() const;

@@ -96,6 +96,12 @@ void ModAPI::Entity::SetInvincibility(const bool enable) const
 void ModAPI::Entity::SetOnlyDamageableByPlayer(const bool enable) const
 { return ENTITY::SET_ENTITY_ONLY_DAMAGED_BY_PLAYER(handle, enable); }
 
+void ModAPI::Entity::SetOnlyDamageableByRelationshipGroup(const bool enable, const Hash relationshipGroup) const
+{ ENTITY::SET_ENTITY_ONLY_DAMAGED_BY_RELATIONSHIP_GROUP(handle, enable, relationshipGroup); }
+
+void ModAPI::Entity::SetCanBeDamagedByRelationshipGroup(const bool enable, const Hash relationshipGroup) const
+{ ENTITY::SET_ENTITY_CAN_BE_DAMAGED_BY_RELATIONSHIP_GROUP(handle, enable, static_cast<int>(relationshipGroup)); }
+
 bool ModAPI::Entity::IsDead() const
 { return ENTITY::IS_ENTITY_DEAD(handle, 0); }
 

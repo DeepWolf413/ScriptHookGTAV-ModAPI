@@ -48,6 +48,8 @@ namespace ModAPI
 		[[nodiscard]] bool HasBeenDamagedBy(const Entity& entity) const;
 		void SetInvincibility(bool enable) const;
 		void SetOnlyDamageableByPlayer(bool enable) const;
+		void SetOnlyDamageableByRelationshipGroup(bool enable, Hash relationshipGroup) const;
+		void SetCanBeDamagedByRelationshipGroup(bool enable, Hash relationshipGroup) const;
 		[[nodiscard]] bool IsDead() const;
 		[[nodiscard]] bool IsAlive() const;
 

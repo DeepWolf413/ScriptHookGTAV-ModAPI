@@ -106,6 +106,18 @@ void ModAPI::Ped::SetBlockEvents(const bool blockEvents) const
 void ModAPI::Ped::SetRelationshipGroup(const Hash groupHash) const
 { PED::SET_PED_RELATIONSHIP_GROUP_HASH(handle, groupHash); }
 
+void ModAPI::Ped::SetDefaultRelationshipGroup(const Hash groupHash) const
+{ PED::SET_PED_RELATIONSHIP_GROUP_DEFAULT_HASH(handle, groupHash); }
+
+eRelationship ModAPI::Ped::GetRelationship(const Ped& otherPed) const
+{ return static_cast<eRelationship>(PED::GET_RELATIONSHIP_BETWEEN_PEDS(handle, otherPed.GetHandle())); }
+
+Hash ModAPI::Ped::GetDefaultRelationshipGroup() const
+{ return PED::GET_PED_RELATIONSHIP_GROUP_DEFAULT_HASH(handle); }
+
+Hash ModAPI::Ped::GetRelationshipGroupHash() const
+{ return PED::GET_PED_RELATIONSHIP_GROUP_HASH(handle); }
+
 void ModAPI::Ped::ClearTasksImmediately() const
 { TASK::CLEAR_PED_TASKS_IMMEDIATELY(handle); }
 
@@ -136,6 +148,18 @@ void ModAPI::Ped::GiveWeapon(const Hash weaponHash, const int ammoCount, const b
 	
 	WEAPON::GIVE_WEAPON_TO_PED(handle, weaponHash, ammoCount, forceInHolster, forceInHand);
 }
+
+void ModAPI::Ped::EquipRandomProps() const
+{ PED::SET_PED_RANDOM_PROPS(handle); }
+
+void ModAPI::Ped::EquipRandomComponentVariation() const
+{ PED::SET_PED_RANDOM_COMPONENT_VARIATION(handle, 0); }
+
+void ModAPI::Ped::ClearProps() const
+{ PED::CLEAR_ALL_PED_PROPS(handle); }
+
+void ModAPI::Ped::EquipDefaultComponentVariation() const
+{ PED::SET_PED_DEFAULT_COMPONENT_VARIATION(handle); }
 
 bool ModAPI::Ped::HasWeapon(const Hash weaponHash) const
 { return WEAPON::HAS_PED_GOT_WEAPON(handle, weaponHash, false); }

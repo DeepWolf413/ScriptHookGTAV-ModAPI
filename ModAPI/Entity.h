@@ -16,8 +16,11 @@ namespace ModAPI
 	class Entity
 	{
 	public:
+		Entity();
 		Entity(EntityHandle handle);
 		virtual ~Entity() = default;
+
+		operator int() const;
 
 		static bool Exists(const Entity* entity);
 		static bool Exists(EntityHandle entity);

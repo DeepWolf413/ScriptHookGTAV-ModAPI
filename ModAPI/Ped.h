@@ -12,6 +12,7 @@ namespace ModAPI
 	class Ped : public Entity
 	{
 	public:
+		Ped();
 		Ped(PedHandle pedToRepresent);
 		~Ped() override = default;
 

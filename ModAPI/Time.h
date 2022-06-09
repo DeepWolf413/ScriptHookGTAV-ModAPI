@@ -8,6 +8,7 @@ namespace ModAPI
 		int GetGameTimeMs();
 		uint64_t GetSystemTimeMs();
 		void SetTimeScale(float newTimeScale);
+		float GetDeltaTime();
 
 		/**
 		 * \brief Checks the specified time if it is past the game time.

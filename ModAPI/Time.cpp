@@ -14,6 +14,9 @@ uint64_t ModAPI::Time::GetSystemTimeMs()
 void ModAPI::Time::SetTimeScale(const float newTimeScale)
 { MISC::SET_TIME_SCALE(newTimeScale); }
 
+float ModAPI::Time::GetDeltaTime()
+{ return 30.0f / (1.0f / SYSTEM::TIMESTEP()); }
+
 bool ModAPI::Time::IsPastGameTime(const int timeToCheck)
 { return timeToCheck >= GetGameTimeMs(); }
 

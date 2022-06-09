@@ -9,8 +9,14 @@
 #include "StdUtils.h"
 #include "Vehicle.h"
 
+ModAPI::Entity::Entity() : Entity(NULL)
+{}
+
 ModAPI::Entity::Entity(const EntityHandle handle)
 { this->handle = handle; }
+
+ModAPI::Entity::operator int() const
+{ return GetHandle(); }
 
 bool ModAPI::Entity::Exists(const Entity* entity)
 { return entity != nullptr && entity->Exists(); }
@@ -180,7 +186,7 @@ void ModAPI::Entity::ApplyForceRelative(const Vector3& velocity, const Vector3& 
 
 void ModAPI::Entity::ApplyForceTowardsEntity(const Entity& entityToPullTowards, const float force) const
 {
-	Vector3 directionTowardsEntity = GetPosition() - entityToPullTowards.GetPosition();
+	Vector3 directionTowardsEntity = entityToPullTowards.GetPosition() - GetPosition();
 	directionTowardsEntity.Normalize();
 	ApplyForce(directionTowardsEntity * force);
 }
@@ -277,7 +283,7 @@ void ModAPI::Entity::SetVelocity(const Vector3& newVelocity) const
 
 std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const int amount, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
 {
-	::PedHandle peds[256] = {};
+	PedHandle peds[256] = {};
 	worldGetAllPeds(peds, 256);
 	
 	auto nearbyPeds = std::vector<std::unique_ptr<Ped>>();
@@ -288,30 +294,29 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 		if(!Exists(pedHandle) || pedHandle == GetHandle() || Utils::StdUtils::VectorContainsElement<EntityHandle>(entitiesToIgnore, pedHandle))
 		{ continue; }
 
-		auto ped = std::make_unique<Ped>(pedHandle);
+		const auto ped = std::make_unique<Ped>(pedHandle);
 		if(!ped->IsHuman())
 		{ continue; }
-		
+
+		const float distanceToPed = ped->GetDistanceTo(*this);
+		if (distanceToPed > maxDistance)
+		{ continue; }
+
 		if(static_cast<int>(nearbyPeds.size()) < amount)
 		{
-			const auto pedToCheck = !nearbyPeds.empty() ? nearbyPeds.back().get() : ped.get();
-			const float distanceToPed = pedToCheck->GetDistanceTo(*this);
-			if(distanceToPed > maxDistance)
-			{ continue; }
-			
-			nearbyPeds.push_back(std::move(ped));
+			nearbyPeds.push_back(std::make_unique<Ped>(pedHandle));
 			closestDistances.push_back(distanceToPed);
 			continue;
 		}
 
 		for(size_t i = 0; i < nearbyPeds.size(); ++i)
 		{
-			const float distance = ped->GetDistanceTo(*this);
-			if(distance > maxDistance || distance >= closestDistances[i])
+			if(distanceToPed >= closestDistances[i])
 			{ continue; }
 
-			nearbyPeds[i] = std::move(ped);
-			closestDistances[i] = distance;
+			nearbyPeds[i] = std::make_unique<Ped>(pedHandle);
+			closestDistances[i] = distanceToPed;
+			break;
 		}
 	}
 
@@ -328,7 +333,7 @@ std::vector<std::unique_ptr<ModAPI::Vehicle>> ModAPI::Entity::GetNearbyVehicles(
 	
 	for(auto vehicleHandle : vehicles)
 	{
-		if(!Exists(vehicleHandle) || Utils::StdUtils::VectorContainsElement(entitiesToIgnore, vehicleHandle))
+		if(!Exists(vehicleHandle) || vehicleHandle == GetHandle() || Utils::StdUtils::VectorContainsElement(entitiesToIgnore, vehicleHandle))
 		{ continue; }
 
 		const auto vehicle = std::make_unique<Vehicle>(vehicleHandle);

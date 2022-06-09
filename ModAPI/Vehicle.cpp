@@ -3,6 +3,9 @@
 
 #include <shsdk/natives.h>
 
+ModAPI::Vehicle::Vehicle() : Vehicle(NULL)
+{}
+
 ModAPI::Vehicle::Vehicle(const VehicleHandle vehicleHandle) : Entity(vehicleHandle)
 {}
 

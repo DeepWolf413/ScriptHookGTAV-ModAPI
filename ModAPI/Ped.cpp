@@ -10,6 +10,9 @@
 #include "StdUtils.h"
 #include "Time.h"
 
+ModAPI::Ped::Ped() : Ped(NULL)
+{}
+
 ModAPI::Ped::Ped(const PedHandle pedToRepresent) : Entity(pedToRepresent), tasker(*this)
 {}
 

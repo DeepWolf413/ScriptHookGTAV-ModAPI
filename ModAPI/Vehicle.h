@@ -6,6 +6,7 @@ namespace ModAPI
 {
 	class Vehicle : public Entity{
 	public:
+		Vehicle();
 		Vehicle(VehicleHandle vehicleHandle);
 
 		void EveryoneLeaveVehicle() const;

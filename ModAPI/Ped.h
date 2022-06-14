@@ -33,6 +33,7 @@ namespace ModAPI
 		[[nodiscard]] bool IsInMeleeCombat() const;
 		[[nodiscard]] bool IsShooting() const;
 		[[nodiscard]] bool IsHuman() const;
+		[[nodiscard]] bool IsAnimal() const;
 		[[nodiscard]] bool IsOnVehicle() const;
 		[[nodiscard]] bool IsOnMount() const;
 		[[nodiscard]] bool IsOnFoot() const;

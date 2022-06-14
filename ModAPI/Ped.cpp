@@ -37,6 +37,9 @@ bool ModAPI::Ped::IsShooting() const
 bool ModAPI::Ped::IsHuman() const
 { return PED::IS_PED_HUMAN(handle); }
 
+bool ModAPI::Ped::IsAnimal() const
+{ return !PED::IS_PED_HUMAN(handle); }
+
 bool ModAPI::Ped::IsOnVehicle() const
 { return PED::IS_PED_ON_VEHICLE(handle); }
 

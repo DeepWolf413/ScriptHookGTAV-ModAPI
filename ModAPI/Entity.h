@@ -114,6 +114,12 @@ namespace ModAPI
 		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyHumans(
 			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
 			float maxDistance = 15) const;
+		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyAnimals(
+			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+			float maxDistance = 15) const;
+		[[nodiscard]] std::vector<std::unique_ptr<Entity>> GetNearbyObjects(
+			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+			float maxDistance = 15) const;
 		[[nodiscard]] std::vector<std::unique_ptr<Vehicle>> GetNearbyVehicles(
 			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
 			float maxDistance = 15) const;

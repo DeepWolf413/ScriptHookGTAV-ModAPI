@@ -111,6 +111,10 @@ namespace ModAPI
 		[[nodiscard]] bool IsInAir() const;
 		[[nodiscard]] bool IsInWater() const;
 
+
+		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyPeds(
+					int amount, bool ignorePedsInVehicle, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+					float maxDistance = 15) const;
 		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyHumans(
 			int amount, bool ignorePedsInVehicle, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
 			float maxDistance = 15) const;

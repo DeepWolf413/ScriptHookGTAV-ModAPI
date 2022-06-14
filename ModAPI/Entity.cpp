@@ -284,6 +284,49 @@ bool ModAPI::Entity::IsInAir() const
 bool ModAPI::Entity::IsInWater() const
 { return ENTITY::IS_ENTITY_IN_WATER(handle); }
 
+std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyPeds(const int amount, const bool ignorePedsInVehicle,
+                                                                        const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
+{
+	PedHandle peds[256] = {};
+	worldGetAllPeds(peds, 256);
+	
+	auto nearbyPeds = std::vector<std::unique_ptr<Ped>>();
+	auto closestDistances = std::vector<float>();
+
+	for(auto pedHandle : peds)
+	{
+		if(!Exists(pedHandle) || pedHandle == GetHandle() || Utils::StdUtils::VectorContainsElement<EntityHandle>(entitiesToIgnore, pedHandle))
+		{ continue; }
+
+		const auto ped = std::make_unique<Ped>(pedHandle);
+		if(ignorePedsInVehicle && ped->IsInAnyVehicle())
+		{ continue; }
+
+		const float distanceToPed = ped->GetDistanceTo(*this);
+		if (distanceToPed > maxDistance)
+		{ continue; }
+
+		if(static_cast<int>(nearbyPeds.size()) < amount)
+		{
+			nearbyPeds.push_back(std::make_unique<Ped>(pedHandle));
+			closestDistances.push_back(distanceToPed);
+			continue;
+		}
+
+		for(size_t i = 0; i < nearbyPeds.size(); ++i)
+		{
+			if(distanceToPed >= closestDistances[i])
+			{ continue; }
+
+			nearbyPeds[i] = std::make_unique<Ped>(pedHandle);
+			closestDistances[i] = distanceToPed;
+			break;
+		}
+	}
+
+	return nearbyPeds;
+}
+
 void ModAPI::Entity::SetVelocity(const Vector3& newVelocity) const
 { ENTITY::SET_ENTITY_VELOCITY(handle, newVelocity.X, newVelocity.Y, newVelocity.Z); }
 

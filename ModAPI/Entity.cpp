@@ -287,7 +287,7 @@ bool ModAPI::Entity::IsInWater() const
 void ModAPI::Entity::SetVelocity(const Vector3& newVelocity) const
 { ENTITY::SET_ENTITY_VELOCITY(handle, newVelocity.X, newVelocity.Y, newVelocity.Z); }
 
-std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const int amount, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
+std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const int amount, const bool ignorePedsInVehicle, const std::vector<EntityHandle>& entitiesToIgnore, const float maxDistance) const
 {
 	PedHandle peds[256] = {};
 	worldGetAllPeds(peds, 256);
@@ -301,7 +301,7 @@ std::vector<std::unique_ptr<ModAPI::Ped>> ModAPI::Entity::GetNearbyHumans(const 
 		{ continue; }
 
 		const auto ped = std::make_unique<Ped>(pedHandle);
-		if(!ped->IsHuman())
+		if(!ped->IsHuman() || ignorePedsInVehicle && ped->IsInAnyVehicle())
 		{ continue; }
 
 		const float distanceToPed = ped->GetDistanceTo(*this);

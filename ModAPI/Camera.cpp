@@ -11,6 +11,9 @@
 ModAPI::Camera::Camera(const CamHandle cameraHandle)
 { representedCamera = cameraHandle; }
 
+bool ModAPI::Camera::IsGameplayCameraRendering()
+{ return CAM::IS_GAMEPLAY_CAM_RENDERING(); }
+
 std::unique_ptr<ModAPI::Camera> ModAPI::Camera::GetRenderingCamera()
 { return std::make_unique<Camera>(CAM::GET_RENDERING_CAM()); }
 

@@ -17,6 +17,7 @@ namespace ModAPI
 	public:
 		Camera(CamHandle cameraHandle);
 
+		static bool IsGameplayCameraRendering();
 		static std::unique_ptr<Camera> GetRenderingCamera();
 		static std::unique_ptr<Camera> Create(const std::string& name);
 		static std::unique_ptr<Camera> CreateWithParams(const std::string& name, const Vector3& position,

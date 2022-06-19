@@ -121,6 +121,23 @@ Hash ModAPI::Ped::GetDefaultRelationshipGroup() const
 Hash ModAPI::Ped::GetRelationshipGroupHash() const
 { return PED::GET_PED_RELATIONSHIP_GROUP_HASH(handle); }
 
+int ModAPI::Ped::GetBoneIndex(const eBoneIds boneId) const
+{ return PED::GET_PED_BONE_INDEX(handle, boneId); }
+
+Vector3 ModAPI::Ped::GetBonePosition(const eBoneIds boneId, const Vector3& offset) const
+{ return PED::GET_PED_BONE_COORDS(handle, static_cast<int>(boneId), offset); }
+
+bool ModAPI::Ped::GetLastDamageBone(eBoneIds& boneId) const
+{
+	int outBoneId = -1;
+	const bool wasSomethingHit = PED::GET_PED_LAST_DAMAGE_BONE(handle, &outBoneId);
+	boneId = static_cast<eBoneIds>(outBoneId);
+	return wasSomethingHit;
+}
+
+void ModAPI::Ped::ClearLastDamageBone() const
+{ PED::CLEAR_PED_LAST_DAMAGE_BONE(handle); }
+
 void ModAPI::Ped::ClearTasksImmediately() const
 { TASK::CLEAR_PED_TASKS_IMMEDIATELY(handle); }
 

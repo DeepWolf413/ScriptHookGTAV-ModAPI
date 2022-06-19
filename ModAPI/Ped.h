@@ -5,6 +5,7 @@
 
 #include "Entity.h"
 #include "Tasker.h"
+#include "enums/eBoneIds.h"
 
 namespace ModAPI
 {
@@ -52,6 +53,10 @@ namespace ModAPI
 		[[nodiscard]] eRelationship GetRelationship(const Ped& otherPed) const;
 		[[nodiscard]] Hash GetDefaultRelationshipGroup() const;
 		[[nodiscard]] Hash GetRelationshipGroupHash() const;
+		[[nodiscard]] int GetBoneIndex(eBoneIds boneId) const;
+		[[nodiscard]] Vector3 GetBonePosition(eBoneIds boneId, const Vector3& offset) const;
+		[[nodiscard]] bool GetLastDamageBone(eBoneIds& boneId) const;
+		void ClearLastDamageBone() const;
 		void ClearTasksImmediately() const;
 		void EquipBestWeapon() const;
 		void EquipWeapon(Hash weaponHash) const;

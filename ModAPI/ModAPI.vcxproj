@@ -112,6 +112,7 @@
         <ClInclude Include="Camera.h" />
         <ClInclude Include="Entity.h" />
         <ClInclude Include="enums\eAnimationFlags.h" />
+        <ClInclude Include="enums\eBoneIds.h" />
         <ClInclude Include="enums\eEntityType.h" />
         <ClInclude Include="enums\eMountSeat.h" />
         <ClInclude Include="enums\eMountStyle.h" />

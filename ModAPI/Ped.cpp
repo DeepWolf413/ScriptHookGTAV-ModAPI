@@ -69,7 +69,7 @@ ModAPI::Vehicle ModAPI::Ped::GetVehicle(const bool includeLastVehicle) const
 
 std::unique_ptr<ModAPI::Ped> ModAPI::Ped::GetTarget() const
 {
-	const PedHandle target = PED::_GET_PED_TASK_COMBAT_TARGET(handle, 0); // TODO: Check if it works.
+	const PedHandle target = PED::_GET_PED_TASK_COMBAT_TARGET(handle, 0);
 	if(target == NULL)
 	{ return nullptr; }
 	
@@ -100,7 +100,7 @@ void ModAPI::Ped::SetShootAccuracy(const int accuracy) const
 void ModAPI::Ped::SetCombatAttribute(const eCombatAttribute attribute, const bool enabled) const
 { PED::SET_PED_COMBAT_ATTRIBUTES(handle, static_cast<int>(attribute), enabled); }
 
-void ModAPI::Ped::SetConfigFlag(const int flagId, const bool enabled) const
+void ModAPI::Ped::SetConfigFlag(const ePedConfigFlags flagId, const bool enabled) const
 { PED::SET_PED_CONFIG_FLAG(handle, flagId, enabled); }
 
 void ModAPI::Ped::SetBlockEvents(const bool blockEvents) const
@@ -214,7 +214,7 @@ std::unique_ptr<ModAPI::Ped> ModAPI::Ped::SpawnPed(const ePedType pedType, const
 	}
 
 	auto spawnedPed = std::make_unique<Ped>(spawnedPedHandle);
-	spawnedPed->modelName = Utils::StdUtils::ToLower(modelName);
+	spawnedPed->modelName = modelName;
 
 	// TODO: Implement when outfit system is done again.
 	/*if(outfitNumber < 0)

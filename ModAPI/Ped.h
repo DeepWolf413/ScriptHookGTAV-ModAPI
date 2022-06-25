@@ -15,7 +15,6 @@ namespace ModAPI
 	public:
 		Ped();
 		Ped(PedHandle pedToRepresent);
-		~Ped() override = default;
 
 		static std::unique_ptr<Ped> SpawnPed(const std::string& modelName, const Vector3& spawnPosition, float heading,
 		                                     int outfitNumber = 0);
@@ -24,10 +23,17 @@ namespace ModAPI
 
 		[[nodiscard]] std::string GetModelName() const;
 		[[nodiscard]] std::unique_ptr<Ped> GetTarget() const;
-		
-		// Returns the time of death in milliseconds.
+
+		/**
+		 * \brief Gets time of death in game time milliseconds.
+		 * \return the time of death in game time milliseconds.
+		 */
 		[[nodiscard]] int GetTimeOfDeath() const;
 
+		/**
+		 * \brief Gets the time in game time seconds that has passed since the death of the ped.
+		 * \return the time in game time seconds that has passed since the death of the ped.
+		 */
 		[[nodiscard]] float GetTimeSinceDeath() const;
 		[[nodiscard]] Ped GetKiller() const;
 		[[nodiscard]] bool IsInCombat() const;
@@ -46,7 +52,7 @@ namespace ModAPI
 		[[nodiscard]] Vehicle GetVehicle(bool includeLastVehicle = false) const;
 		void SetShootAccuracy(int accuracy) const;
 		void SetCombatAttribute(eCombatAttribute attribute, bool enabled) const;
-		void SetConfigFlag(int flagId, bool enabled) const;
+		void SetConfigFlag(ePedConfigFlags flagId, bool enabled) const;
 		void SetBlockEvents(bool blockEvents) const;
 		void SetRelationshipGroup(Hash groupHash) const;
 		void SetDefaultRelationshipGroup(Hash groupHash) const;

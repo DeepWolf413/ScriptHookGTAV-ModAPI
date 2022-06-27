@@ -47,6 +47,24 @@ void ModAPI::Screen::ShowHelpTextThisFrame(const std::string& helpText, const bo
     HUD::END_TEXT_COMMAND_DISPLAY_HELP(0, 0, beep, -1);
 }
 
+int ModAPI::Screen::ShowNotification(const std::string& text, const bool blink)
+{
+	HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+	HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text.c_str());
+	return HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(blink, TRUE);
+}
+
+std::string ModAPI::Screen::GetUserInput(const char* title, const std::string& defaultText, const int maxLength)
+{
+	MISC::DISPLAY_ONSCREEN_KEYBOARD(true, title, "", defaultText.c_str(), "", "", "", maxLength);
+	while (MISC::UPDATE_ONSCREEN_KEYBOARD() == 0)
+	{
+		WAIT(0);
+	}
+
+	return MISC::GET_ONSCREEN_KEYBOARD_RESULT();
+}
+
 void ModAPI::Screen::ShowLoadingMessage(const std::string& text)
 {
 	HUD::BEGIN_TEXT_COMMAND_BUSYSPINNER_ON("STRING");

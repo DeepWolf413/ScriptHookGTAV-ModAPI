@@ -117,6 +117,7 @@
         <ClInclude Include="enums\eMountSeat.h" />
         <ClInclude Include="enums\eMountStyle.h" />
         <ClInclude Include="enums\eVehicleFlags.h" />
+        <ClInclude Include="enums\Constants.h" />
         <ClInclude Include="GUIFramework\eGUIElementAnchor.h" />
         <ClInclude Include="GUIFramework\eTextJustification.h" />
         <ClInclude Include="GUIFramework\GUIContainer.h" />

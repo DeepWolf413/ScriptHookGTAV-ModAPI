@@ -37,4 +37,34 @@ namespace ModAPI
     {
         return {VEHICLE::GET_PED_IN_VEHICLE_SEAT(handle, seat, FALSE)};
     }
+
+    std::vector<eVehicleSeat> Vehicle::GetFreeSeats() const
+    {
+        const auto vehicleModel = GetModel();
+        const bool isVehicleWithSideSeats = !vehicleModel.IsBicycle() && !vehicleModel.IsBike() && !vehicleModel.IsJetski() && !vehicleModel.IsQuadBike();
+
+        std::vector<eVehicleSeat> availableSeats {};
+        if (IsSeatFree(eVehicleSeat::VehicleSeatDriver))
+        {
+            availableSeats.push_back(eVehicleSeat::VehicleSeatDriver);
+        }
+        else if (IsSeatFree(eVehicleSeat::VehicleSeatPassenger))
+        {
+            availableSeats.push_back(eVehicleSeat::VehicleSeatPassenger);
+        }
+
+        if (isVehicleWithSideSeats)
+        {
+            if (IsSeatFree(eVehicleSeat::VehicleSeatLeftRear))
+            {
+                availableSeats.push_back(eVehicleSeat::VehicleSeatLeftRear);
+            }
+            else if (IsSeatFree(eVehicleSeat::VehicleSeatRightRear))
+            {
+                availableSeats.push_back(eVehicleSeat::VehicleSeatRightRear);
+            }
+        }
+
+        return availableSeats;
+    }
 }

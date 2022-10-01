@@ -17,5 +17,6 @@ namespace ModAPI
 		[[nodiscard]] int GetSeatsCount() const;
 		[[nodiscard]] int GetPassengersCount(bool includeDriver, bool includeDeadOccupants) const;
 		[[nodiscard]] Entity GetPedInSeat(eVehicleSeat seat) const;
+		[[nodiscard]] std::vector<eVehicleSeat> GetFreeSeats() const;
 	};
 }

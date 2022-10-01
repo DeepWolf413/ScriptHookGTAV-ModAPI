@@ -24,7 +24,14 @@ namespace ModAPI
 		[[nodiscard]] bool IsPed() const;
 		[[nodiscard]] bool IsTrain() const;
 		[[nodiscard]] bool IsVehicle() const;
-
+		[[nodiscard]] bool IsHelicopter() const;
+		[[nodiscard]] bool IsJetski() const;
+		[[nodiscard]] bool IsPlane() const;
+		[[nodiscard]] bool IsCar() const;
+		[[nodiscard]] bool IsBike() const;
+		[[nodiscard]] bool IsBicycle() const;
+		[[nodiscard]] bool IsQuadBike() const;
+		
 		void GetDimensions(MMath::Vector3& minimum, MMath::Vector3& maximum) const;
 		[[nodiscard]] MMath::Vector3 GetDimensions() const;
 

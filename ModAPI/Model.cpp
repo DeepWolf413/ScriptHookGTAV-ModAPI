@@ -40,6 +40,41 @@ namespace ModAPI
 	bool Model::IsVehicle() const
 	{ return STREAMING::IS_MODEL_A_VEHICLE(hash); }
 
+	bool Model::IsHelicopter() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_HELI(hash);
+	}
+
+	bool Model::IsJetski() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_JETSKI(hash);
+	}
+
+	bool Model::IsPlane() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_PLANE(hash);
+	}
+
+	bool Model::IsCar() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_CAR(hash);
+	}
+
+	bool Model::IsBike() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_BIKE(hash);
+	}
+
+	bool Model::IsBicycle() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_BICYCLE(hash);
+	}
+
+	bool Model::IsQuadBike() const
+	{
+		return VEHICLE::IS_THIS_MODEL_A_QUADBIKE(hash);
+	}
+
 	void Model::GetDimensions(MMath::Vector3& minimum, MMath::Vector3& maximum) const
 	{
 		Vector3 minimumDimensions, maximumDimensions;

@@ -1,18 +1,28 @@
 ﻿#include "RaycastResult.h"
 
-#include <shsdk/natives.h>
+#include <natives.h>
 
-RaycastResult::RaycastResult(int shapeTestHandle)
-{ SHAPETEST::GET_SHAPE_TEST_RESULT(shapeTestHandle, &didHitSomething, &endCoords, &surfaceNormal, &hitEntity); }
+namespace ModAPI
+{
+    RaycastResult::RaycastResult(const int shapeTestHandle)
+    {
+        Vector3 endCoords, surfaceNormal;
+        ::Entity hitEntityHandle;
+        SHAPETEST::GET_SHAPE_TEST_RESULT(shapeTestHandle, &didHitSomething, &endCoords, &surfaceNormal, &hitEntityHandle);
+        this->endCoords = MMath::Vector3::FromSHVector3(endCoords);
+        this->surfaceNormal = MMath::Vector3::FromSHVector3(surfaceNormal);
+        this->hitEntity = Entity(hitEntityHandle);
+    }
 
-BOOL RaycastResult::GetDidHitSomething() const
-{ return didHitSomething; }
+    BOOL RaycastResult::GetDidHitSomething() const
+    { return didHitSomething; }
 
-Vector3 RaycastResult::GetEndCoords() const
-{ return endCoords; }
+    MMath::Vector3 RaycastResult::GetEndCoords() const
+    { return endCoords; }
 
-Vector3 RaycastResult::GetSurfaceNormal() const
-{ return surfaceNormal; }
+    MMath::Vector3 RaycastResult::GetSurfaceNormal() const
+    { return surfaceNormal; }
 
-EntityHandle RaycastResult::GetHitEntity() const
-{ return hitEntity; }
+    ModAPI::Entity* RaycastResult::GetHitEntity()
+    { return &hitEntity; }
+}

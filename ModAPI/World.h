@@ -1,13 +1,9 @@
 ﻿#pragma once
+#include <enums.h>
+
 #include "RaycastResult.h"
-#include <shsdk/enums.h>
 
-struct Vector3;
-
-namespace ModAPI
+namespace ModAPI::World
 {
-	namespace World
-	{
-		RaycastResult Raycast(const Vector3& fromPos, const Vector3& toPos, eTraceFlags flags);
-	}
-}
+	RaycastResult Raycast(const MMath::Vector3& fromPos, const MMath::Vector3& toPos, eIntersectFlags flags);
+} // namespace

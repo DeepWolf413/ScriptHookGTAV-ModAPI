@@ -1,10 +1,8 @@
 #pragma once
-#ifndef INCLUDE_UTILS_STDUTILS_H_
-#define INCLUDE_UTILS_STDUTILS_H_
 #include <string>
 #include <vector>
 
-namespace Utils::StdUtils
+namespace ModAPI::Utils::StdUtils
 {
 	template <class elementType>
 	bool VectorContainsElement(std::vector<elementType> vector, elementType element)
@@ -13,7 +11,5 @@ namespace Utils::StdUtils
 	}
 
 	// Sets all characters in the string to lower.
-	extern std::string ToLower(std::string string);;
+	extern std::string ToLower(const std::string& string);;
 }
-
-#endif

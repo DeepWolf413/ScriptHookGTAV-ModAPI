@@ -1,39 +1,34 @@
 ﻿#pragma once
-#include <memory>
 #include <string>
 #include <vector>
-#include <shsdk/types.h>
+#include <types.h>
 
+#include "Enums.h"
 #include "Model.h"
-#include "enums/eEntityType.h"
-#include "math/Vector3.h"
 
 namespace ModAPI
 {
-	class Vehicle;
-	class Ped;
-
 	class Entity
 	{
 	public:
 		Entity();
-		Entity(EntityHandle handle);
+		Entity(::Entity entityHandle);
 		virtual ~Entity() = default;
 
 		operator int() const;
 
-		static bool Exists(const Entity* entity);
-		static bool Exists(EntityHandle entity);
+		static bool Exists(const ModAPI::Entity* entity);
+		static bool Exists(::Entity entityHandle);
 
 		[[nodiscard]] Model GetModel() const;
-		[[nodiscard]] EntityHandle GetHandle() const;
+		[[nodiscard]] ::Entity GetHandle() const;
 		void MarkAsNoLongerNeeded();
 		void Delete();
 		[[nodiscard]] bool Exists() const;
 		[[nodiscard]] bool IsModel(Hash modelHash) const;
 		[[nodiscard]] bool IsModel(const Model& model) const;
 
-		[[nodiscard]] eEntityType GetType() const;
+		[[nodiscard]] Enums::eEntityType GetType() const;
 		[[nodiscard]] bool IsPersistent() const;
 		void SetPersistent(bool persist) const;
 		void FreezePosition(bool freeze) const;
@@ -53,49 +48,49 @@ namespace ModAPI
 		[[nodiscard]] bool IsDead() const;
 		[[nodiscard]] bool IsAlive() const;
 
-		[[nodiscard]] float GetDistanceTo(const Entity& otherEntity, bool useZ = true) const;
-		[[nodiscard]] Vector3 GetPosition(bool alive = true) const;
-		void SetPosition(const Vector3& newPosition) const;
-		void SetPositionNoOffset(const Vector3& newPosition) const;
-		[[nodiscard]] Vector3 GetRotation() const;
-		void SetRotation(const Vector3& newRotation) const;
+		[[nodiscard]] float GetDistanceTo(const ModAPI::Entity& otherEntity, bool useZ = true) const;
+		[[nodiscard]] MMath::Vector3 GetPosition(bool alive = true) const;
+		void SetPosition(const MMath::Vector3& newPosition) const;
+		void SetPositionNoOffset(const MMath::Vector3& newPosition) const;
+		[[nodiscard]] MMath::Vector3 GetRotation() const;
+		void SetRotation(const MMath::Vector3& newRotation) const;
 		[[nodiscard]] float GetHeading() const;
 		void SetHeading(float newHeading) const;
 		[[nodiscard]] float GetHeightAboveGround() const;
-		[[nodiscard]] Vector3 GetUpVector() const;
-		[[nodiscard]] Vector3 GetRightVector() const;
-		[[nodiscard]] Vector3 GetForwardVector() const;
-		[[nodiscard]] Vector3 GetOffsetInWorldCoords(const Vector3& offset) const;
-		[[nodiscard]] Vector3 GetOffsetFromWorldCoords(const Vector3& worldCoords) const;
-		void SetVelocity(const Vector3& newVelocity) const;
-		[[nodiscard]] Vector3 GetVelocity() const;
-		void ApplyForce(const Vector3& velocity) const;
-		void ApplyForce(const Vector3& velocity, const Vector3& rotation) const;
-		void ApplyForce(const Vector3& velocity, const Vector3& rotation, int forceType) const;
-		void ApplyForceRelative(const Vector3& velocity) const;
-		void ApplyForceRelative(const Vector3& velocity, const Vector3& rotation) const;
-		void ApplyForceRelative(const Vector3& velocity, const Vector3& rotation, int forceType) const;
-		void ApplyForceTowardsEntity(const Entity& entityToPullTowards, float force) const;
+		[[nodiscard]] MMath::Vector3 GetUpVector() const;
+		[[nodiscard]] MMath::Vector3 GetRightVector() const;
+		[[nodiscard]] MMath::Vector3 GetForwardVector() const;
+		[[nodiscard]] MMath::Vector3 GetOffsetInWorldCoords(const MMath::Vector3& offset) const;
+		[[nodiscard]] MMath::Vector3 GetOffsetFromWorldCoords(const MMath::Vector3& worldCoords) const;
+		void SetVelocity(const MMath::Vector3& newVelocity) const;
+		[[nodiscard]] MMath::Vector3 GetVelocity() const;
+		void ApplyForce(const MMath::Vector3& velocity) const;
+		void ApplyForce(const MMath::Vector3& velocity, const MMath::Vector3& rotation) const;
+		void ApplyForce(const MMath::Vector3& velocity, const MMath::Vector3& rotation, int forceType) const;
+		void ApplyForceRelative(const MMath::Vector3& velocity) const;
+		void ApplyForceRelative(const MMath::Vector3& velocity, const MMath::Vector3& rotation) const;
+		void ApplyForceRelative(const MMath::Vector3& velocity, const MMath::Vector3& rotation, int forceType) const;
+		void ApplyForceTowardsEntity(const ModAPI::Entity& entityToPullTowards, float force) const;
 		void SetGravity(bool enable) const;
 		[[nodiscard]] bool HasCollidedWithAnything() const;
 
 		// Makes this entity, and the otherEntity not able to collide with eachother.
-		void SetNoCollision(const Entity& otherEntity, bool toggle) const;
+		void SetNoCollision(const ModAPI::Entity& otherEntity, bool toggle) const;
 		void SetAllCollision(bool enable, bool keepPhysics) const;
-		[[nodiscard]] bool IsInArea(const Vector3& minBounds, const Vector3& maxBounds) const;
-		[[nodiscard]] bool IsInArea(const Vector3& aPos, const Vector3& bPos, float angle) const;
-		[[nodiscard]] bool IsInAngledArea(const Vector3& origin, const Vector3& edge, float angle) const;
-		[[nodiscard]] bool IsInRangeOf(const Vector3& position, float distance) const;
-		[[nodiscard]] bool IsNearEntity(const Entity& otherEntity, const Vector3& distance) const;
-		[[nodiscard]] bool IsTouching(const Model& model) const;
-		[[nodiscard]] bool IsTouching(const Entity& otherEntity) const;
+		[[nodiscard]] bool IsInArea(const MMath::Vector3& minBounds, const MMath::Vector3& maxBounds) const;
+		[[nodiscard]] bool IsInArea(const MMath::Vector3& aPos, const MMath::Vector3& bPos, float angle) const;
+		[[nodiscard]] bool IsInAngledArea(const MMath::Vector3& origin, const MMath::Vector3& edge, float angle) const;
+		[[nodiscard]] bool IsInRangeOf(const MMath::Vector3& position, float distance) const;
+		[[nodiscard]] bool IsNearEntity(const ModAPI::Entity& otherEntity, const MMath::Vector3& distance) const;
+		[[nodiscard]] bool IsTouching(const ModAPI::Model& model) const;
+		[[nodiscard]] bool IsTouching(const ModAPI::Entity& otherEntity) const;
 
 		void Detach() const;
-		void AttachTo(const Entity& entity, int boneIndex) const;
-		void AttachTo(const Entity& entity, int boneIndex, const Vector3& position, const Vector3& rotation) const;
+		void AttachTo(const ModAPI::Entity& entity, int boneIndex) const;
+		void AttachTo(const ModAPI::Entity& entity, int boneIndex, const MMath::Vector3& position, const MMath::Vector3& rotation) const;
 		[[nodiscard]] bool IsAttached() const;
-		[[nodiscard]] bool IsAttachedTo(const Entity& entity) const;
-		[[nodiscard]] Entity GetEntityAttachedTo() const;
+		[[nodiscard]] bool IsAttachedTo(const ModAPI::Entity& entity) const;
+		[[nodiscard]] ModAPI::Entity GetEntityAttachedTo() const;
 
 		[[nodiscard]] int GetAlpha() const;
 		void SetAlpha(int newAlpha) const;
@@ -111,24 +106,23 @@ namespace ModAPI
 		[[nodiscard]] bool IsInAir() const;
 		[[nodiscard]] bool IsInWater() const;
 
-
-		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyPeds(
-					int amount, bool ignorePedsInVehicle, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+		[[nodiscard]] std::vector<ModAPI::Entity> GetNearbyPeds(
+					int amount, bool ignorePedsInVehicle, const std::vector<ModAPI::Entity>& pedsToIgnore = std::vector<ModAPI::Entity>(),
 					float maxDistance = 15) const;
-		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyHumans(
-			int amount, bool ignorePedsInVehicle, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+		[[nodiscard]] std::vector<ModAPI::Entity> GetNearbyHumans(
+			int amount, bool ignorePedsInVehicle, const std::vector<ModAPI::Entity>& humansToIgnore = std::vector<ModAPI::Entity>(),
 			float maxDistance = 15) const;
-		[[nodiscard]] std::vector<std::unique_ptr<Ped>> GetNearbyAnimals(
-			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+		[[nodiscard]] std::vector<ModAPI::Entity> GetNearbyAnimals(
+			int amount, const std::vector<ModAPI::Entity>& animalsToIgnore = std::vector<ModAPI::Entity>(),
 			float maxDistance = 15) const;
-		[[nodiscard]] std::vector<std::unique_ptr<Entity>> GetNearbyObjects(
-			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+		[[nodiscard]] std::vector<Entity> GetNearbyObjects(
+			int amount, const std::vector<ModAPI::Entity>& objectsToIgnore = std::vector<ModAPI::Entity>(),
 			float maxDistance = 15) const;
-		[[nodiscard]] std::vector<std::unique_ptr<Vehicle>> GetNearbyVehicles(
-			int amount, const std::vector<EntityHandle>& entitiesToIgnore = std::vector<EntityHandle>(),
+		[[nodiscard]] std::vector<ModAPI::Entity> GetNearbyVehicles(
+			int amount, const std::vector<ModAPI::Entity>& vehiclesToIgnore = std::vector<ModAPI::Entity>(),
 			float maxDistance = 15) const;
 
 	protected:
-		EntityHandle handle;
+		::Entity handle;
 	};
 }

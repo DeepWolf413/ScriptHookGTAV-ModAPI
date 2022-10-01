@@ -1,18 +1,14 @@
 ﻿#pragma once
+#include <enums.h>
 #include <string>
+#include <types.h>
 
-#include "shsdk/enums.h"
-#include "shsdk/types.h"
-
-namespace ModAPI
+namespace ModAPI::RelationshipGroup
 {
-	namespace RelationshipGroup
-	{
-		bool Exists(Hash groupHash);
-		void Create(const std::string& name, Hash* groupHash);
-		void Remove(Hash groupHash);
-		void SetRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
-		void ClearRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
-		eRelationship GetRelationship(Hash relationshipGroup, Hash otherRelationshipGroup);
-	}
-};
+	bool Exists(Hash groupHash);
+	void Create(const std::string& name, Hash* groupHash);
+	void Remove(Hash groupHash);
+	void SetRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
+	void ClearRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
+	eRelationship GetRelationship(Hash relationshipGroup, Hash otherRelationshipGroup);
+}

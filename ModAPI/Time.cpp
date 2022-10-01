@@ -1,24 +1,27 @@
 ﻿#include "Time.h"
 
 #include <chrono>
-#include <shsdk/natives.h>
+#include <natives.h>
 
 using namespace std::chrono;
 
-int ModAPI::Time::GetGameTimeMs()
-{ return MISC::GET_GAME_TIMER(); }
+namespace ModAPI
+{
+    int Time::GetGameTimeMs()
+    { return MISC::GET_GAME_TIMER(); }
 
-uint64_t ModAPI::Time::GetSystemTimeMs()
-{ return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count(); }
+    uint64_t Time::GetSystemTimeMs()
+    { return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count(); }
 
-void ModAPI::Time::SetTimeScale(const float newTimeScale)
-{ MISC::SET_TIME_SCALE(newTimeScale); }
+    void Time::SetTimeScale(const float newTimeScale)
+    { MISC::SET_TIME_SCALE(newTimeScale); }
 
-float ModAPI::Time::GetDeltaTime()
-{ return 30.0f / (1.0f / SYSTEM::TIMESTEP()); }
+    float Time::GetDeltaTime()
+    { return 30.0f / (1.0f / SYSTEM::TIMESTEP()); }
 
-bool ModAPI::Time::IsPastGameTime(const int timeToCheck)
-{ return timeToCheck >= GetGameTimeMs(); }
+    bool Time::IsPastGameTime(const int timeToCheck)
+    { return timeToCheck >= GetGameTimeMs(); }
 
-bool ModAPI::Time::IsPastSystemTime(const uint64_t timeToCheck)
-{ return timeToCheck >= GetSystemTimeMs(); }
+    bool Time::IsPastSystemTime(const uint64_t timeToCheck)
+    { return timeToCheck >= GetSystemTimeMs(); }
+}

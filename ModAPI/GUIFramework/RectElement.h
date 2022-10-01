@@ -8,8 +8,8 @@ namespace ModAPI::GUIFramework
 	{
 	public:
 		RectElement() = default;
-		RectElement(const Vector2& position, const Vector2& size);
-		RectElement(const Vector2& position, const Vector2& size, eGUIElementAnchor anchor);
+		RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size);
+		RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size, eGUIElementAnchor anchor);
 		
 		void Draw() override;
 	};

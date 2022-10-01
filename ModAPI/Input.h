@@ -1,8 +1,7 @@
 ﻿#pragma once
 
+#include <enums.h>
 #include <string>
-
-#include "shsdk/enums.h"
 
 namespace ModAPI::Input
 {

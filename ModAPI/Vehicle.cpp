@@ -1,16 +1,15 @@
 ﻿#include "Vehicle.h"
 
+#include <natives.h>
 
-#include <shsdk/natives.h>
+namespace ModAPI
+{
+    Vehicle::Vehicle(const ::Vehicle vehicleHandle) : ModAPI::Entity(vehicleHandle)
+    {}
 
-ModAPI::Vehicle::Vehicle() : Vehicle(NULL)
-{}
+    void Vehicle::EveryoneLeaveVehicle() const
+    { TASK::TASK_EVERYONE_LEAVE_VEHICLE(handle); }
 
-ModAPI::Vehicle::Vehicle(const VehicleHandle vehicleHandle) : Entity(vehicleHandle)
-{}
-
-void ModAPI::Vehicle::EveryoneLeaveVehicle() const
-{ TASK::TASK_EVERYONE_LEAVE_VEHICLE(handle); }
-
-bool ModAPI::Vehicle::IsSeatFree(const eVehicleSeat seat) const
-{ return VEHICLE::IS_VEHICLE_SEAT_FREE(handle, seat, false); }
+    bool Vehicle::IsSeatFree(const eVehicleSeat seat) const
+    { return VEHICLE::IS_VEHICLE_SEAT_FREE(handle, seat, false); }
+}

@@ -1,11 +1,27 @@
 ﻿#include "Math.h"
 
 
-#include <shsdk/natives.h>
-#include <shsdk/types.h>
+#include <natives.h>
+#include <random>
 
-float MathUtils::ToRadian(const float deg)
-{ return deg * M_PI / 180; }
+namespace ModAPI
+{
+    float MathHelpers::ToRadian(const float deg)
+    { return deg * M_PI / 180; }
 
-int MathUtils::GetRndIntInRange(int min, int max)
-{ return MISC::GET_RANDOM_INT_IN_RANGE(min, max); }
+    int MathHelpers::GetRndIntInRange(const int min, const int max)
+    {
+        std::random_device seed;
+        std::mt19937 gen(seed());
+        const std::uniform_int_distribution dist(min, max);
+        return dist(gen);
+    }
+
+    float MathHelpers::GetRndFloatInRange(const float min, const float max)
+    {
+        std::random_device seed;
+        std::mt19937 gen(seed());
+        const std::uniform_real_distribution dist(min, max);
+        return dist(gen);
+    }
+}

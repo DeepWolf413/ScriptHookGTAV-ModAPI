@@ -1,13 +1,14 @@
 ﻿#pragma once
+#include <types.h>
+#include <enums.h>
+
 #include "Entity.h"
-#include "shsdk/enums.h"
 
 namespace ModAPI
 {
-	class Vehicle : public Entity{
+	class Vehicle : public ModAPI::Entity {
 	public:
-		Vehicle();
-		Vehicle(VehicleHandle vehicleHandle);
+		Vehicle(::Vehicle vehicleHandle);
 
 		void EveryoneLeaveVehicle() const;
 		[[nodiscard]] bool IsSeatFree(eVehicleSeat seat) const;

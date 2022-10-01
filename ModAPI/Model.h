@@ -1,32 +1,35 @@
 ﻿#pragma once
 #include <string>
 
-#include <shsdk/types.h>
-
-struct Vector3;
+#include <types.h>
 
 namespace ModAPI
 {
+	namespace MMath
+	{
+		struct Vector3;
+	}
+
 	class Model {
 	public:
 		Model(const std::string& name);
 		Model(Hash hash);
 
-		Hash GetHash() const;
-		bool IsValid() const;
-		bool IsInCdImage() const;
-		bool IsLoaded() const;
-		bool IsCollisionLoaded() const;
-		bool IsBoat() const;
-		bool IsPed() const;
-		bool IsTrain() const;
-		bool IsVehicle() const;
+		[[nodiscard]] Hash GetHash() const;
+		[[nodiscard]] bool IsValid() const;
+		[[nodiscard]] bool IsInCdImage() const;
+		[[nodiscard]] bool IsLoaded() const;
+		[[nodiscard]] bool IsCollisionLoaded() const;
+		[[nodiscard]] bool IsBoat() const;
+		[[nodiscard]] bool IsPed() const;
+		[[nodiscard]] bool IsTrain() const;
+		[[nodiscard]] bool IsVehicle() const;
 
-		void    GetDimensions(Vector3& minimum, Vector3& maximum) const;
-		Vector3 GetDimensions() const;
+		void GetDimensions(MMath::Vector3& minimum, MMath::Vector3& maximum) const;
+		[[nodiscard]] MMath::Vector3 GetDimensions() const;
 
-		bool Request() const;
-		bool Request(int timeoutMs) const;
+		[[nodiscard]] bool Request() const;
+		[[nodiscard]] bool Request(int timeoutMs) const;
 
 		void MarkAsNoLongerNeeded() const;
 

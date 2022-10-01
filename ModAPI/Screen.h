@@ -1,17 +1,23 @@
 #pragma once
+#include <enums.h>
 #include <string>
-#include <shsdk/enums.h>
 
-#include "enums/Constants.h"
+#include "Constants.h"
 
-struct Vector2;
-struct Color;
+namespace ModAPI
+{
+	namespace MMath
+	{
+		struct Color;
+		struct Vector2;
+	}
+}
 
 namespace ModAPI::Screen
 {
-	void DisplayText(const std::string& text, const Vector2& position, const Color& color, bool centered, const Vector2& scale);
-	void DisplayText(const std::string& text, const Vector2& position, const Color& color, eFont font, bool centered, const Vector2& scale);
-	void DrawRect(const Vector2& position, const Vector2& size, const Color& color);
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, bool centered, const MMath::Vector2& scale);
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, eFont font, bool centered, const MMath::Vector2& scale);
+	void DrawRect(const MMath::Vector2& position, const MMath::Vector2& size, const MMath::Color& color);
 	void PrintSubtitle(const std::string& text);
 	void PrintSubtitle(const std::string& text, int durationMs);
 	void ShowHelpTextThisFrame(const std::string& helpText);

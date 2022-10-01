@@ -1,21 +1,24 @@
 ﻿#pragma once
-#include <shsdk/nativeCaller.h>
-#include <shsdk/types.h>
-#include "math/Vector3.h"
+#include <types.h>
 
-struct RaycastResult
+#include "Entity.h"
+#include "Math/Vector3.h"
+
+namespace ModAPI
 {
-public:
-	RaycastResult(int shapeTestHandle);
+	struct RaycastResult
+	{
+		RaycastResult(int shapeTestHandle);
 
-	[[nodiscard]] BOOL GetDidHitSomething() const;
-	[[nodiscard]] Vector3 GetEndCoords() const;
-	[[nodiscard]] Vector3 GetSurfaceNormal() const;
-	[[nodiscard]] EntityHandle GetHitEntity() const;
+		[[nodiscard]] BOOL GetDidHitSomething() const;
+		[[nodiscard]] MMath::Vector3 GetEndCoords() const;
+		[[nodiscard]] MMath::Vector3 GetSurfaceNormal() const;
+		[[nodiscard]] ModAPI::Entity* GetHitEntity();
 
-private:
-	BOOL didHitSomething;
-	Vector3 endCoords;
-	Vector3 surfaceNormal;
-	EntityHandle hitEntity;
-};
+	private:
+		BOOL didHitSomething{};
+		MMath::Vector3 endCoords;
+		MMath::Vector3 surfaceNormal;
+		ModAPI::Entity hitEntity;
+	};
+}

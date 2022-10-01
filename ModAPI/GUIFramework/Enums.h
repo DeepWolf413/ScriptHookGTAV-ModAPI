@@ -2,6 +2,13 @@
 
 namespace ModAPI::GUIFramework
 {
+	enum eTextJustification
+	{
+		JustifyCenter,
+		JustifyLeft,
+		JustifyRight
+	};
+
 	enum eGUIElementAnchor
 	{
 		TopLeft,

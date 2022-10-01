@@ -1,11 +1,11 @@
 ﻿#pragma once
+#include <enums.h>
 #include <string>
 #include <vector>
 
 #include "Scaleform.h"
-#include "shsdk/enums.h"
 
-namespace ModAPI
+namespace ModAPI::GUIFramework
 {
 	struct InstructionalButton
 	{
@@ -13,7 +13,7 @@ namespace ModAPI
 		std::string text;
 		bool isKey;
 
-		std::string GetKeyInstructionalButton();
+		[[nodiscard]] std::string GetKeyInstructionalButton() const;
 	};
 	
 	class InstructionalButtons

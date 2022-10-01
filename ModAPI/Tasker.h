@@ -1,44 +1,43 @@
 ﻿#pragma once
+#include <enums.h>
 #include <string>
 #include <vector>
+#include <types.h>
 
-
-#include <shsdk/types.h>
-
-#include "enums/eAnimationFlags.h"
-#include "enums/eVehicleFlags.h"
-#include "shsdk/enums.h"
-
-struct Vector3;
-enum eVehicleSeat : int;
+#include "Entity.h"
+#include "Enums.h"
+#include "Vehicle.h"
 
 namespace ModAPI
 {
-	class Vehicle;
-	class Entity;
 	class Ped;
+	
+	namespace MMath
+	{
+		struct Vector3;
+	}
 
 	class Tasker {
 	public:
-		Tasker(const Ped& owner);
+		Tasker(Ped& owner);
 		
 		void AchieveHeading(float heading, int timeoutMs = -1) const;
 		void AimAt(const Entity& target, int durationMs = -1) const;
-		void AimAt(const Vector3& aimPosition, int durationMs = -1) const;
+		void AimAt(const MMath::Vector3& aimPosition, int durationMs = -1) const;
 		void Arrest(const Ped& pedToArrest) const;
 		void Climb() const;
 		void Cower(int durationMs) const;
-		void Cruise(const Vehicle& vehicle, float speed) const;
-		void Cruise(const Vehicle& vehicle, float speed, eDrivingStyle drivingStyle) const;
-		void DriveTo(const Vehicle& vehicle, const Vector3& position, float stopRange, float speed) const;
-		void DriveTo(const Vehicle& vehicle, const Vector3& position, float stopRange, float speed, eDrivingStyle drivingStyle) const;
-		void EnterVehicle(const Vehicle& vehicle, eVehicleSeat seat) const;
-		void EnterVehicle(const Vehicle& vehicle, eVehicleSeat seat, int timeoutMs) const;
-		void EnterVehicle(const Vehicle& vehicle, eVehicleSeat seat, int timeoutMs, float speed) const;
-		void EnterVehicle(const Vehicle& vehicle, eVehicleSeat seat, int timeoutMs, float speed, int flag) const;
-		void EnterClosestVehicle(std::vector<EntityHandle>& entitiesToIgnore) const;
+		void Cruise(const Entity& vehicle, float speed) const;
+		void Cruise(const Entity& vehicle, float speed, eDrivingStyle drivingStyle) const;
+		void DriveTo(const Entity& vehicle, const MMath::Vector3& position, float stopRange, float speed) const;
+		void DriveTo(const Entity& vehicle, const MMath::Vector3& position, float stopRange, float speed, eDrivingStyle drivingStyle) const;
+		void EnterVehicle(const Entity& vehicle, eVehicleSeat seat) const;
+		void EnterVehicle(const Entity& vehicle, eVehicleSeat seat, int timeoutMs) const;
+		void EnterVehicle(const Entity& vehicle, eVehicleSeat seat, int timeoutMs, float speed) const;
+		void EnterVehicle(const Entity& vehicle, eVehicleSeat seat, int timeoutMs, float speed, int flag) const;
+		void EnterClosestVehicle(std::vector<::Entity>& entitiesToIgnore) const;
 		void ExitVehicle() const;
-		void ExitVehicle(const Vehicle& vehicle, LeaveVehicleFlags flag = LeaveVehicleFlags::None) const;
+		void ExitVehicle(const Vehicle& vehicle, Enums::eLeaveVehicleFlag flag = Enums::eLeaveVehicleFlag::None) const;
 		void DismountExit() const;
 		void FightAgainst(const Ped& target) const;
 		void FightAgainst(const Ped& target, int durationMs) const;
@@ -48,9 +47,9 @@ namespace ModAPI
 		void StopScenario() const;
 		void FleeFrom(const Ped& pedToFleeFrom, int durationMs = -1) const;
 		void FleeFrom(const Ped& pedToFleeFrom, float distance = 50) const;
-		void FleeFrom(const Vector3& position, int durationMs = -1) const;
-		void FleeFrom(const Vector3& position, float distance = 50) const;
-		void FollowPointRoute(const std::vector<Vector3>& points, float speed = 2.0f) const;
+		void FleeFrom(const MMath::Vector3& position, int durationMs = -1) const;
+		void FleeFrom(const MMath::Vector3& position, float distance = 50) const;
+		void FollowPointRoute(const std::vector<MMath::Vector3>& points, float speed = 2.0f) const;
 
 		/**
 		 * \brief Tasks the ped to go to the specified target entity.
@@ -77,14 +76,14 @@ namespace ModAPI
 		 * \brief Tasks the ped to go to the specified position.
 		 * \param position The position to go to.
 		 */
-		void GoTo(const Vector3& position) const;
+		void GoTo(const MMath::Vector3& position) const;
 
 		/**
 		 * \brief Tasks the ped to go to the specified position.
 		 * \param position The position to go to.
 		 * \param ignorePaths Whether or not the ped should go straight to the position without pathfinding.
 		 */
-		void GoTo(const Vector3& position, bool ignorePaths) const;
+		void GoTo(const MMath::Vector3& position, bool ignorePaths) const;
 
 		/**
 		 * \brief Tasks the ped to go to the specified position.
@@ -92,20 +91,20 @@ namespace ModAPI
 		 * \param ignorePaths Whether or not the ped should go straight to the position without pathfinding.
 		 * \param timeoutMs The timeout in milliseconds. Can be set to -1 if the timeout should be ignored.
 		 */
-		void GoTo(const Vector3& position, bool ignorePaths, int timeoutMs) const;
-		void FollowToOffsetFromEntity(const Entity& target, const Vector3& offset, float moveSpeed, int timeoutMs = -1, float stoppingRange = 3.0f, bool persistFollowing = false) const;
+		void GoTo(const MMath::Vector3& position, bool ignorePaths, int timeoutMs) const;
+		void FollowToOffsetFromEntity(const Entity& target, const MMath::Vector3& offset, float moveSpeed, int timeoutMs = -1, float stoppingRange = 3.0f, bool persistFollowing = false) const;
 		void GuardCurrentPosition() const;
 		void HandsUp(int durationMs) const;
 		void HandsUp(int durationMs, const Ped& facingTarget) const;
 		void Jump(bool superJump = false) const;
-		void LeaveVehicle(LeaveVehicleFlags leaveFlag) const;
-		void LeaveVehicle(const Vehicle& vehicle, LeaveVehicleFlags leaveFlag) const;
+		void LeaveVehicle(Enums::eLeaveVehicleFlag leaveFlag) const;
+		void LeaveVehicle(const Vehicle& vehicle, Enums::eLeaveVehicleFlag leaveFlag) const;
 		void LookAt(const Entity& target, int durationMs = -1) const;
-		void LookAt(const Vector3& position, int durationMs = -1) const;
+		void LookAt(const MMath::Vector3& position, int durationMs = -1) const;
 		void OpenSequenceTask();
 		void PerformSequence();
 		void ClearTasks(bool immediately = false) const;
-		void PlayAnimation(const std::string& animDict, const std::string& animName, float speed, int durationMs, eAnimationFlags flags, float playbackRate, BOOL lockX = 0, BOOL lockY = 0, BOOL lockZ = 0) const;
+		void PlayAnimation(const std::string& animDict, const std::string& animName, float speed, int durationMs, Enums::eAnimationFlag flags, float playbackRate, BOOL lockX = 0, BOOL lockY = 0, BOOL lockZ = 0) const;
 		void StopAnimation(const std::string& animDict, const std::string& animName, float blendOutSpeed = -8.0f) const;
 		void ShockingEventReact(int eventHandle) const;
 		void ReloadWeapon() const;
@@ -114,7 +113,7 @@ namespace ModAPI
 	private:
 		[[nodiscard]] bool IsSequenceTaskOpen() const;
 		
-		const Ped* owner;
+		Ped* const owner;
 		TaskSequence currentSequenceTask {-1};
 	};
 }

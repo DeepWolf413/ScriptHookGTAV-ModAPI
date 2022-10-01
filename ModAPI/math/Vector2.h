@@ -2,8 +2,9 @@
 
 #define ALIGN8 __declspec(align(8))
 
+namespace ModAPI::MMath
+{
 	struct Vector2 {
-	public:
 		Vector2();
 		Vector2(float x, float y);
 	
@@ -11,7 +12,7 @@
 		static float   Distance(Vector2 aPos, Vector2 bPos);
 		static float   DistanceSquared(Vector2 aPos, Vector2 bPos);
 		static float   Angle(Vector2 from, Vector2 to);
-	
+
 		[[nodiscard]] float Length() const;
 		[[nodiscard]] float LengthSquared() const;
 		void  Normalize();
@@ -30,5 +31,4 @@
 	private:
 		[[nodiscard]] Vector2 ThisVector() const;
 	};
-
-static_assert(sizeof(Vector2) == 16);
+}

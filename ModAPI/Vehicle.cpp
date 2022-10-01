@@ -2,6 +2,8 @@
 
 #include <natives.h>
 
+#include "Math/Vector3.h"
+
 namespace ModAPI
 {
     Vehicle::Vehicle(const ::Vehicle vehicleHandle) : ModAPI::Entity(vehicleHandle)
@@ -38,33 +40,74 @@ namespace ModAPI
         return {VEHICLE::GET_PED_IN_VEHICLE_SEAT(handle, seat, FALSE)};
     }
 
-    std::vector<eVehicleSeat> Vehicle::GetFreeSeats() const
+    std::vector<eVehicleSeat> Vehicle::GetSeats(const bool hasToBeFreeSeats) const
     {
         const auto vehicleModel = GetModel();
         const bool isVehicleWithSideSeats = !vehicleModel.IsBicycle() && !vehicleModel.IsBike() && !vehicleModel.IsJetski() && !vehicleModel.IsQuadBike();
 
-        std::vector<eVehicleSeat> availableSeats {};
-        if (IsSeatFree(eVehicleSeat::VehicleSeatDriver))
+        std::vector<eVehicleSeat> seats {};
+
+        const bool hasTwoColumnSeats = vehicleModel.IsCar() || vehicleModel.IsBoat() || vehicleModel.IsHelicopter() || vehicleModel.IsPlane();
+        if (hasToBeFreeSeats && IsSeatFree(eVehicleSeat::VehicleSeatDriver) || !hasToBeFreeSeats)
         {
-            availableSeats.push_back(eVehicleSeat::VehicleSeatDriver);
+            seats.push_back(eVehicleSeat::VehicleSeatDriver);
         }
-        else if (IsSeatFree(eVehicleSeat::VehicleSeatPassenger))
+        else if (hasToBeFreeSeats && IsSeatFree(eVehicleSeat::VehicleSeatPassenger) || !hasToBeFreeSeats)
         {
-            availableSeats.push_back(eVehicleSeat::VehicleSeatPassenger);
+            seats.push_back(eVehicleSeat::VehicleSeatPassenger);
         }
 
         if (isVehicleWithSideSeats)
         {
-            if (IsSeatFree(eVehicleSeat::VehicleSeatLeftRear))
+            if (hasToBeFreeSeats && IsSeatFree(eVehicleSeat::VehicleSeatLeftRear) || !hasToBeFreeSeats && hasTwoColumnSeats)
             {
-                availableSeats.push_back(eVehicleSeat::VehicleSeatLeftRear);
+                seats.push_back(eVehicleSeat::VehicleSeatLeftRear);
             }
-            else if (IsSeatFree(eVehicleSeat::VehicleSeatRightRear))
+            else if (hasToBeFreeSeats && IsSeatFree(eVehicleSeat::VehicleSeatRightRear) || !hasToBeFreeSeats && hasTwoColumnSeats)
             {
-                availableSeats.push_back(eVehicleSeat::VehicleSeatRightRear);
+                seats.push_back(eVehicleSeat::VehicleSeatRightRear);
             }
         }
 
-        return availableSeats;
+        return seats;
+    }
+
+    eVehicleSeat Vehicle::GetClosestSeat(const MMath::Vector3& position, const bool hasToBeFreeSeat)
+    {
+        const auto seats = GetSeats(hasToBeFreeSeat);
+        if (seats.empty())
+        { return eVehicleSeat::VehicleSeatNone; }
+
+        eVehicleSeat closestSeat = eVehicleSeat::VehicleSeatNone;
+        float closestDistanceToSeat = 0.0f;
+        for (const auto seat : seats)
+        {
+            const auto seatBone = GetSeatBone(seat);
+            const auto seatDistance = seatBone.GetPosition().DistanceTo(position);
+            if (seatDistance < closestDistanceToSeat || closestSeat == eVehicleSeat::VehicleSeatNone)
+            {
+                closestSeat = seat;
+                closestDistanceToSeat = seatDistance;
+            }
+        }
+        
+        return closestSeat;
+    }
+
+    Bone Vehicle::GetSeatBone(const eVehicleSeat seat)
+    {
+        switch (seat)
+        {
+        case VehicleSeatDriver:
+            return {*this, "seat_dside_f"};
+        case VehicleSeatPassenger:
+            return {*this, "seat_pside_f"};
+        case VehicleSeatLeftRear:
+            return {*this, "seat_dside_r"};
+        case VehicleSeatRightRear:
+            return {*this, "seat_pside_r"};
+        }
+
+        return {*this, ""};
     }
 }

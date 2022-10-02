@@ -15,7 +15,8 @@ namespace ModAPI
 		Entity(::Entity entityHandle);
 		virtual ~Entity() = default;
 
-		operator int() const;
+		bool operator==(int otherHandle) const;
+		bool operator==(const Entity& otherEntity) const;
 
 		static bool Exists(const ModAPI::Entity* entity);
 		static bool Exists(::Entity entityHandle);

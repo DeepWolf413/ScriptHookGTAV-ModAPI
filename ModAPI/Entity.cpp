@@ -18,8 +18,15 @@ namespace ModAPI
 	Entity::Entity(const ::Entity entityHandle)
 	{ this->handle = entityHandle; }
 
-	Entity::operator int() const
-	{ return GetHandle(); }
+	bool Entity::operator==(const int otherHandle) const
+	{
+		return Exists() && Exists(otherHandle) && GetHandle() == otherHandle;
+	}
+
+	bool Entity::operator==(const Entity& otherEntity) const
+	{
+		return Exists() && otherEntity.Exists() && GetHandle() == otherEntity.GetHandle();
+	}
 
 	bool Entity::Exists(const ModAPI::Entity* entity)
 	{ return entity != nullptr && entity->Exists(); }

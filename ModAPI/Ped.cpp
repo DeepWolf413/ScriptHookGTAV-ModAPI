@@ -194,7 +194,7 @@ namespace ModAPI
 	void Ped::RemoveAllWeapons() const
 	{ WEAPON::REMOVE_ALL_PED_WEAPONS(handle, true); }
 
-	void Ped::SetDrivingStyle(const eDrivingStyle drivingStyle) const
+	void Ped::SetDrivingStyle(const Enums::eVehicleDrivingFlag drivingStyle) const
 	{
 		TASK::SET_DRIVE_TASK_DRIVING_STYLE(handle, drivingStyle);
 	}

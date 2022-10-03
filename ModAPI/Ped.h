@@ -75,7 +75,7 @@ namespace ModAPI
 		void RegisterTarget(const Entity& entityToRegisterAsTarget) const;
 		[[nodiscard]] bool HasWeapon(Hash weaponHash) const;
 		void RemoveAllWeapons() const;
-		void SetDrivingStyle(Enums::eVehicleDrivingFlag drivingStyle) const;
+		void SetDrivingStyle(int drivingStyle) const;
 		void SetTargetLossResponse(Enums::eTargetLossResponseType reponseType) const;
 		void SetCanAttackFriendly(bool enable) const;
 		[[nodiscard]] const Tasker& GetTasker() const;

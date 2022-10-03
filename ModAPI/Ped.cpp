@@ -194,6 +194,21 @@ namespace ModAPI
 	void Ped::RemoveAllWeapons() const
 	{ WEAPON::REMOVE_ALL_PED_WEAPONS(handle, true); }
 
+	void Ped::SetDrivingStyle(const eDrivingStyle drivingStyle) const
+	{
+		TASK::SET_DRIVE_TASK_DRIVING_STYLE(handle, drivingStyle);
+	}
+
+	void Ped::SetTargetLossResponse(const Enums::eTargetLossResponseType responseType) const
+	{
+		PED::SET_PED_TARGET_LOSS_RESPONSE(handle, responseType);
+	}
+
+	void Ped::SetCanAttackFriendly(const bool enable) const
+	{
+		PED::SET_CAN_ATTACK_FRIENDLY(handle, enable, false);
+	}
+
 	const Tasker& ModAPI::Ped::GetTasker() const
 	{ return tasker; }
 

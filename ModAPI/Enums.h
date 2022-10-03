@@ -42,6 +42,9 @@ namespace ModAPI
 			Unk6 = 1 << 6,
 			ObeyTrafficStops = 1 << 7,
 			UseBlinkers = 1 << 8,
+			/**
+			 * \brief Only does it if the correct lane is full, will try to reach the correct lane again as soon as possible.
+			 */
 			AllowCuttingTraffic = 1 << 9,
 			Reverse = 1 << 10,
 			Unk11 = 1 << 11,
@@ -51,20 +54,39 @@ namespace ModAPI
 			Unk15 = 1 << 15,
 			Unk16 = 1 << 16,
 			Unk17 = 1 << 17,
+			/**
+			 * \brief Removes most pathing limits, the driver even goes on dirtroads.
+			 */
 			TakeShortestPath = 1 << 18,
 			AvoidOffroad = 1 << 19,
 			Unk20 = 1 << 20,
 			Unk21 = 1 << 21,
+			/**
+			 * \brief Uses local pathing, only works within 200~ meters around the player.
+			 */
 			IgnoreRoads = 1 << 22,
 			Unk23 = 1 << 23,
+			/**
+			 * \brief Goes straight to destination.
+			 */
 			IgnoreAllPathing = 1 << 24,
 			Unk25 = 1 << 25,
 			Unk26 = 1 << 26,
 			Unk27 = 1 << 27,
 			Unk28 = 1 << 28,
+			/**
+			 * \brief Will use the highway if there is no other way to get to the destination.
+			 */
 			AvoidHighways = 1 << 29,
 			Unk30 = 1 << 30,
 			Default = AvoidVehicles | AvoidEmptyVehicles | StopBeforePeds | StopBeforeVehicles | AvoidPeds | AvoidObjects
+		};
+
+		enum eTargetLossResponseType
+		{
+			TLR_ExitTask,
+			TLR_NeverLoseTarget,
+			TLR_SearchForTarget
 		};
 
 		enum ePedType

@@ -18,6 +18,8 @@ namespace ModAPI::Logging
 
 	LoggerConsole::~LoggerConsole()
 	{
+		fclose(stdout);
+		fclose(stderr);
 		FreeConsole();
 	}
 
@@ -59,27 +61,14 @@ namespace ModAPI::Logging
 	
 		const auto timeString = stringStream.str();
 
-		const HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleTextAttribute(consoleHandle, currentTextColorId);
+		HANDLE outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(outputHandle, currentTextColorId);
 		std::cout << "[" << timeString << "]: " << message << std::endl;
 	}
 
 	void LoggerConsole::AllocateConsole() const
 	{
-		HWND consoleWindow = GetConsoleWindow();
-		if (consoleWindow == nullptr)
-		{
-			AllocConsole();
-			consoleWindow = GetConsoleWindow();
-		}
-		else
-		{
-			DWORD consolePID;
-			GetWindowThreadProcessId(consoleWindow, &consolePID);
-			AttachConsole(consolePID);
-		}
-		
-		//ShowWindow(consoleWindow, SW_MINIMIZE);
+		AllocConsole();
 		SetConsoleTitleA(name.c_str());
 
 		FILE* pCout;

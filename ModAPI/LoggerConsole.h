@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
 
+#include "Bone.h"
 #include "Logger.h"
 
 namespace ModAPI::Logging

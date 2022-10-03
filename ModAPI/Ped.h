@@ -23,7 +23,7 @@ namespace ModAPI
 		                                     float heading, int outfitNumber = 0);
 
 		[[nodiscard]] std::string GetModelName() const;
-		[[nodiscard]] std::unique_ptr<ModAPI::Ped> GetTarget() const;
+		[[nodiscard]] std::unique_ptr<ModAPI::Entity> GetTarget() const;
 
 		/**
 		 * \brief Gets time of death in game time milliseconds.
@@ -36,7 +36,7 @@ namespace ModAPI
 		 * \return the time in game time seconds that has passed since the death of the ped.
 		 */
 		[[nodiscard]] float GetTimeSinceDeath() const;
-		[[nodiscard]] std::unique_ptr<ModAPI::Ped> GetKiller() const;
+		[[nodiscard]] std::unique_ptr<ModAPI::Entity> GetKiller() const;
 		[[nodiscard]] bool IsInCombat() const;
 		[[nodiscard]] bool IsInMeleeCombat() const;
 		[[nodiscard]] bool IsShooting() const;
@@ -72,6 +72,7 @@ namespace ModAPI
 		void EquipRandomComponentVariation() const;
 		void ClearProps() const;
 		void EquipDefaultComponentVariation() const;
+		void RegisterTarget(const Entity& entityToRegisterAsTarget) const;
 		[[nodiscard]] bool HasWeapon(Hash weaponHash) const;
 		void RemoveAllWeapons() const;
 		[[nodiscard]] const Tasker& GetTasker() const;

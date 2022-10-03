@@ -23,7 +23,7 @@ namespace ModAPI::Screen
 	void ShowHelpTextThisFrame(const std::string& helpText);
 	void ShowHelpTextThisFrame(const std::string& helpText, bool beep);
 	int ShowNotification(const std::string& text, bool blink = false);
-	std::string GetUserInput(const char* title = Constants::WindowTitle::FMMC_KEY_TIP8, const std::string& defaultText = "", int maxLength = 255);
+	std::string GetUserInput(const std::string& title, const std::string& defaultText = "", int maxLength = 255);
 	
 	/**
 	 * \brief Shows the busy spinner for 3 seconds with the specified text, and then disappears.

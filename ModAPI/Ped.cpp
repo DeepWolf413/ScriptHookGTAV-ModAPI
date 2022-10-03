@@ -69,13 +69,13 @@ namespace ModAPI
 	std::unique_ptr<ModAPI::Vehicle> Ped::GetVehicle(const bool includeLastVehicle) const
 	{ return std::make_unique<ModAPI::Vehicle>(PED::GET_VEHICLE_PED_IS_IN(handle, includeLastVehicle)); }
 
-	std::unique_ptr<ModAPI::Ped> Ped::GetTarget() const
+	std::unique_ptr<ModAPI::Entity> Ped::GetTarget() const
 	{
 		const ::Ped targetPedHandle = PED::GET_PED_TARGET_FROM_COMBAT_PED(handle, 0);
 		if(targetPedHandle == NULL)
 		{ return nullptr; }
 	
-		return std::make_unique<Ped>(targetPedHandle);
+		return std::make_unique<Entity>(targetPedHandle);
 	}
 
 	int Ped::GetTimeOfDeath() const
@@ -84,12 +84,12 @@ namespace ModAPI
 	float Ped::GetTimeSinceDeath() const
 	{ return static_cast<float>(Time::GetGameTimeMs() - GetTimeOfDeath()) / 1000.0f; }
 
-	std::unique_ptr<ModAPI::Ped> Ped::GetKiller() const
+	std::unique_ptr<ModAPI::Entity> Ped::GetKiller() const
 	{
 		if(IsAlive())
 		{ return nullptr; }
 
-		auto killer = std::make_unique<ModAPI::Ped>(PED::GET_PED_SOURCE_OF_DEATH(handle));
+		auto killer = std::make_unique<ModAPI::Entity>(PED::GET_PED_SOURCE_OF_DEATH(handle));
 		if(GetType() != Enums::eEntityType::Ped || !killer->Exists())
 		{ return nullptr; }
 
@@ -182,6 +182,11 @@ namespace ModAPI
 
 	void Ped::EquipDefaultComponentVariation() const
 	{ PED::SET_PED_DEFAULT_COMPONENT_VARIATION(handle); }
+
+	void Ped::RegisterTarget(const Entity& entityToRegisterAsTarget) const
+	{
+		PED::REGISTER_TARGET(handle, entityToRegisterAsTarget.GetHandle());
+	}
 
 	bool Ped::HasWeapon(const Hash weaponHash) const
 	{ return WEAPON::HAS_PED_GOT_WEAPON(handle, weaponHash, false); }

@@ -19,7 +19,9 @@ namespace ModAPI
 		[[nodiscard]] int GetPassengersCount(bool includeDriver, bool includeDeadOccupants) const;
 		[[nodiscard]] Entity GetPedInSeat(eVehicleSeat seat) const;
 		[[nodiscard]] std::vector<eVehicleSeat> GetSeats(bool hasToBeFreeSeats) const;
+		[[nodiscard]] std::vector<eVehicleSeat> GetSeats(bool hasToBeFreeSeats, const std::vector<eVehicleSeat>& seatsToIgnore) const;
 		[[nodiscard]] eVehicleSeat GetClosestSeat(const MMath::Vector3& position, bool hasToBeFreeSeat);
+		[[nodiscard]] eVehicleSeat GetClosestSeat(const MMath::Vector3& position, bool hasToBeFreeSeat, const std::vector<eVehicleSeat>& seatsToIgnore);
 		[[nodiscard]] Bone GetSeatBone(eVehicleSeat seat);
 	};
 }

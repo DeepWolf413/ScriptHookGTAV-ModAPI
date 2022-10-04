@@ -10,6 +10,8 @@ namespace ModAPI
 	public:
 		Bone(const Entity& entity, const std::string& boneName);
 
+		[[nodiscard]] static bool IsValid(const Entity& entity, const std::string& boneName);
+		
 		[[nodiscard]] bool IsValid() const;
 		[[nodiscard]] const std::string& GetName();
 		[[nodiscard]] int GetIndex() const;

@@ -2,22 +2,38 @@
 
 #include <natives.h>
 
-#include "Math/Vector3.h"
+#include "Logger.h"
+#include "MathAPI.h"
 
 namespace ModAPI
 {
 	Bone::Bone(const Entity& entity, const std::string& boneName)
 	{
-		if (!this->entity.Exists() || boneName.empty())
+		if (!entity.Exists() || boneName.empty())
 		{
 			index = -1;
+			name = boneName;
+			Logging::Logger::TryLogWarning(
+				"[Bone] Failed to initialize bone '" + boneName +
+				"'. The entity doesn't exist, or the bone name is invalid.");
 			return;
 		}
-		
+
 		this->entity = Entity(entity.GetHandle());
-		this->name = boneName;
-		
+		name = boneName;
+
 		index = ENTITY::GET_ENTITY_BONE_INDEX_BY_NAME(this->entity.GetHandle(), name.c_str());
+
+		if (!IsValid())
+		{
+			Logging::Logger::TryLogWarning(
+				"[Bone] Failed to initialize bone '" + boneName + "'. The bone name might be invalid.");
+		}
+	}
+
+	bool Bone::IsValid(const Entity& entity, const std::string& boneName)
+	{
+		return ENTITY::GET_ENTITY_BONE_INDEX_BY_NAME(entity.GetHandle(), boneName.c_str()) != -1;
 	}
 
 	bool Bone::IsValid() const

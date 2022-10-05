@@ -174,7 +174,6 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Ped.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RaycastResult.cpp" />
     <ClCompile Include="RelationshipGroup.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="StdUtils.cpp" />
@@ -280,7 +279,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Ped.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RaycastResult.h" />
+    <ClInclude Include="Raycast.h" />
     <ClInclude Include="RelationshipGroup.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="StdUtils.h" />

@@ -8,7 +8,6 @@
 #include "Ped.h"
 #include "Vehicle.h"
 #include "Camera.h"
-#include "Screen.h"
 #include "World.h"
 #include "Raycast.h"
 #include "RelationshipGroup.h"

@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "../Screen.h"
+#include "../UI.h"
 
 namespace ModAPI
 {

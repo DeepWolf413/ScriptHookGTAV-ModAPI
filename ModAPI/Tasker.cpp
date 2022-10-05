@@ -3,7 +3,7 @@
 #include <natives.h>
 
 #include "Ped.h"
-#include "Math/Vector3.h"
+#include "MathAPI.h"
 
 namespace ModAPI
 {

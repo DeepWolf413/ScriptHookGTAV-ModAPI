@@ -175,11 +175,11 @@
     <ClCompile Include="Ped.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RelationshipGroup.cpp" />
-    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="StdUtils.cpp" />
     <ClCompile Include="Streaming.cpp" />
     <ClCompile Include="Tasker.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="World.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
@@ -281,11 +281,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="RelationshipGroup.h" />
-    <ClInclude Include="Screen.h" />
     <ClInclude Include="StdUtils.h" />
     <ClInclude Include="Streaming.h" />
     <ClInclude Include="Tasker.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vehicle.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

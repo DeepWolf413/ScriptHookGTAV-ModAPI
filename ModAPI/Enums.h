@@ -89,6 +89,12 @@ namespace ModAPI
 			TLR_SearchForTarget
 		};
 
+		enum eControlType
+		{
+			Player = 0,
+			Frontend = 2
+		};
+
 		enum ePedType
 		{
 			PED_TYPE_PLAYER_0,

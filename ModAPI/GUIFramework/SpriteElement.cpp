@@ -1,6 +1,6 @@
 ﻿#include "SpriteElement.h"
 
-#include "../Screen.h"
+#include "../UI.h"
 #include "../Streaming.h"
 #include "natives.h"
 

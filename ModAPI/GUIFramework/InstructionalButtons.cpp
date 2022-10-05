@@ -4,7 +4,7 @@
 
 #include "../InputAPI.h"
 #include "../MathAPI.h"
-#include "../Screen.h"
+#include "../UI.h"
 
 namespace ModAPI::GUIFramework
 {
@@ -17,7 +17,7 @@ namespace ModAPI::GUIFramework
 
 		if (!isKey)
 		{
-			return PAD::GET_CONTROL_INSTRUCTIONAL_BUTTONS_STRING(Input::ePadType::Frontend, button, 1);
+			return PAD::GET_CONTROL_INSTRUCTIONAL_BUTTONS_STRING(Enums::eControlType::Frontend, button, 1);
 		}
 
 		std::string buttonString = "t_" + Input::VkCodeToStr(button);

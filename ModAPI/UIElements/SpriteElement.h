@@ -10,7 +10,7 @@ namespace ModAPI::GUIFramework
 	public:
 		SpriteElement() = default;
 		SpriteElement(const std::string& category, const std::string& sprite, const MMath::Vector2& position, const MMath::Vector2& size);
-		SpriteElement(const std::string& category, const std::string& sprite, const MMath::Vector2& position, const MMath::Vector2& size, eGUIElementAnchor anchor);
+		SpriteElement(const std::string& category, const std::string& sprite, const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
 		~SpriteElement() override;
 		
 		void Draw() override;

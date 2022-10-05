@@ -1,8 +1,7 @@
 ﻿#pragma once
-#include "Enums.h"
 
-#include "../Math/Vector2.h"
-#include "../Math/Color.h"
+#include "../Enums.h"
+#include "../MathAPI.h"
 
 namespace ModAPI::GUIFramework
 {
@@ -10,14 +9,14 @@ namespace ModAPI::GUIFramework
 	{
 	public:
 		GUIElement(const MMath::Vector2& position, const MMath::Vector2& size);
-		GUIElement(const MMath::Vector2& position, const MMath::Vector2& size, eGUIElementAnchor anchor);
+		GUIElement(const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
 		GUIElement() = default;
 		virtual ~GUIElement() = default;
 
 		virtual void Draw() {}
 		virtual void SetPosition(const MMath::Vector2& newPosition);
 		virtual void SetSize(const MMath::Vector2& newSize);
-		virtual void SetAnchor(eGUIElementAnchor newAnchor);
+		virtual void SetAnchor(Enums::eUIAnchor newAnchor);
 		virtual void SetColor(const MMath::Color& newColor);
 		[[nodiscard]] virtual const MMath::Vector2& GetCalculatedPosition() const;
 		[[nodiscard]] const MMath::Color& GetColor() const;
@@ -35,7 +34,7 @@ namespace ModAPI::GUIFramework
 		
 		MMath::Vector2 position;
 		MMath::Vector2 size;
-		eGUIElementAnchor anchor;
+		Enums::eUIAnchor anchor;
 		MMath::Color color;
 		
 		/**

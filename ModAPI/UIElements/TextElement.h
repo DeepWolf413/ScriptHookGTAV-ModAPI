@@ -4,7 +4,6 @@
 #include <string>
 
 #include "GUIElement.h"
-#include "Enums.h"
 
 namespace ModAPI::GUIFramework
 {
@@ -13,7 +12,7 @@ namespace ModAPI::GUIFramework
 	public:
 		TextElement() = default;
 		TextElement(const MMath::Vector2& position, const MMath::Vector2& size, const std::string& text, eFont font);
-		TextElement(const MMath::Vector2& position, const MMath::Vector2& size, eGUIElementAnchor anchor, const std::string& text, eFont font);
+		TextElement(const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor, const std::string& text, eFont font);
 		
 		void Draw() override;
 		void SetText(const std::string& newText);

@@ -6,13 +6,13 @@
 
 ModAPI::GUIFramework::SpriteElement::SpriteElement(const std::string& category, const std::string& sprite,
                                                    const MMath::Vector2& position, const MMath::Vector2& size)
-	: SpriteElement(category, sprite, position, size, TopLeft)
+	: SpriteElement(category, sprite, position, size, Enums::UIAnchor_TopLeft)
 {
 }
 
 ModAPI::GUIFramework::SpriteElement::SpriteElement(const std::string& category, const std::string& sprite,
                                                    const MMath::Vector2& position, const MMath::Vector2& size,
-                                                   const eGUIElementAnchor anchor)
+                                                   const Enums::eUIAnchor anchor)
 	: GUIElement(position, size, anchor)
 {
 	SpriteElement::SetSprite(category, sprite);

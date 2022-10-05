@@ -10,9 +10,9 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GUIFramework\GUIContainer.cpp" />
-    <ClCompile Include="GUIFramework\GUIElement.cpp" />
-    <ClCompile Include="GUIFramework\InstructionalButtons.cpp">
+    <ClCompile Include="UIElements\GUIContainer.cpp" />
+    <ClCompile Include="UIElements\GUIElement.cpp" />
+    <ClCompile Include="UIElements\InstructionalButtons.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
       <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
@@ -86,8 +86,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LibCompiled>true</LibCompiled>
     </ClCompile>
-    <ClCompile Include="GUIFramework\RectElement.cpp" />
-    <ClCompile Include="GUIFramework\Scaleform.cpp">
+    <ClCompile Include="UIElements\RectElement.cpp" />
+    <ClCompile Include="UIElements\Scaleform.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
       <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
@@ -161,8 +161,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LibCompiled>true</LibCompiled>
     </ClCompile>
-    <ClCompile Include="GUIFramework\SpriteElement.cpp" />
-    <ClCompile Include="GUIFramework\TextElement.cpp" />
+    <ClCompile Include="UIElements\SpriteElement.cpp" />
+    <ClCompile Include="UIElements\TextElement.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerConsole.cpp" />
@@ -257,14 +257,13 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="GuiAPI.h" />
-    <ClInclude Include="GUIFramework\Enums.h" />
-    <ClInclude Include="GUIFramework\GUIContainer.h" />
-    <ClInclude Include="GUIFramework\GUIElement.h" />
-    <ClInclude Include="GUIFramework\InstructionalButtons.h" />
-    <ClInclude Include="GUIFramework\RectElement.h" />
-    <ClInclude Include="GUIFramework\Scaleform.h" />
-    <ClInclude Include="GUIFramework\SpriteElement.h" />
-    <ClInclude Include="GUIFramework\TextElement.h" />
+    <ClInclude Include="UIElements\GUIContainer.h" />
+    <ClInclude Include="UIElements\GUIElement.h" />
+    <ClInclude Include="UIElements\InstructionalButtons.h" />
+    <ClInclude Include="UIElements\RectElement.h" />
+    <ClInclude Include="UIElements\Scaleform.h" />
+    <ClInclude Include="UIElements\SpriteElement.h" />
+    <ClInclude Include="UIElements\TextElement.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputAPI.h" />
     <ClInclude Include="Logger.h" />

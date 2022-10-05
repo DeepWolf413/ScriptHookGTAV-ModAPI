@@ -4,12 +4,12 @@
 
 ModAPI::GUIFramework::TextElement::TextElement(const MMath::Vector2& position, const MMath::Vector2& size, const std::string& text,
                                                const eFont font)
-	: TextElement(position, size, TopLeft, text, font)
+	: TextElement(position, size, Enums::UIAnchor_TopLeft, text, font)
 {
 }
 
 ModAPI::GUIFramework::TextElement::TextElement(const MMath::Vector2& position, const MMath::Vector2& size,
-                                               const eGUIElementAnchor anchor,
+                                               const Enums::eUIAnchor anchor,
                                                const std::string& text, const eFont font)
 	: GUIElement(position, size, anchor)
 {
@@ -57,31 +57,31 @@ void ModAPI::GUIFramework::TextElement::CalculatePosition()
 
 	switch (anchor)
 	{
-	case TopLeft:
+	case Enums::UIAnchor_TopLeft:
 		calculatedPosition = position;
 		break;
-	case Top:
+	case Enums::UIAnchor_Top:
 		calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, 0.0f);
 		break;
-	case TopRight:
+	case Enums::UIAnchor_TopRight:
 		calculatedPosition = position - MMath::Vector2(textWidth, 0.0f);
 		break;
-	case MiddleLeft:
+	case Enums::UIAnchor_MiddleLeft:
 		calculatedPosition = position - MMath::Vector2(0.0f, textHeight * 0.5f);
 		break;
-	case Middle:
+	case Enums::UIAnchor_Middle:
 		calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, textHeight * 0.5f);
 		break;
-	case MiddleRight:
+	case Enums::UIAnchor_MiddleRight:
 		calculatedPosition = position - MMath::Vector2(textWidth, textHeight * 0.5f);
 		break;
-	case BottomLeft:
+	case Enums::UIAnchor_BottomLeft:
 		calculatedPosition = position - MMath::Vector2(0.0f, textHeight);
 		break;
-	case Bottom:
+	case Enums::UIAnchor_Bottom:
 		calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, textHeight);
 		break;
-	case BottomRight:
+	case Enums::UIAnchor_BottomRight:
 		calculatedPosition = position - MMath::Vector2(textWidth, textHeight);
 		break;
 	}

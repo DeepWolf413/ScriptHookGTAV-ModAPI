@@ -17,7 +17,7 @@ namespace ModAPI::GUIFramework
 
 		if (!isKey)
 		{
-			return PAD::GET_CONTROL_INSTRUCTIONAL_BUTTONS_STRING(Enums::eControlType::Frontend, button, 1);
+			return PAD::GET_CONTROL_INSTRUCTIONAL_BUTTONS_STRING(Enums::eControlType::ControlType_Frontend, button, 1);
 		}
 
 		std::string buttonString = "t_" + Input::VkCodeToStr(button);

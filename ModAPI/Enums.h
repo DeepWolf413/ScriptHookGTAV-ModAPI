@@ -91,8 +91,28 @@ namespace ModAPI
 
 		enum eControlType
 		{
-			Player = 0,
-			Frontend = 2
+			ControlType_Player = 0,
+			ControlType_Frontend = 2
+		};
+
+		enum eUIAlignment
+		{
+			UIAlignment_AlignCenter,
+			UIAlignment_AlignLeft,
+			UIAlignment_AlignRight
+		};
+
+		enum eUIAnchor
+		{
+			UIAnchor_TopLeft,
+			UIAnchor_Top,
+			UIAnchor_TopRight,
+			UIAnchor_MiddleLeft,
+			UIAnchor_Middle,
+			UIAnchor_MiddleRight,
+			UIAnchor_BottomLeft,
+			UIAnchor_Bottom,
+			UIAnchor_BottomRight
 		};
 
 		enum ePedType

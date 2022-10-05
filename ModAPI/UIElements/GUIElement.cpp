@@ -7,10 +7,10 @@
 namespace ModAPI
 {
 	GUIFramework::GUIElement::GUIElement(const MMath::Vector2& position, const MMath::Vector2& size)
-		: GUIElement(position, size, eGUIElementAnchor::TopLeft)
+		: GUIElement(position, size, Enums::eUIAnchor::UIAnchor_TopLeft)
 	{ }
 
-	GUIFramework::GUIElement::GUIElement(const MMath::Vector2& position, const MMath::Vector2& size, const eGUIElementAnchor anchor)
+	GUIFramework::GUIElement::GUIElement(const MMath::Vector2& position, const MMath::Vector2& size, const Enums::eUIAnchor anchor)
 	{
 		this->position = position;
 		this->size = size;
@@ -30,7 +30,7 @@ namespace ModAPI
 		CalculatePosition();
 	}
 
-	void GUIFramework::GUIElement::SetAnchor(const eGUIElementAnchor newAnchor)
+	void GUIFramework::GUIElement::SetAnchor(const Enums::eUIAnchor newAnchor)
 	{
 		anchor = newAnchor;
 		CalculatePosition();
@@ -61,31 +61,31 @@ namespace ModAPI
 	
 		switch (anchor)
 		{
-		case TopLeft:
+		case Enums::UIAnchor_TopLeft:
 			calculatedPosition = position + halfSize;
 			break;
-		case Top:
+		case Enums::UIAnchor_Top:
 			calculatedPosition = position + MMath::Vector2(0.0f, halfSize.Y);
 			break;
-		case TopRight:
+		case Enums::UIAnchor_TopRight:
 			calculatedPosition = position + MMath::Vector2(-halfSize.X, halfSize.Y);
 			break;
-		case MiddleLeft:
+		case Enums::UIAnchor_MiddleLeft:
 			calculatedPosition = position + MMath::Vector2(halfSize.X, 0.0f);
 			break;
-		case Middle:
+		case Enums::UIAnchor_Middle:
 			calculatedPosition = position;
 			break;
-		case MiddleRight:
+		case Enums::UIAnchor_MiddleRight:
 			calculatedPosition = position + MMath::Vector2(-halfSize.X, 0.0f);
 			break;
-		case BottomLeft:
+		case Enums::UIAnchor_BottomLeft:
 			calculatedPosition = position + MMath::Vector2(halfSize.X, -halfSize.Y);
 			break;
-		case Bottom:
+		case Enums::UIAnchor_Bottom:
 			calculatedPosition = position + MMath::Vector2(0.0f, -halfSize.Y);
 			break;
-		case BottomRight:
+		case Enums::UIAnchor_BottomRight:
 			calculatedPosition = position + MMath::Vector2(-halfSize.X, -halfSize.Y);
 			break;
 		}

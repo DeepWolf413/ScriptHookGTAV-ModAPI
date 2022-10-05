@@ -5,12 +5,12 @@
 namespace ModAPI::GUIFramework
 {
 	RectElement::RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size)
-		: RectElement(position, size, TopLeft)
+		: RectElement(position, size, Enums::UIAnchor_TopLeft)
 	{
 	}
 
 	RectElement::RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size,
-	                                               const eGUIElementAnchor anchor)
+	                                               const Enums::eUIAnchor anchor)
 		: GUIElement(position, size, anchor)
 	{
 		RectElement::CalculatePosition();

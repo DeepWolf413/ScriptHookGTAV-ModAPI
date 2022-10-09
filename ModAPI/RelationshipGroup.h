@@ -5,10 +5,10 @@
 
 namespace ModAPI::RelationshipGroup
 {
-	bool Exists(Hash groupHash);
-	void Create(const std::string& name, Hash* groupHash);
-	void Remove(Hash groupHash);
-	void SetRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
-	void ClearRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup);
+	bool Exists(Hash relationshipGroupHash);
+	void Create(const std::string& name, Hash* relationshipGroupHash);
+	void Remove(Hash relationshipGroupHash);
+	void SetRelationship(eRelationship newRelationship, Hash relationshipGroup, Hash otherRelationshipGroup, bool bidirectionally = false);
+	void ClearRelationship(eRelationship relationship, Hash relationshipGroup, Hash otherRelationshipGroup, bool bidirectionally = false);
 	eRelationship GetRelationship(Hash relationshipGroup, Hash otherRelationshipGroup);
 }

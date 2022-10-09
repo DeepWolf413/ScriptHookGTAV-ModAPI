@@ -6,6 +6,7 @@
 #include "Math.h"
 #include "Ped.h"
 #include "Player.h"
+#include "Math/Math.h"
 
 namespace ModAPI
 {
@@ -70,8 +71,8 @@ namespace ModAPI
 	MMath::Vector3 Camera::GetForwardVector() const
 	{
 		const auto rotation = GetRotation();
-		const float x = MathHelpers::ToRadian(rotation.X);
-		const float z = MathHelpers::ToRadian(rotation.Z);
+		const float x = MMath::ToRadian(rotation.X);
+		const float z = MMath::ToRadian(rotation.Z);
 		return GetForwardVector(z, x);
 	}
 

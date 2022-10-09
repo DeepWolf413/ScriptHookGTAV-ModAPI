@@ -31,6 +31,6 @@ namespace ModAPI
     MMath::Vector3 Raycast::GetHitSurfaceNormal() const
     { return hitSurfaceNormal; }
 
-    ModAPI::Entity* Raycast::GetHitEntity()
+    Entity* Raycast::GetHitEntity()
     { return &hitEntity; }
 } // namespace

@@ -86,6 +86,7 @@
       <LibCompiled>true</LibCompiled>
     </ClCompile>
     <ClCompile Include="Math\Random.cpp" />
+    <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="UI\UIElement.cpp" />
     <ClCompile Include="UI\InstructionalButtons.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>

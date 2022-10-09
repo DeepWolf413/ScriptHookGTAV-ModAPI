@@ -86,8 +86,8 @@
       <LibCompiled>true</LibCompiled>
     </ClCompile>
     <ClCompile Include="Math\Random.cpp" />
-    <ClCompile Include="UIElements\UIElement.cpp" />
-    <ClCompile Include="UIElements\InstructionalButtons.cpp">
+    <ClCompile Include="UI\UIElement.cpp" />
+    <ClCompile Include="UI\InstructionalButtons.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
       <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
@@ -161,8 +161,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LibCompiled>true</LibCompiled>
     </ClCompile>
-    <ClCompile Include="UIElements\RectElement.cpp" />
-    <ClCompile Include="UIElements\Scaleform.cpp">
+    <ClCompile Include="UI\RectElement.cpp" />
+    <ClCompile Include="UI\Scaleform.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
       <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
@@ -236,8 +236,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <LibCompiled>true</LibCompiled>
     </ClCompile>
-    <ClCompile Include="UIElements\SpriteElement.cpp" />
-    <ClCompile Include="UIElements\TextElement.cpp" />
+    <ClCompile Include="UI\SpriteElement.cpp" />
+    <ClCompile Include="UI\TextElement.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerConsole.cpp" />
@@ -333,12 +333,12 @@
     <ClInclude Include="GuiAPI.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Random.h" />
-    <ClInclude Include="UIElements\UIElement.h" />
-    <ClInclude Include="UIElements\InstructionalButtons.h" />
-    <ClInclude Include="UIElements\RectElement.h" />
-    <ClInclude Include="UIElements\Scaleform.h" />
-    <ClInclude Include="UIElements\SpriteElement.h" />
-    <ClInclude Include="UIElements\TextElement.h" />
+    <ClInclude Include="UI\UIElement.h" />
+    <ClInclude Include="UI\InstructionalButtons.h" />
+    <ClInclude Include="UI\RectElement.h" />
+    <ClInclude Include="UI\Scaleform.h" />
+    <ClInclude Include="UI\SpriteElement.h" />
+    <ClInclude Include="UI\TextElement.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputAPI.h" />
     <ClInclude Include="Logger.h" />

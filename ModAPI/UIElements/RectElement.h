@@ -1,16 +1,16 @@
 ﻿#pragma once
 
-#include "GUIElement.h"
+#include "UIElement.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
-	class RectElement : public GUIElement
+	class RectElement : public UIElement
 	{
 	public:
 		RectElement() = default;
-		RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size);
-		RectElement(const ModAPI::MMath::Vector2& position, const ModAPI::MMath::Vector2& size, Enums::eUIAnchor anchor);
+		RectElement(const MMath::Vector2& position, const MMath::Vector2& size);
+		RectElement(const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
 		
-		void Draw() override;
+		void Display() override;
 	};
 }

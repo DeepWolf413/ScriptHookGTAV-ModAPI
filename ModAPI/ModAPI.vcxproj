@@ -10,8 +10,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="UIElements\GUIContainer.cpp" />
-    <ClCompile Include="UIElements\GUIElement.cpp" />
+    <ClCompile Include="UIElements\UIElement.cpp" />
     <ClCompile Include="UIElements\InstructionalButtons.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>tmp\Release\</AssemblerListingLocation>
@@ -257,8 +256,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="GuiAPI.h" />
-    <ClInclude Include="UIElements\GUIContainer.h" />
-    <ClInclude Include="UIElements\GUIElement.h" />
+    <ClInclude Include="UIElements\UIElement.h" />
     <ClInclude Include="UIElements\InstructionalButtons.h" />
     <ClInclude Include="UIElements\RectElement.h" />
     <ClInclude Include="UIElements\Scaleform.h" />

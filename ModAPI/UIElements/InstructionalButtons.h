@@ -5,7 +5,7 @@
 
 #include "Scaleform.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
 	struct InstructionalButton
 	{

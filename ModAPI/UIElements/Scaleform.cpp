@@ -2,7 +2,7 @@
 
 #include "natives.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
 	Scaleform::Scaleform()
 		: handle(NULL)

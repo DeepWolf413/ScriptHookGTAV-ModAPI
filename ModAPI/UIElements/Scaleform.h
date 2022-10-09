@@ -3,7 +3,7 @@
 
 #include "../MathAPI.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
 	class Scaleform final
 	{

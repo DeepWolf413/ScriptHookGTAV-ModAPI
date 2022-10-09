@@ -3,17 +3,18 @@
 #include "../Enums.h"
 #include "../MathAPI.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
-	class GUIElement
+	class UIElement
 	{
 	public:
-		GUIElement(const MMath::Vector2& position, const MMath::Vector2& size);
-		GUIElement(const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
-		GUIElement() = default;
-		virtual ~GUIElement() = default;
+		UIElement(const MMath::Vector2& position, const MMath::Vector2& size);
+		UIElement(const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
+		UIElement(const UIElement& elementToCopy) = default;
+		UIElement() = default;
+		virtual ~UIElement() = default;
 
-		virtual void Draw() {}
+		virtual void Display() {}
 		virtual void SetPosition(const MMath::Vector2& newPosition);
 		virtual void SetSize(const MMath::Vector2& newSize);
 		virtual void SetAnchor(Enums::eUIAnchor newAnchor);

@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include <string>
 
-#include "GUIElement.h"
+#include "UIElement.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
-	class SpriteElement : public GUIElement
+	class SpriteElement : public UIElement
 	{
 	public:
 		SpriteElement() = default;
@@ -13,7 +13,7 @@ namespace ModAPI::GUIFramework
 		SpriteElement(const std::string& category, const std::string& sprite, const MMath::Vector2& position, const MMath::Vector2& size, Enums::eUIAnchor anchor);
 		~SpriteElement() override;
 		
-		void Draw() override;
+		void Display() override;
 		virtual void SetSprite(const std::string& category, const std::string& sprite);
 		
 	protected:

@@ -6,7 +6,7 @@
 #include "../MathAPI.h"
 #include "../UI.h"
 
-namespace ModAPI::GUIFramework
+namespace ModAPI::UI
 {
 	std::string InstructionalButton::GetKeyInstructionalButton() const
 	{

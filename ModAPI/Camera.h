@@ -5,7 +5,7 @@
 #include <types.h>
 
 
-#include "Raycast.h"
+#include "RaycastResult.h"
 
 namespace ModAPI
 {
@@ -51,7 +51,8 @@ namespace ModAPI
 		void PointAtEntity(const ModAPI::Entity& entity, const MMath::Vector3& offset, bool isRelative) const;
 		void StopPointing() const;
 		void Destroy() const;
-		[[nodiscard]] Raycast Raycast(float distance, eIntersectFlags flags) const;
+		[[nodiscard]] RaycastResult Raycast(float distance, eIntersectFlags flags) const;
+		[[nodiscard]] RaycastResult Raycast(const MMath::Vector3& endPosition, eIntersectFlags flags) const;
 
 	private:
 		Cam handle;

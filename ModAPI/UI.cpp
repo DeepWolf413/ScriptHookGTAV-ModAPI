@@ -2,23 +2,37 @@
 
 #include <natives.h>
 
+#include "Enums.h"
 #include "MathAPI.h"
 
 namespace ModAPI::UI
 {
-	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, const bool centered, const MMath::Vector2& scale)
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, const Enums::eUIAlignment alignment, const MMath::Vector2& scale)
 	{
-		DisplayText(text, position, color, eFont::FontPricedown, centered, scale);
+		DisplayText(text, position, color, eFont::FontPricedown, alignment, scale);
 	}
 
-	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, const eFont font, const bool centered,
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, const eFont font, const Enums::eUIAlignment alignment,
 									 const MMath::Vector2& scale)
+	{
+		DisplayText(text, position, color, font, alignment, scale, {0, {}});
+	}
+
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, eFont font,
+		Enums::eUIAlignment alignment, const MMath::Vector2& scale, const TextElement::DropShadow& dropShadow)
 	{
 		HUD::SET_TEXT_COLOUR(color.R, color.G, color.B, color.A);
 		HUD::SET_TEXT_SCALE(scale.X, scale.Y);
 		HUD::SET_TEXT_FONT(font);
-		HUD::SET_TEXT_CENTRE(centered);
-
+		HUD::SET_TEXT_JUSTIFICATION(alignment);
+		
+		if (dropShadow.GetDistance() > 0)
+		{
+			const auto dropShadowColor = dropShadow.GetColor();
+			HUD::SET_TEXT_DROPSHADOW(dropShadow.GetDistance(), dropShadowColor.R, dropShadowColor.G, dropShadowColor.B, dropShadowColor.A);
+		}
+		
+		HUD::SET_TEXT_DROP_SHADOW();
 		HUD::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
 		HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text.c_str());
 		HUD::END_TEXT_COMMAND_DISPLAY_TEXT(position.X, position.Y, 0);

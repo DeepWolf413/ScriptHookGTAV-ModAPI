@@ -86,7 +86,7 @@
       <LibCompiled>true</LibCompiled>
     </ClCompile>
     <ClCompile Include="Math\Random.cpp" />
-    <ClCompile Include="Raycast.cpp" />
+    <ClCompile Include="RaycastResult.cpp" />
     <ClCompile Include="UI\UIElement.cpp" />
     <ClCompile Include="UI\InstructionalButtons.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
@@ -353,7 +353,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Ped.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Raycast.h" />
+    <ClInclude Include="RaycastResult.h" />
     <ClInclude Include="RelationshipGroup.h" />
     <ClInclude Include="StdUtils.h" />
     <ClInclude Include="Streaming.h" />
@@ -391,6 +391,7 @@
     <OutDir>..\lib\$(Configuration)\</OutDir>
     <IntDir>tmp\$(Configuration)\</IntDir>
     <IncludePath>..\thirdparty\ScriptHook_SDK\inc;$(IncludePath)</IncludePath>
+    <TargetName>gtavsdk</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -406,6 +407,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/std:c++20 %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

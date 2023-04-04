@@ -7,10 +7,10 @@
 
 namespace ModAPI
 {
-	struct Raycast
+	struct RaycastResult
 	{
-		Raycast(const MMath::Vector3& fromPos, const MMath::Vector3& toPos, eIntersectFlags flags);
-		Raycast(const MMath::Vector3& fromPos, const MMath::Vector3& toPos, eIntersectFlags flags, const ModAPI::Entity& entityToIgnore);
+		RaycastResult(const MMath::Vector3& fromPos, const MMath::Vector3& toPos, eIntersectFlags flags);
+		RaycastResult(const MMath::Vector3& fromPos, const MMath::Vector3& toPos, eIntersectFlags flags, const ModAPI::Entity& entityToIgnore);
 
 		[[nodiscard]] bool HasHitAnything() const;
 		[[nodiscard]] MMath::Vector3 GetHitPosition() const;

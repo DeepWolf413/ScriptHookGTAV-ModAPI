@@ -9,6 +9,7 @@ namespace ModAPI::UI
 {
 	class TextElement : public UIElement
 	{
+	public:
 		struct DropShadow
 		{
 		public:

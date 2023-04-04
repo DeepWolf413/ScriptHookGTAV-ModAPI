@@ -131,12 +131,20 @@ namespace ModAPI
 	void Camera::Destroy() const
 	{ CAM::DESTROY_CAM(handle, false); }
 
-	Raycast Camera::Raycast(const float distance, const eIntersectFlags flags) const
+	RaycastResult Camera::Raycast(const float distance, const eIntersectFlags flags) const
 	{
 		const auto camPos = GetPosition();
 		const auto camForwardPos = GetForwardPosition(distance);
 		const auto playerPed = Player::GetPed();
 		const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, camForwardPos.X, camForwardPos.Y, camForwardPos.Z, static_cast<int>(flags), playerPed.GetHandle(), 7);
 		return {camPos, camForwardPos, flags};
+	}
+
+	RaycastResult Camera::Raycast(const MMath::Vector3& endPosition, const eIntersectFlags flags) const
+	{
+		const auto camPos = GetPosition();
+		const auto playerPed = Player::GetPed();
+		const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, endPosition.X, endPosition.Y, endPosition.Z, static_cast<int>(flags), playerPed.GetHandle(), 7);
+		return {camPos, endPosition, flags};
 	}
 }

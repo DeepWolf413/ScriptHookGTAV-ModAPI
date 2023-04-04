@@ -9,7 +9,7 @@
 #include "Vehicle.h"
 #include "Camera.h"
 #include "World.h"
-#include "Raycast.h"
+#include "RaycastResult.h"
 #include "RelationshipGroup.h"
 #include "Time.h"
 #include "Streaming.h"

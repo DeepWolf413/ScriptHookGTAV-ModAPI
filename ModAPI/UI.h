@@ -2,6 +2,9 @@
 #include <enums.h>
 #include <string>
 
+#include "Enums.h"
+#include "UI/TextElement.h"
+
 namespace ModAPI
 {
 	namespace MMath
@@ -13,8 +16,9 @@ namespace ModAPI
 
 namespace ModAPI::UI
 {
-	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, bool centered, const MMath::Vector2& scale);
-	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, eFont font, bool centered, const MMath::Vector2& scale);
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, Enums::eUIAlignment alignment, const MMath::Vector2& scale);
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, eFont font, Enums::eUIAlignment alignment, const MMath::Vector2& scale);
+	void DisplayText(const std::string& text, const MMath::Vector2& position, const MMath::Color& color, eFont font, Enums::eUIAlignment alignment, const MMath::Vector2& scale, const TextElement::DropShadow& dropShadow);
 	void DrawRect(const MMath::Vector2& position, const MMath::Vector2& size, const MMath::Color& color);
 	void DisplaySubtitle(const std::string& text);
 	void DisplaySubtitle(const std::string& text, int durationMs);

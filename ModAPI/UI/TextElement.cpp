@@ -41,7 +41,18 @@ namespace ModAPI::UI
 		HUD::SET_TEXT_FONT(font);
 		HUD::SET_TEXT_SCALE(0.0f, size.Y);
 		HUD::SET_TEXT_COLOUR(color.R, color.G, color.B, color.A);
+		HUD::SET_TEXT_JUSTIFICATION(horizontalAlignment);
 
+		if (wrap.LengthSquared() > 0.0f)
+		{ HUD::SET_TEXT_WRAP(wrap.X, wrap.Y); }
+
+		if (dropShadow.GetDistance() > 0)
+		{
+			const auto dropShadowColor = dropShadow.GetColor();
+			HUD::SET_TEXT_DROPSHADOW(dropShadow.GetDistance(), dropShadowColor.R, dropShadowColor.G, dropShadowColor.B, dropShadowColor.A);
+		}
+
+		HUD::SET_TEXT_DROP_SHADOW();
 		HUD::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
 		HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text.c_str());
 		HUD::END_TEXT_COMMAND_DISPLAY_TEXT(calculatedPosition.X, calculatedPosition.Y, 0);
@@ -86,36 +97,135 @@ namespace ModAPI::UI
 	void TextElement::CalculatePosition()
 	{
 		const float textWidth = GetTextWidth();
-		const float textHeight = HUD::GET_RENDERED_CHARACTER_HEIGHT(size.Y, font);
+		const float textHeight = HUD::GET_RENDERED_CHARACTER_HEIGHT(size.Y, font) * 1.5f;
 
 		switch (anchor)
 		{
 		case Enums::UIAnchor_TopLeft:
-			calculatedPosition = position;
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position;
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, 0.0f);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth, 0.0f);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_Top:
-			calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, 0.0f);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, 0.0f);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position;
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, 0.0f);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_TopRight:
-			calculatedPosition = position - MMath::Vector2(textWidth, 0.0f);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth, 0.0f);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, 0.0f);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position;
+				break;
+			}
 			break;
 		case Enums::UIAnchor_MiddleLeft:
-			calculatedPosition = position - MMath::Vector2(0.0f, textHeight * 0.5f);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth, -textHeight * 0.5f);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_Middle:
-			calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, textHeight * 0.5f);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, -textHeight * 0.5f);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_MiddleRight:
-			calculatedPosition = position - MMath::Vector2(textWidth, textHeight * 0.5f);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, -textHeight * 0.5f);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight * 0.5f);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_BottomLeft:
-			calculatedPosition = position - MMath::Vector2(0.0f, textHeight);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth, -textHeight);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_Bottom:
-			calculatedPosition = position - MMath::Vector2(textWidth * 0.5f, textHeight);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(textWidth * 0.5f, -textHeight);
+				break;
+			}
 			break;
 		case Enums::UIAnchor_BottomRight:
-			calculatedPosition = position - MMath::Vector2(textWidth, textHeight);
+			switch (horizontalAlignment)
+			{
+			case Enums::UIAlignment_AlignLeft:
+				calculatedPosition = position + MMath::Vector2(-textWidth, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignCenter:
+				calculatedPosition = position + MMath::Vector2(-textWidth * 0.5f, -textHeight);
+				break;
+			case Enums::UIAlignment_AlignRight:
+				calculatedPosition = position + MMath::Vector2(0.0f, -textHeight);
+				break;
+			}
 			break;
 		}
 	}

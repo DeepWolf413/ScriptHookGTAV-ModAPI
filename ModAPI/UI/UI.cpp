@@ -3,7 +3,6 @@
 #include <natives.h>
 
 #include "Enums.h"
-#include "MathAPI.h"
 
 namespace ModAPI::UI
 {

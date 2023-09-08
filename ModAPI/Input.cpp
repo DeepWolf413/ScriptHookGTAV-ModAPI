@@ -73,7 +73,7 @@ namespace ModAPI::Input
 		return ""; // TODO: Implement
 	}
 
-	std::string GetUserInput(const std::string& title, const std::string& defaultText, const int maxLength)
+	std::string GetUserString(const std::string& title, const std::string& defaultText, const int maxLength)
 	{
 		MISC::DISPLAY_ONSCREEN_KEYBOARD(true, "", "", defaultText.c_str(), "", "", "", maxLength);
 		while (MISC::UPDATE_ONSCREEN_KEYBOARD() == 0)

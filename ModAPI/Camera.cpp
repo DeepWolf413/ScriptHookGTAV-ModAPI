@@ -101,6 +101,21 @@ namespace ModAPI
 	void Camera::SetPosition(const MMath::Vector3& newPosition) const
 	{ CAM::SET_CAM_COORD(handle, newPosition.X, newPosition.Y, newPosition.Z); }
 
+	void Camera::SetShakeAmplitude(const float amplitude) const
+	{
+		CAM::SET_CAM_SHAKE_AMPLITUDE(handle, amplitude);
+	}
+
+	void Camera::SetAffectsAiming(const bool enable) const
+	{
+		CAM::SET_CAM_AFFECTS_AIMING(handle, enable);
+	}
+
+	void Camera::Shake(const std::string& shakeType, const float amplitude) const
+	{
+		CAM::SHAKE_CAM(handle, shakeType.c_str(), amplitude);
+	}
+	
 	void Camera::AttachToEntity(const ModAPI::Entity* entity, const MMath::Vector3& offset, const bool isRelative) const
 	{ CAM::ATTACH_CAM_TO_ENTITY(handle, entity->GetHandle(), offset.X, offset.Y, offset.Z, isRelative); }
 
@@ -115,6 +130,11 @@ namespace ModAPI
 
 	void Camera::PointAtPosition(const MMath::Vector3& position) const
 	{ CAM::POINT_CAM_AT_COORD(handle, position.X, position.Y, position.Z); }
+
+	void Camera::PointAtPedBone(const ModAPI::Ped& ped, const eBone bone, const MMath::Vector3& offset) const
+	{
+		CAM::POINT_CAM_AT_PED_BONE(handle, ped.GetHandle(), ped.GetBoneIndex(bone), offset.X, offset.Y, offset.Z, TRUE);
+	}
 
 	void Camera::PointAtEntity(const ModAPI::Entity& entity, const MMath::Vector3& offset, const bool isRelative) const
 	{ CAM::POINT_CAM_AT_ENTITY(handle, entity.GetHandle(), offset.X, offset.Y, offset.Z, isRelative); }
@@ -136,15 +156,20 @@ namespace ModAPI
 		const auto camPos = GetPosition();
 		const auto camForwardPos = GetForwardPosition(distance);
 		const auto playerPed = Player::GetPed();
-		const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, camForwardPos.X, camForwardPos.Y, camForwardPos.Z, static_cast<int>(flags), playerPed.GetHandle(), 7);
-		return {camPos, camForwardPos, flags};
+		return {camPos, camForwardPos, flags, playerPed};
+	}
+
+	RaycastResult Camera::Raycast(const float distance, eIntersectFlags flags, const Entity& entityToIgnore) const
+	{
+		const auto camPos = GetPosition();
+		const auto camForwardPos = GetForwardPosition(distance);
+		return {camPos, camForwardPos, flags, entityToIgnore};
 	}
 
 	RaycastResult Camera::Raycast(const MMath::Vector3& endPosition, const eIntersectFlags flags) const
 	{
 		const auto camPos = GetPosition();
 		const auto playerPed = Player::GetPed();
-		const int shapeTestHandle = SHAPETEST::START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE(camPos.X, camPos.Y, camPos.Z, endPosition.X, endPosition.Y, endPosition.Z, static_cast<int>(flags), playerPed.GetHandle(), 7);
-		return {camPos, endPosition, flags};
+		return {camPos, endPosition, flags, playerPed};
 	}
 }

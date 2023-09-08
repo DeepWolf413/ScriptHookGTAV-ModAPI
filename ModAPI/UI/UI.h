@@ -2,8 +2,7 @@
 #include <enums.h>
 #include <string>
 
-#include "Enums.h"
-#include "UI/TextElement.h"
+#include "../UI/TextElement.h"
 
 namespace ModAPI
 {

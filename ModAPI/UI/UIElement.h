@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include "../Enums.h"
-#include "../MathAPI.h"
+#include "../Math/Vector2.h"
+#include "../Math/Color.h"
 
 namespace ModAPI::UI
 {

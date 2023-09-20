@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="math\Vector3.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Ped.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RaycastResult.h" />
+    <ClInclude Include="Tasker.h" />
+    <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="StdUtils.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="GuiAPI.h" />
+    <ClInclude Include="GUIFramework\Enums.h" />
+    <ClInclude Include="GUIFramework\GUIContainer.h" />
+    <ClInclude Include="GUIFramework\GUIElement.h" />
+    <ClInclude Include="GUIFramework\InstructionalButtons.h" />
+    <ClInclude Include="GUIFramework\RectElement.h" />
+    <ClInclude Include="GUIFramework\Scaleform.h" />
+    <ClInclude Include="GUIFramework\SpriteElement.h" />
+    <ClInclude Include="GUIFramework\TextElement.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="InputAPI.h" />
+    <ClInclude Include="MathAPI.h" />
+    <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="RelationshipGroup.h" />
+    <ClInclude Include="Streaming.h" />
+    <ClInclude Include="Time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{5d58942b-ebbf-4d0a-9526-359e3a556796}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Ped.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RaycastResult.cpp" />
+    <ClCompile Include="Tasker.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="StdUtils.cpp" />
+    <ClCompile Include="GUIFramework\GUIContainer.cpp" />
+    <ClCompile Include="GUIFramework\GUIElement.cpp" />
+    <ClCompile Include="GUIFramework\InstructionalButtons.cpp" />
+    <ClCompile Include="GUIFramework\RectElement.cpp" />
+    <ClCompile Include="GUIFramework\Scaleform.cpp" />
+    <ClCompile Include="GUIFramework\SpriteElement.cpp" />
+    <ClCompile Include="GUIFramework\TextElement.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Math\Color.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="RelationshipGroup.cpp" />
+    <ClCompile Include="Streaming.cpp" />
+    <ClCompile Include="Time.cpp" />
+  </ItemGroup>
+</Project>
